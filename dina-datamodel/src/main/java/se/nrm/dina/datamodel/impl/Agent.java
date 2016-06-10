@@ -662,7 +662,7 @@ public class Agent extends BaseEntity {
     private Institution institutionTCID;
     
     @JoinColumn(name = "DivisionID", referencedColumnName = "UserGroupScopeId")
-    @ManyToOne(  fetch = FetchType.LAZY)
+    @ManyToOne(  fetch = FetchType.EAGER)
     private Division divisionID;
     
     @OneToMany(mappedBy = "catalogerID",  fetch = FetchType.LAZY )
@@ -2893,8 +2893,7 @@ public class Agent extends BaseEntity {
     public void setInstitutionTCID(Institution institutionTCID) {
         this.institutionTCID = institutionTCID;
     }
-
-    @XmlTransient
+ 
     public Division getDivisionID() {
         return divisionID;
     }
