@@ -1,32 +1,3 @@
-
-# Comment out for test new keycloak
-#FROM jboss/wildfly:9.0.5.Final
-
-#ENV KEYCLOAK_VERSION 1.6.1.Final
-
-
-#WORKDIR /opt/jboss/wildfly
-
-#RUN curl -L http://downloads.jboss.org/keycloak/1.6.1.Final/adapters/keycloak-oidc/keycloak-wf9-adapter-dist-1.6.1.Final.tar.gz | tar zx
-
-#WORKDIR /opt/jboss
-
-#RUN sed -i -e 's/<extensions>/&\n        <extension module="org.keycloak.keycloak-adapter-subsystem"\/>/' $JBOSS_HOME/standalone/configuration/standalone.xml && \
-#    sed -i -e 's/<profile>/&\n        <subsystem xmlns="urn:jboss:domain:keycloak:1.1"\/>/' $JBOSS_HOME/standalone/configuration/standalone.xml && \
-#    sed -i -e 's/<security-domains>/&\n                <security-domain name="keycloak">\n                    <authentication>\n                        <login-module #code="org.keycloak.adapters.jboss.KeycloakLoginModule" flag="required"\/>\n                    <\/authentication>\n                <\/security-domain>/' $JBOSS_HOME/standalone/#configuration/standalone.xml
-# END
-
-
-
-
-
-
-
-
-
-
-
-
 FROM jboss/keycloak-adapter-wildfly:1.9.5.Final
 
 
