@@ -1,4 +1,6 @@
 batch
 /subsystem=datasources/jdbc-driver=mysql:add(driver-name=mysql,driver-module-name=com.mysql.jdbc,driver-xa-datasource-class-name=com.mysql.jdbc.jdbc2.optional.MysqlXADataSource)
 data-source add --name=DinaDS --driver-name=mysql --jndi-name=java:/jdbc/DinaDS --connection-url=jdbc:mysql://dina-mysql:3306/dina_web?useUnicode=true&amp;characterEncoding=UTF-8 --user-name=root --password=password12 --use-ccm=false --max-pool-size=25 --blocking-timeout-wait-millis=5000 --enabled=true
+
+/subsystem=ee:write-attribute(name="global-modules",value=[{"name" => "org.dom4j","slot" => "main"}])
 run-batch
