@@ -171,10 +171,10 @@ public class Accession extends BaseEntity {
     @OneToMany(mappedBy = "accessionID", fetch = FetchType.LAZY)
     private List<Deaccession> deaccessionList;
 
-    public Accession() {
+    public Accession() { 
     }
 
-    public Accession(Integer accessionID) {
+    public Accession(Integer accessionID) { 
         this.accessionID = accessionID;
     }
 

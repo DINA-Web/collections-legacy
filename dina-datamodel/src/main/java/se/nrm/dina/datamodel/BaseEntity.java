@@ -14,6 +14,7 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.persistence.Version;
 import javax.xml.bind.annotation.XmlAttribute;
+import javax.xml.bind.annotation.XmlElement;
 
 /**
  *
@@ -35,10 +36,10 @@ public abstract class BaseEntity implements Serializable, EntityBean {
     @Column(name = "TimestampModified")
     @Temporal(TemporalType.TIMESTAMP)
     protected Date timestampModified;
-
+     
     public BaseEntity() {
     }
-
+     
     @XmlAttribute
     public Integer getVersion() {
         return version;
@@ -62,8 +63,5 @@ public abstract class BaseEntity implements Serializable, EntityBean {
 
     public void setTimestampModified(Date timestampModified) {
         this.timestampModified = timestampModified;
-    }
-    
-    
-
+    } 
 }

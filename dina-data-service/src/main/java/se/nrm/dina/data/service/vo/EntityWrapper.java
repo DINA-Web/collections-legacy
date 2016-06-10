@@ -24,7 +24,7 @@ public class EntityWrapper implements Serializable  {
     
         
     @XmlElement
-    private final MetadataBean metadata;
+    private final MetadataBean meta;
     
     @XmlElement
     private List<EntityBean> results;
@@ -39,31 +39,32 @@ public class EntityWrapper implements Serializable  {
     @XmlElement
     private ErrorBean error;
     
-    public EntityWrapper(MetadataBean metadata, EntityBean result) {
+    public EntityWrapper(MetadataBean meta, EntityBean result) {
         this.result = result;
-        this.metadata = metadata;
+        this.meta = meta;
     }
         
-    public EntityWrapper(MetadataBean metadata, List<EntityBean> results) {
-        this.metadata = metadata;
+    public EntityWrapper(MetadataBean meta, List<EntityBean> results) {
+        this.meta = meta;
         this.results = results;
     }
     
             
-    public EntityWrapper(MetadataBean metadata, EntityCount count) {
-        this.metadata = metadata;
+    public EntityWrapper(MetadataBean meta, EntityCount count) {
+        this.meta = meta;
         this.count = count;
     }
     
-    public EntityWrapper(MetadataBean metadata, ErrorBean error) {
-        this.metadata = metadata;
+    public EntityWrapper(MetadataBean meta, ErrorBean error) {
+        this.meta = meta;
         this.error = error;
     }
-    
 
-    public MetadataBean getMetadata() {
-        return metadata;
+    public MetadataBean getMeta() {
+        return meta;
     }
+    
+ 
 
     @XmlAttribute(required=true)
     public List<EntityBean> getResults() {
