@@ -116,11 +116,7 @@ public class Determination extends BaseEntity {
     @Size(max = 16)
     @Column(name = "Qualifier")
     private String qualifier;
-    
-    //This is not in test database
-//    @Size(max = 16)
-//    @Column(name = "VarQualifer")
-//    private String varQualifer;
+     
     
     @Size(max = 16)
     @Column(name = "SubSpQualifier")
@@ -331,15 +327,7 @@ public class Determination extends BaseEntity {
     public void setQualifier(String qualifier) {
         this.qualifier = qualifier;
     }
-
-//    public String getVarQualifer() {
-//        return varQualifer;
-//    }
-//
-//    public void setVarQualifer(String varQualifer) {
-//        this.varQualifer = varQualifer;
-//    }
-
+ 
     public String getSubSpQualifier() {
         return subSpQualifier;
     }

@@ -39,6 +39,7 @@ public class TestEntity extends BaseEntity {
 
     @Override
     public String getUUID() {
-        return "testid";
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
+ 
 }

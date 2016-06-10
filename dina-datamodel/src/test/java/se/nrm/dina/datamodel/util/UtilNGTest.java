@@ -52,7 +52,7 @@ public class UtilNGTest {
         
         testInstance = new Util();
          
-        String expResult = "https://www.dina-web.nrm/dina-service/dina/v0/Accession/";
+        String expResult = "https://beta-api.dina-web.net/collections/v0/Accession/";
          
         String result = testInstance.getURLLink(entityName);
         assertEquals(result, expResult); 

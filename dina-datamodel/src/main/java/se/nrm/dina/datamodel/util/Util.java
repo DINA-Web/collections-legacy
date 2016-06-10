@@ -11,7 +11,7 @@ package se.nrm.dina.datamodel.util;
  */
 public class Util {
 
-    private final String URL_LINK = "https://www.dina-web.nrm/dina-service/dina/v0/";
+    private final String URL_LINK = "https://beta-api.dina-web.net/collections/v0/";
 
     private static Util instance = null;
 

@@ -32,9 +32,7 @@ import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriInfo;
 import org.apache.commons.lang.StringUtils;  
 import org.keycloak.KeycloakPrincipal;
-import org.keycloak.KeycloakSecurityContext;
-import org.keycloak.representations.AccessToken;
-import org.keycloak.representations.IDToken;
+import org.keycloak.KeycloakSecurityContext; 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import se.nrm.dina.data.exceptions.DinaConstraintViolationException;
@@ -107,9 +105,7 @@ public class DinaService {
     /**
      * Generic method to get an entity by entity id from database.  
      * This method passes in a PathParam entity class name and entity id 
-     * 
-     * @param headers
-     * @param httpServletRequest
+     *  
      * @param entity - class name of the entity
      * @param id - entity id
      * 
