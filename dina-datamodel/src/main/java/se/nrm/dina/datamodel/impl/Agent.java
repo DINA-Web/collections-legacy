@@ -1193,7 +1193,7 @@ public class Agent extends BaseEntity {
         this.timestampCreated = timestampCreated;
         this.agentType = agentType;
     }
-
+ 
     @XmlID
     @XmlAttribute(name = "id") 
     @Override
@@ -1207,11 +1207,12 @@ public class Agent extends BaseEntity {
 //        return Util.getInstance().getURLLink(this.getClass().getSimpleName()) + agentID;
 //    }
 
+    @XmlTransient 
     @Override
     public int getEntityId() {
         return agentID;
     }
-    
+     
     public Integer getAgentID() {
         return agentID;
     }

@@ -14,16 +14,16 @@ import javax.xml.bind.annotation.XmlRootElement;
  * @author idali
  */
 @XmlRootElement
-public class EntityCount implements Serializable  {
-    
+public class EntityCount implements Serializable {
+
     @XmlElement
     private final int count;
-    
+
     public EntityCount(int count) {
         this.count = count;
     }
 
     public int getCount() {
         return count;
-    } 
+    }
 }

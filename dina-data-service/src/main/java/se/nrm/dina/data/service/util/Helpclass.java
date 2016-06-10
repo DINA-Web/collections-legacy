@@ -5,10 +5,12 @@
  */
 package se.nrm.dina.data.service.util;
   
-import java.util.List;  
+import java.util.ArrayList;
+import java.util.List;   
 import se.nrm.dina.data.service.vo.EntityCount;
 import se.nrm.dina.data.service.vo.EntityWrapper;
 import se.nrm.dina.data.service.vo.MetadataBean;
+import se.nrm.dina.data.service.vo.ResultWrapper;
 import se.nrm.dina.data.vo.ErrorBean;
 import se.nrm.dina.datamodel.EntityBean;
 
@@ -39,9 +41,22 @@ public class Helpclass {
     public EntityWrapper buildEntityWrapper(List<EntityBean> entityBeans, MetadataBean meta, int statusCode) {
         if(entityBeans != null) {
             meta.setResultCount(entityBeans.size());
-        } 
+        }  
         meta.setStatusCode(statusCode);
-        return new EntityWrapper(meta, entityBeans);
+        
+        if(entityBeans != null) {
+            List<ResultWrapper> list = new ArrayList<>();
+            entityBeans.stream()
+                    .forEach(e -> {
+                        ResultWrapper wrapper = new ResultWrapper(e.getEntityId(), e.getClass().getSimpleName(), e);
+                        list.add(wrapper);
+                    });
+             
+            
+            return new EntityWrapper(meta, list);
+        } else {
+            return new EntityWrapper(meta, entityBeans);
+        } 
     }  
     
     public EntityWrapper buildEntityWrapper(EntityBean entityBean, MetadataBean meta, int statusCode) { 
@@ -49,7 +64,13 @@ public class Helpclass {
         if(entityBean != null) {
             meta.setResultCount(1);
         } 
-        return new EntityWrapper(meta, entityBean);
+        if(entityBean != null) {
+            ResultWrapper wrapper = new ResultWrapper(entityBean.getEntityId(), entityBean.getClass().getSimpleName(), entityBean);
+            return new EntityWrapper(meta, wrapper);
+        } else {
+            return new EntityWrapper(meta, entityBean);
+        }
+        
     }  
     
     public EntityWrapper buildEntityWrapper(EntityCount entityBean, MetadataBean meta, int statusCode) { 

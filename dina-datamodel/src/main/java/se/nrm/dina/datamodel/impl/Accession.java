@@ -183,7 +183,7 @@ public class Accession extends BaseEntity {
         this.timestampCreated = timestampCreated;
         this.accessionNumber = accessionNumber;
     }
-
+ 
     @XmlID
     @XmlAttribute(name = "id")
     @Override
@@ -197,12 +197,12 @@ public class Accession extends BaseEntity {
 //        return Util.getInstance().getURLLink(this.getClass().getSimpleName()) + accessionID;
 //    }
     
-    @XmlTransient
+    @XmlTransient 
     @Override
     public int getEntityId() {
         return accessionID == null ? 0 : accessionID;
     }
-
+  
     public Integer getAccessionID() {
         return accessionID;
     }

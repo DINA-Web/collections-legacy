@@ -13,6 +13,6 @@ public interface EntityBean {
     
     public String getIdentityString();
 //    public String getUUID();
-    public int getEntityId();
+    public int getEntityId(); 
     
 }

@@ -85,7 +85,7 @@ public class Metadata {
             sb.append(maxid);
         }
         
-        sb.append("&sortOrder=");
+        sb.append("&sort=");
         sb.append(sortOrder);
         
         if(orderby != null && !orderby.isEmpty()) {
@@ -104,7 +104,7 @@ public class Metadata {
                     }); 
         }
         
-        sb.append("&isExact=");
+        sb.append("&exact=");
         sb.append(isExact);
         
         callEndpoint += sb.toString();
@@ -114,15 +114,22 @@ public class Metadata {
      
     private void buildBaseUri(HttpServletRequest req, String entity) {
         String uri = req.getRequestURI();
+        logger.info("uri : {}", uri);
+         
+        
+        logger.info("hoset : {}", req.getRemoteHost() + " -- " + req.getLocalName() + " -- " + req.getQueryString() + " -- " + req.getServerName() + " - " + req.getPathTranslated() + req.getProtocol());
         version = StringUtils.substringBetween(uri, req.getContextPath() + "/v", "/" + entity);
         
-        String hostName = req.getLocalName();
-        String protocal = req.getProtocol(); 
+//        String hostName = req.getLocalName();
+        String hostName = "beta-api.dina-web.net";
+        String protocal = "https://"; 
         
         sb = new StringBuilder();
-        sb.append(StringUtils.replace(protocal, "/1.1", "://").toLowerCase());
+//        sb.append(StringUtils.replace(protocal, "/1.1", "://").toLowerCase());
+        sb.append(protocal);
         sb.append(hostName);
         sb.append(uri);
+//        sb.append(req.getQueryString());
         callEndpoint = sb.toString(); 
     } 
     

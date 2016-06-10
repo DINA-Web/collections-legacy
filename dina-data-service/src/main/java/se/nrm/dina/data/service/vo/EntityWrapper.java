@@ -27,63 +27,19 @@ public class EntityWrapper implements Serializable  {
     private final MetadataBean meta;
     
     @XmlElement
-    private List<EntityBean> results;
+    private final Object data;
+      
     
-    @XmlElement
-    private EntityBean result;
-    
-    
-    @XmlElement
-    private EntityCount count;
-    
-    @XmlElement
-    private ErrorBean error;
-    
-    public EntityWrapper(MetadataBean meta, EntityBean result) {
-        this.result = result;
+    public EntityWrapper(MetadataBean meta, Object data) {
+        this.data = data;
         this.meta = meta;
-    }
-        
-    public EntityWrapper(MetadataBean meta, List<EntityBean> results) {
-        this.meta = meta;
-        this.results = results;
-    }
-    
-            
-    public EntityWrapper(MetadataBean meta, EntityCount count) {
-        this.meta = meta;
-        this.count = count;
-    }
-    
-    public EntityWrapper(MetadataBean meta, ErrorBean error) {
-        this.meta = meta;
-        this.error = error;
-    }
+    } 
 
     public MetadataBean getMeta() {
         return meta;
     }
-    
- 
 
-    @XmlAttribute(required=true)
-    public List<EntityBean> getResults() {
-        return results;
+    public Object getData() {
+        return data;
     }
-
-    @XmlAttribute(required=true)
-    public EntityBean getResult() {
-        return result;
-    } 
-
-    @XmlAttribute(required=true)
-    public ErrorBean getError() {
-        return error;
-    } 
- 
-    @XmlAttribute(name = "data" ) 
-    public EntityCount getCount() {
-        return count;
-    } 
-    
 }

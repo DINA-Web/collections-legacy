@@ -56,6 +56,8 @@ public class NamedQueries {
         try {
             if (maxid > 0) {
                 buildMinAndMaxId(minid, maxid, clazz, sb);
+            } else if(minid > 0) {
+                buildMinId(minid, clazz, sb);
             }
 
             if (orderBy != null && !orderBy.isEmpty()) {
@@ -67,6 +69,9 @@ public class NamedQueries {
             if (StringUtils.endsWith(string, ",")) {
                 string = StringUtils.substringBeforeLast(string, ",");
             }
+            
+            logger.info("String : {}", string);
+            
             return string;
         } catch (DinaException e) {
             throw e;
@@ -98,20 +103,40 @@ public class NamedQueries {
         sb.append("SELECT e From ");
         sb.append(entityName);
         sb.append(" e ");
-     
+
         try {
-            if (maxid > 0) {
-                buildMinAndMaxId(minid, maxid, clazz, sb);
-                if (criteria != null && !criteria.isEmpty()) {
-                    sb.append(" AND ");
-                    sb.append(buildSearchCriteria(clazz, criteria, isExact));
+            if (criteria == null || criteria.isEmpty()) {
+                if (maxid > 0) {
+                    buildMinAndMaxId(minid, maxid, clazz, sb);
+                } else if (minid > 0) {
+                    buildMinId(minid, clazz, sb); 
                 }
             } else {
-                if (criteria != null && !criteria.isEmpty()) {
-                    sb.append("WHERE");
-                    sb.append(buildSearchCriteria(clazz, criteria, isExact));
+                String buildCriteria = " WHERE ";
+                if (maxid > 0) {
+                    buildMinAndMaxId(minid, maxid, clazz, sb);
+                    buildCriteria = " AND ";
+                } else if(minid > 0) {
+                    buildMinId(minid, clazz, sb);
+                    buildCriteria = " AND ";
                 }
+                sb.append(buildCriteria);
+                sb.append(buildSearchCriteria(clazz, criteria, isExact));
             }
+  
+
+//            if (maxid > 0) {
+//                buildMinAndMaxId(minid, maxid, clazz, sb);
+//                if (criteria != null && !criteria.isEmpty()) {
+//                    sb.append(" AND ");
+//                    sb.append(buildSearchCriteria(clazz, criteria, isExact));
+//                }
+//            } else {
+//                if (criteria != null && !criteria.isEmpty()) {
+//                    sb.append("WHERE");
+//                    sb.append(buildSearchCriteria(clazz, criteria, isExact));
+//                }
+//            }
 
             if (orderBy != null && !orderBy.isEmpty()) {
                 buildOrderByString(clazz, orderBy, sort, sb);
@@ -127,7 +152,19 @@ public class NamedQueries {
         } catch(DinaException e) {
             throw e;
         }
-        
+    }
+
+    private void buildMinId(int minid, Class clazz, StringBuilder sb) {
+
+        try {
+            EntityBean bean = JpaReflectionHelper.getInstance().createNewInstance(clazz);
+            String idFieldName = JpaReflectionHelper.getInstance().getIDFieldName(bean);
+            if (JpaReflectionHelper.getInstance().isIntField(clazz, idFieldName)) {
+                buildBaseQuery(sb, minid, idFieldName);
+            }
+        } catch (DinaException e) {
+            throw e;
+        }
     }
 
     private void buildMinAndMaxId(int minid, int maxid, Class clazz, StringBuilder sb) {
@@ -146,8 +183,7 @@ public class NamedQueries {
             }
         } catch(DinaException e) {
             throw e;
-        }
-
+        } 
     }
 
     private void buildBaseQuery(StringBuilder sb, int minid, String idFieldName) {

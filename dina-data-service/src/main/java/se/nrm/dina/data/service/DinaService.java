@@ -40,6 +40,7 @@ import se.nrm.dina.data.exceptions.DinaException;
 import se.nrm.dina.data.service.metadata.Metadata;
 import se.nrm.dina.data.service.util.Helpclass; 
 import se.nrm.dina.data.service.vo.EntityCount;
+//import se.nrm.dina.data.service.vo.EntityCount;
 import se.nrm.dina.data.service.vo.MetadataBean;
 import se.nrm.dina.data.vo.ErrorBean;
 import se.nrm.dina.datamodel.EntityBean;
@@ -81,6 +82,7 @@ public class DinaService {
                                         @QueryParam("orderby") String orderby) {
         
         logger.info("getAllByEntityName : {} -- {}", entity, offset + " -- " + limit); 
+        logger.info("getAllByEntityName : {} -- {}", minid, maxid + " -- " + sort); 
          
         List<String> order = new ArrayList();
         if(orderby != null) {
@@ -127,7 +129,7 @@ public class DinaService {
                 .collect(Collectors.toMap(m -> m.getKey(), m -> m.getValue().get(0)));
 
         Metadata metadata = new Metadata(); 
-        MetadataBean meta = metadata.buildMetadata(req, entity, offset, limit, minid, maxid,  sort, order, orderBy, exact, condition); 
+        MetadataBean meta = metadata.buildMetadata(req, entity, offset, limit == 0 ? 50 : limit, minid, maxid,  sort == null ? "asc" : sort, order, orderBy, exact, condition); 
         try {
             List<EntityBean> results = logic.findAllBySearchCriteria(entity, limit, minid, maxid, offset, sort, order, condition, exact);
             return Response.ok(Helpclass.getInstance().buildEntityWrapper(results, meta, 200)).build();  

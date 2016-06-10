@@ -49,7 +49,7 @@ class QueryBuilder {
      * @return Query
      */
     public Query createQuery(Query query, Class clazz, Map<String, String> parameters, boolean isFuzzSearch) {
-        logger.info("createQuery");
+        logger.info("createQuery : {}", isFuzzSearch);
         if (parameters != null) {
             parameters.entrySet()
                     .stream()
