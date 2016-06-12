@@ -1,0 +1,673 @@
+FORMAT: 1A
+  
+# collections-api specification
+
+Collection management api for managing museum collections 
+ 
+## Collections /{entity} [/collections/v0/{entity}]
+  
+### Get entities by entity name [GET]
+Retrieves single record from database by the *entity name*
+   
+>#### Request: /collections/v0/{entity}
+ + Path parameters:
+    + entity - String [Name of the entity]  
+ + Query parameters
+    + offset - Paging offset [int Default = 0]
+    + limit  - The maximum number of records to return [int Default = 50]
+    + minid  - The minimum id to retrieve [int Default = 0]
+    + maxid  - The maximum id to retrieve [int]
+    + sort   - Sort order [ASC or DESC Default = ASC]
+     
+ + Response 200 (application/json) 
+ 
+        {
+            "meta" : {
+                "resultLanguages" : null,
+                "apiVersion" : "0",
+                "callDate" : "Jun 12, 2016 at 16.37.49",
+                "offset" : 0,
+                "message" : null,
+                "orderBy" : [],
+                "limit" : 3,
+                "previous" : null,
+                "resultCount" : 3,
+                "contentLicenses" : null,
+                "callEndpoint" : "https://beta-api.dina-web.net/collections/v0/collection?offset=0&limit=3&minid=0&sort=asc&exact=true",
+                "next" : "https://beta-api.dina-web.net/collections/v0/collection?offset=3&limit=3&minid=0&sort=asc&exact=true",
+                "sortOrder" : "ASC",
+                "statusCode" : 200,
+                "maintenanceContact" : "admin@dina-system.org",
+                "supportedLanguages" : [
+                    "GB_en",
+                    "SE_sv"
+                ]
+            },
+            "data" : [
+                {
+                    "id" : 4,
+                    "type" : "Collection",
+                    "attributes" : {
+                        "scope" : null,
+                        "catalogFormatNumName" : "CatalogNumberString",
+                        "regNumber" : "1463413212.7899",
+                       "remarks" : null, 
+                        "disciplineID" : "3",
+                        "modifiedByAgentID" : "1",  
+                        "collectionId" : 4, 
+                        "id" : "4",
+                        "collectionType" : null,
+                        "description" : null,
+                        "version" : 4,
+                        "code" : "NHRS",
+                        "createdByAgentID" : null,
+                        "timestampCreated" : 1463410978000,
+                        "estimatedSize" : 0,
+                        "timestampModified" : 1463415170000,
+                        "entityId" : 4,
+                        "collectionName" : "Entomology",
+                        "primaryFocus" : null,
+                        "isEmbeddedCollectingEvent" : true,
+                        "guid" : "bc057da8-8c51-4f99-be5b-c5bc65e763b6",
+                        "institutionType" : null,
+                        "primaryPurpose" : null,
+                        "userGroupScopeId" : 4
+                    } 
+                },
+                {
+                    "type" : "Collection",
+                    "id" : 32769,
+                    "attributes" : {
+                        "remarks" : null,
+                        "regNumber" : null,
+                        "institutionNetworkID" : null,
+                        "disciplineID" : "32768",
+                        "catalogFormatNumName" : "CatalogNumberString",  
+                        "collectionId" : 32769,
+                        "version" : 2,
+                        "id" : "32769",
+                        "collectionType" : null,
+                        "description" : null,
+                        "createdByAgentID" : "1",
+                        "timestampCreated" : 1463414729000,
+                        "timestampModified" : 1463414729000,
+                        "estimatedSize" : 0,
+                        "code" : "GEO-MIN",
+                        "isEmbeddedCollectingEvent" : true,
+                        "guid" : "6ff58b39-ec4d-4c3b-ab8c-045e13c4527c",
+                        "institutionType" : null,
+                        "entityId" : 32769,
+                        "primaryFocus" : null,
+                        "collectionName" : "Mineralogy",
+                        "primaryPurpose" : null,
+                        "userGroupScopeId" : 32769
+                    }
+                }
+                {
+                    "type" : "Collection",
+                    "id" : 65537,
+                    "attributes" : {
+                        "code" : "NRM-PZ",
+                        "timestampCreated" : 1463432069000,
+                        "estimatedSize" : 0,
+                        "timestampModified" : 1463432069000,
+                        "createdByAgentID" : "1",
+                        "primaryFocus" : null,
+                        "collectionName" : "Palaeozoology",
+                        "entityId" : 65537,
+                        "institutionType" : null,
+                        "isEmbeddedCollectingEvent" : true,
+                        "guid" : "f7e2bc7b-8be0-4b73-9ce9-aaf7273b45b6",
+                        "userGroupScopeId" : 65537,
+                        "primaryPurpose" : null,
+                        "catalogFormatNumName" : "CatalogNumberString",
+                        "scope" : null,
+                        "regNumber" : "1463432240.1398",
+                        "remarks" : null,
+                        "disciplineID" : "65536", 
+                        "collectionId" : 65537,
+                        "kingdomCoverage" : null,
+                        "webPortalURI" : null,
+                        "isaNumber" : null,
+                        "description" : null,
+                        "id" : "65537",
+                        "collectionType" : null,
+                        "version" : 3
+                    } 
+                }
+            ] 
+        }
+        
+        
+ 
+
+### Create a new entity [POST]
+
+Create an entity into database
+ 
+
++ Request (application/json)
+
+        {
+            "guid": null,
+            "catalogNumber": null,
+            "timestampCreated": null,
+            "catalogedDate": "2016-05-20T11:32:05.468Z",
+            "name": null,
+            "catalogerID": null,
+            "collectionMemberID": 98306,
+            "accessionID": null,
+            "collectionID": 98306,
+            "determinationList": [
+                {
+                    "isCurrent": false,
+                    "determinedDate": null,
+                    "determinedDatePrecision": null,
+                    "method": null,
+                    "confidence": null,
+                    "typeStatusName": null,
+                    "timestampCreated": 1463743926,
+                    "collectionMemberID": 98306,
+                    "text1": null,
+                    "taxonID": null,
+                    "determinerID": null
+                }
+            ],
+            "preparationList": [
+                {
+                    "countAmt": 0,
+                    "timestampCreated": 1463743926,
+                    "description": null,
+                    "status": null,
+                    "sampleNumber": null,
+                    "integer1": null,
+                    "prepTypeID": 40,
+                    "storageID": null,
+                    "collectionMemberID": 98306
+                }
+            ],
+            "collectionobjectattachmentList": [],
+            "collectionObjectAttributeID": {
+                "text1": null,
+                "text2": null, 
+                "number1": null, 
+                "timestampCreated": null,
+                "collectionMemberID": 98306
+            },
+            "collectingEventID": {
+                "method": null,
+                "startDate": null,
+                "startDatePrecision": null,
+                "endDate": null,
+                "endDatePrecision": null,
+                "verbatimDate": null,
+                "verbatimLocality": null,
+                "timestampCreated": 1463743926,
+                "text1": null,
+                "remarks": null,
+                "text2": null,
+                "disciplineID": 98305, 
+                "localityID": { 
+                    "localityName": "Lovö kyrka",
+                    "latitude1": 59.322046227939715,
+                    "longitude1": 17.839393615722656,
+                    "long1Text": null,
+                    "lat1Text": null,
+                    "maxElevation": null,
+                    "minElevation": null,
+                    "timestampCreated": null,
+                    "srcLatLongUnit": 0,
+                    "latLongAccuracy": 200, 
+                    "geographyID": 135987,  
+                    "paleoContextID": {
+                        "timestampCreated": null,
+                        "chronosStratID": null,
+                        "lithoStratID": null, 
+                        disciplineID": 98305
+                    }, 
+                    "disciplineID": 98305
+                },
+                "collectorList": [],
+                "collectingeventattachmentList": []
+            }
+        }
+
++ Response 201 (application/json)
+
+    + Headers
+
+            Location: https://beta-api.dina-web.net/collections/collections/v0/Collectionobject/7
+
+    + Body
+
+            {
+                "meta":{
+                    "callEndpoint":"https://beta-api.dina-web.net/collections/v0/Collectionobject",
+                    "callDate":"Jun 12, 2016 at 18.06.33",
+                    "apiVersion":"0",
+                    "limit":0,
+                    "resultCount":1,
+                    "sortOrder":null,
+                    "statusCode":201, 
+                    "message":null,
+                    "supportedLanguages":[
+                        "GB_en",
+                        "SE_sv"
+                    ],
+                    "resultLanguages":null,
+                    "contentLicenses":null,
+                    "orderBy":null,
+                    "maintenanceContact":"admin@dina-system.org"
+                },
+                "data":{
+                    "id":7,
+                    "type":"Collectionobject",
+                    "attributes":{
+                        "id":"7",
+                        "timestampCreated":1465747593138,
+                        "timestampModified":null,
+                        "collectionObjectID":7,
+                        "collectionMemberID":98306,
+                        "altCatalogNumber":null,
+                        "availability":null,
+                        "catalogNumber":null,
+                        "catalogedDate":1463743925468,
+                        "catalogedDatePrecision":null,
+                        "catalogedDateVerbatim":null,
+                        "countAmt":null,
+                        "deaccessioned":null,
+                        "description":null,
+                        "fieldNumber":null,
+                        "guid":null,
+                        "inventoryDate":null,
+                        "modifier":null,
+                        "name":null,
+                        "notifications":null,
+                        "number1":null,
+                        "number2":null,
+                        "objectCondition":null,
+                        "projectNumber":null,
+                        "remarks":null,
+                        "restrictions":null,
+                        "text1":null,
+                        "text2":null,
+                        "totalValue":null,
+                        "ocr":null,
+                        "visibility":null,
+                        "yesNo1":null,
+                        "yesNo2":null,
+                        "yesNo3":null,
+                        "yesNo4":null,
+                        "yesNo5":null,
+                        "yesNo6":null,
+                        "reservedText":null,
+                        "text3":null,
+                        "integer1":null,
+                        "integer2":null,
+                        "reservedInteger3":null,
+                        "reservedInteger4":null,
+                        "reservedText2":null,
+                        "reservedText3":null,
+                        "determinationList":["6"],
+                        "preparationList":["6"],
+                        "collectionobjectattachmentList":[],
+                        "accessionID":null,
+                        "catalogerID":null,
+                        "modifiedByAgentID":null,
+                        "createdByAgentID":"1",
+                        "collectionID":"98306",
+                        "collectingEventID":"7",
+                        "collectionObjectAttributeID":"7",
+                        "sgrstatus":null,
+                        "version":0
+                    }
+                }
+            }
+            
+
+            
+
+### Edit an entity [PUT]
+
+Edit entity
+
++ Request (application/json)
+
+            {
+                "id":"7",
+                "timestampCreated":1465747593138,
+                "timestampModified":null,
+                "collectionObjectID":7,
+                "collectionMemberID":98306, 
+                "catalogNumber":null,
+                "catalogedDate":1463743925468,  
+                "determinationList":["6"],
+                "preparationList":["6"],
+                "collectionobjectattachmentList":[],
+                "accessionID":null,
+                "catalogerID":null,
+                "modifiedByAgentID":null,
+                "createdByAgentID":"1",
+                "collectionID":"98306",
+                "collectingEventID":"7",
+                "collectionObjectAttributeID":"7",
+                "sgrstatus":null,
+                "version":0
+            }
+
++ Response 200 (application/json)
+
+    + Headers
+
+            Location: https://beta-api.dina-web.net/collections/collections/v0/Collectionobject/7
+
+    + Body
+
+            {
+                "meta":{
+                    "callEndpoint":"https://beta-api.dina-web.net/collections/v0/Collectionobject",
+                    "callDate":"Jun 12, 2016 at 18.06.33",
+                    "apiVersion":"0",
+                    "limit":0,
+                    "resultCount":1,
+                    "sortOrder":null,
+                    "statusCode":201, 
+                    "message":null,
+                    "supportedLanguages":[
+                        "GB_en",
+                        "SE_sv"
+                    ],
+                    "resultLanguages":null,
+                    "contentLicenses":null,
+                    "orderBy":null,
+                    "maintenanceContact":"admin@dina-system.org"
+                },
+                "data":{
+                    "id":7,
+                    "type":"Collectionobject",
+                    "attributes":{
+                        "id":"7",
+                        "timestampCreated":1465747593138,
+                        "timestampModified":null,
+                        "collectionObjectID":7,
+                        "collectionMemberID":98306,
+                        "altCatalogNumber":null,
+                        "availability":null,
+                        "catalogNumber":null,
+                        "catalogedDate":1463743925468,
+                        "catalogedDatePrecision":null,
+                        "catalogedDateVerbatim":null,
+                        "countAmt":null,
+                        "deaccessioned":null,
+                        "description":null,
+                        "fieldNumber":null,
+                        "guid":null,
+                        "inventoryDate":null,
+                        "modifier":null,
+                        "name":null,
+                        "notifications":null,
+                        "number1":null,
+                        "number2":null,
+                        "objectCondition":null,
+                        "projectNumber":null,
+                        "remarks":null,
+                        "restrictions":null,
+                        "text1":null,
+                        "text2":null,
+                        "totalValue":null,
+                        "ocr":null,
+                        "visibility":null,
+                        "yesNo1":null,
+                        "yesNo2":null,
+                        "yesNo3":null,
+                        "yesNo4":null,
+                        "yesNo5":null,
+                        "yesNo6":null,
+                        "reservedText":null,
+                        "text3":null,
+                        "integer1":null,
+                        "integer2":null,
+                        "reservedInteger3":null,
+                        "reservedInteger4":null,
+                        "reservedText2":null,
+                        "reservedText3":null,
+                        "determinationList":["6"],
+                        "preparationList":["6"],
+                        "collectionobjectattachmentList":[],
+                        "accessionID":null,
+                        "catalogerID":null,
+                        "modifiedByAgentID":null,
+                        "createdByAgentID":"1",
+                        "collectionID":"98306",
+                        "collectingEventID":"7",
+                        "collectionObjectAttributeID":"7",
+                        "sgrstatus":null,
+                        "version":0
+                    }
+                }
+            }
+        
+        
+
+ 
+## Collections /{entity}/{id} [/collections/v0/{entity}/{id}]
+
+### Get entity by id [GET]
+Retrieves single record from database by the *entity name* and *id*
+
+> #### Request: /collections/v0/{entity}/{id}
+ + Path parameters:
+    + entity - String [Name of the entity]
+    + id     - int or String [The entity id]
+     
+ + Response 200 (application/json) 
+ 
+        {
+            "meta" : {
+                "callEndpoint" : "https://beta-api.dina-web.net/collections/v0/Agent/8",
+                "contentLicenses" : null,
+                "callDate" : "Jun 12, 2016 at 15.38.54",
+                "statusCode" : 200,
+                "apiVersion" : "0",
+                "sortOrder" : null, 
+                "maintenanceContact" : "admin@dina-system.org", 
+                "message" : null,
+                "resultLanguages" : null,
+                "resultCount" : 1,
+                "previous" : null,
+                "next" : null,
+                "orderBy" : null,
+                "supportedLanguages" : [
+                    "GB_en",
+                    "SE_sv"
+                ]
+            },
+            "data" : {
+                "type" : "Agent",
+                "id" : 8,
+                "attributes" : {
+                    "dateOfBirth" : null,
+                    "timestampModified" : 1463731167000,
+                    "remarks" : null,
+                    "createdByAgentID" : "1",
+                    "suffix" : null,
+                    "dateOfDeath" : null,
+                    "firstName" : "Johan",
+                    "dateOfDeathPrecision" : 1,
+                    "url" : null,
+                    "email" : null,
+                    "abbreviation" : "",
+                    "id" : "8",
+                    "timestampCreated" : 1463731167000,
+                    "initials" : null,
+                    "agentType" : 1,
+                    "dateOfBirthPrecision" : 1,
+                    "guid" : null,
+                    "middleInitial" : null,
+                    "agentID" : 8,
+                    "lastName" : "Johnsson",
+                    "interests" : null,
+                    "divisionID" : "2",
+                    "modifiedByAgentID" : "1",
+                    "institutionCCID" : null,
+                    "version" : 1,
+                    "dateType" : null,
+                    "jobTitle" : null,
+                    "title" : null
+                }
+            }
+        } 
+        
+        
+### Delete an entity [DELETE]     
+Delete an entity from database by its database id
+
++ Response 200 (application/json) 
+
+
+
+
+## Collections /{entity}/search [/collections/v0/{entity}/search?parameter=value]
+
+### Get list of entities from database by search parameters [GET]
+
+>#### Request: /collections/v0/{entity}/search
+ + Path parameters:
+    + entity - String [Name of the entity]  
+ + Query parameters
+    + offset - Paging offset [int Default = 0]
+    + limit  - The maximum number of records to return [int Default = 50]
+    + minid  - The minimum id to retrieve [int Default = 0]
+    + maxid  - The maximum id to retrieve [int]
+    + sort   - Sort order [ASC or DESC Default = ASC]
+    + parameters - a set of key = value as search queries
+    
++ Response 200 (application/json) 
+
+        { 
+            "meta" : {
+                "callEndpoint" : "https://beta-api.dina-web.net/collections/v0/agent/search?offset=0&limit=2&minid=0&sort=asc&agentType=1&exact=true",
+                "maintenanceContact" : "admin@dina-system.org",
+                "supportedLanguages" : [
+                    "GB_en",
+                    "SE_sv"
+                ],
+                "offset" : 0,
+                "resultCount" : 2,
+                "orderBy" : [],
+                "callDate" : "Jun 12, 2016 at 18.39.53",
+                "limit" : 2,
+                "apiVersion" : "0",
+                "message" : null,
+                "contentLicenses" : null,
+                "next" : "https://beta-api.dina-web.net/collections/v0/agent/search?offset=2&limit=2&minid=0&sort=asc&agentType=1&exact=true",
+                "statusCode" : 200,
+                "resultLanguages" : null,
+                "previous" : null,
+                "sortOrder" : "ASC"
+            },
+            "data" : [  
+                {
+                    "type" : "Agent",
+                    "id" : 1,
+                    "attributes" : {
+                        "divisionID" : "2",
+                        "modifiedByAgentID" : null,
+                        "initials" : null,
+                        "agentType" : 1,
+                        "timestampCreated" : 1463410676000,
+                        "url" : null,
+                        "abbreviation" : "",
+                        "lastName" : "demo_user",
+                        "dateType" : null,
+                        "dateOfBirthPrecision" : 1,
+                        "firstName" : "dina",
+                        "jobTitle" : null,
+                        "agentID" : 1,
+                        "guid" : "841b04d4-5c9c-4723-89b3-8be138c82522",
+                        "dateOfBirth" : null,
+                        "dateOfDeath" : null,
+                        "middleInitial" : "",
+                        "id" : "1",
+                        "email" : "demo@dina.nrm.se",
+                        "title" : null,
+                        "suffix" : null,
+                        "remarks" : null,
+                        "interests" : null,
+                        "createdByAgentID" : null,
+                        "version" : 1,
+                        "institutionCCID" : null,
+                        "timestampModified" : 1463410676000,
+                        "dateOfDeathPrecision" : 1
+                    }
+                },
+                {
+                    "id" : 2,
+                    "type" : "Agent",
+                    "attributes" : {
+                        "title" : null,
+                        "suffix" : null,
+                        "middleInitial" : "",
+                        "email" : "demo@dina.nrm.se",
+                        "id" : "2",
+                        "createdByAgentID" : "1",
+                        "remarks" : null,
+                        "interests" : null,
+                        "version" : 1,
+                        "institutionCCID" : null,
+                        "timestampModified" : 1463641156000,
+                        "dateOfDeathPrecision" : 1,
+                        "modifiedByAgentID" : null,
+                        "initials" : null,
+                        "divisionID" : "98304",
+                        "url" : null,
+                        "abbreviation" : "",
+                        "agentType" : 1,
+                        "timestampCreated" : 1463641156000,
+                        "jobTitle" : null,
+                        "agentID" : 2,
+                        "dateType" : null,
+                        "firstName" : "dina",
+                        "lastName" : "demo_user",
+                        "dateOfBirthPrecision" : 1,
+                        "dateOfBirth" : null,
+                        "dateOfDeath" : null,
+                        "guid" : "841b04d4-5c9c-4723-89b3-8be138c82522"
+                    }
+                }
+            ]
+        }
+        
+        
+## Collections /{entity}/count [/collections/v0/{entity}/count]
+
+### Get total count of the entity from database [GET]
+Retrieves single record from database by the *entity name* and *id*
+
+> #### Request: /collections/v0/{entity}/count
+ + Path parameters:
+    + entity - String [Name of the entity]
+    
++ Response 200 (application/json) 
+     
+        {
+            "meta" : {
+                "resultLanguages" : null,
+                "supportedLanguages" : [
+                    "GB_en",
+                    "SE_sv"
+                ],
+                "offset" : 0,
+                "callEndpoint" : "https://beta-api.dina-web.net/collections/v0/collection/count",
+                "callDate" : "Jun 12, 2016 at 16.54.49", 
+                "message" : null,
+                "statusCode" : 200,
+                "maintenanceContact" : "admin@dina-system.org", 
+                "contentLicenses" : null,
+                "apiVersion" : "0", 
+                "resultCount" : 1
+            },
+            "data" : {
+                "count" : 6
+            }
+        }
