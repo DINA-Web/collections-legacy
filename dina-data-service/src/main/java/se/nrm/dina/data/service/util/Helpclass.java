@@ -7,6 +7,7 @@ package se.nrm.dina.data.service.util;
   
 import java.util.ArrayList;
 import java.util.List;   
+import javax.servlet.http.HttpServletRequest; 
 import se.nrm.dina.data.service.vo.EntityCount;
 import se.nrm.dina.data.service.vo.EntityWrapper;
 import se.nrm.dina.data.service.vo.MetadataBean;
@@ -23,6 +24,10 @@ import se.nrm.dina.datamodel.EntityBean;
 public class Helpclass {
 
     private static Helpclass instance = null;
+    
+        
+    private final String HOST_NAME = "beta-api.dina-web.net";
+    private final String PROTOCAL = "https://"; 
 
     public static synchronized Helpclass getInstance() {
         if (instance == null) {
@@ -69,8 +74,7 @@ public class Helpclass {
             return new EntityWrapper(meta, wrapper);
         } else {
             return new EntityWrapper(meta, entityBean);
-        }
-        
+        } 
     }  
     
     public EntityWrapper buildEntityWrapper(EntityCount entityBean, MetadataBean meta, int statusCode) { 
@@ -78,4 +82,14 @@ public class Helpclass {
         meta.setResultCount(1);
         return new EntityWrapper(meta, entityBean);
     }  
+    
+    public String buildBaseEndPoint(HttpServletRequest req, String entity) {
+        String uri = req.getRequestURI();    
+  
+        StringBuilder sb = new StringBuilder();  
+        sb.append(PROTOCAL);
+        sb.append(HOST_NAME);
+        sb.append(uri); 
+        return sb.toString(); 
+    }
 }

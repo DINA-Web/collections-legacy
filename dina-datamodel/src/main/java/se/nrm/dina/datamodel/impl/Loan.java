@@ -44,6 +44,7 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Loan.findAll", query = "SELECT l FROM Loan l"),
     @NamedQuery(name = "Loan.findByLoanID", query = "SELECT l FROM Loan l WHERE l.loanID = :loanID"), 
     @NamedQuery(name = "Loan.findByCurrentDueDate", query = "SELECT l FROM Loan l WHERE l.currentDueDate = :currentDueDate"),
+    @NamedQuery(name = "Loan.findByOverdueLoan", query = "SELECT l FROM Loan l WHERE l.isClosed = false AND l.currentDueDate  <= :currentDueDate"),
     @NamedQuery(name = "Loan.findByDateClosed", query = "SELECT l FROM Loan l WHERE l.dateClosed = :dateClosed"),
     @NamedQuery(name = "Loan.findByDateReceived", query = "SELECT l FROM Loan l WHERE l.dateReceived = :dateReceived"),
     @NamedQuery(name = "Loan.findByIsClosed", query = "SELECT l FROM Loan l WHERE l.isClosed = :isClosed"),

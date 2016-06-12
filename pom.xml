@@ -42,15 +42,8 @@
     
     
     <properties>
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <!--<javax.ejb.version>3.2</javax.ejb.version>-->
-        <!--<slf4j.version>1.6.1</slf4j.version>--> 
-        <skip.tests>false</skip.tests>
-<!--        <jaxws-maven-plugin.version>1.12</jaxws-maven-plugin.version>
-        <maven-ejb-plugin.version>2.4</maven-ejb-plugin.version>
-        <maven-ear-plugin.version>2.9</maven-ear-plugin.version>
-        <maven-javadoc-plugin.version>2.7</maven-javadoc-plugin.version> -->
-        <!--<netbeans.hint.deploy.server>gfv3ee6</netbeans.hint.deploy.server>-->
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding> 
+        <skip.tests>false</skip.tests> 
     </properties>
  
     <modules>  
@@ -61,32 +54,14 @@
     </modules>
 
     <dependencies>
-<!--        <dependency>
-            <groupId>junit</groupId>
-            <artifactId>junit</artifactId>
-            <version>4.8.2</version>
-            <scope>test</scope>
-        </dependency>-->
-        
+  
         <dependency>
             <groupId>org.testng</groupId>
             <artifactId>testng</artifactId>
             <version>6.9.10</version>
             <scope>test</scope>
         </dependency>
-        
-<!--        <dependency>
-            <groupId>org.testng</groupId>
-            <artifactId>testng</artifactId>
-            <version>6.9.10</version>
-            <scope>test</scope>
-        </dependency>-->
-<!--        <dependency>
-            <groupId>org.testng</groupId>
-            <artifactId>testng</artifactId>
-            <version>6.9.10</version>
-            <scope>test</scope>
-        </dependency>-->
+ 
         <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-api</artifactId>
@@ -111,10 +86,7 @@
             <scope>test</scope>
         </dependency>
     </dependencies>
-    
-    
-    
-    
+     
     <build>
         <plugins>
 
@@ -195,6 +167,31 @@
                 </configuration>
             </plugin>
             
+<!--            <plugin>
+                <groupId>com.qmino</groupId>
+                <artifactId>miredot-plugin</artifactId>
+                <version>2.0-RC3</version>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>restdoc</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <organizationId>46642352-b7b6-4ab1-99a2-f02d51808345</organizationId>
+                    <restModel>
+                        <restFramework>
+                            <name>jax-rs</name>
+                        </restFramework>
+                    </restModel>
+                    <output>
+                        <html></html>
+                    </output>
+                     insert other configuration here (optional) 
+                </configuration>
+            </plugin>-->
+            
             <plugin>
                 <groupId>org.jacoco</groupId>
                 <artifactId>jacoco-maven-plugin</artifactId>
@@ -215,19 +212,12 @@
                 </executions>
             </plugin> 
         </plugins> 
-    </build>
-<!--    <reporting>
-        <plugins>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-javadoc-plugin</artifactId>
-                <version>2.10.1</version>
-                <configuration>
-                    <stylesheetfile>${basedir}/src/main/javadoc/stylesheet.css</stylesheetfile>
-                    <show>public</show>
-                </configuration>
-            </plugin>
-        </plugins>
-    </reporting>-->
-  
+    </build> 
+<!--    <pluginRepositories>
+        <pluginRepository>
+            <id>miredot</id>
+            <name>Miredot Releases</name>
+            <url>http://nexus.qmino.com/content/repositories/miredot</url>
+        </pluginRepository>
+    </pluginRepositories>-->
 </project>

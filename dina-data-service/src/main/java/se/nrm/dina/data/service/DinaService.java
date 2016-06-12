@@ -5,12 +5,15 @@
  */
 package se.nrm.dina.data.service;
     
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.security.Principal;
 import java.util.ArrayList;
 import java.util.Arrays; 
 import java.util.List;   
 import java.util.Map; 
 import java.util.function.Predicate;
+import java.util.logging.Level;
 import java.util.stream.Collectors;
 import javax.ejb.EJB; 
 import javax.ejb.Stateless; 
@@ -70,6 +73,19 @@ public class DinaService {
         this.logic = logic;
     }
     
+    /**
+     * Get all the records from database by the name of the entity
+     * 
+     * @param req       - HttpServletRequeset
+     * @param entity    - Entity name
+     * @param offset    - paging offset
+     * @param limit     - The amount of records to return
+     * @param minid     - The start minimum id
+     * @param maxid     - The maximum id to return
+     * @param sort      - Sort order [ASC or DESC]
+     * @param orderby   - Sort order by list of fields
+     * @return Response
+     */
     @GET
     @Path("{entity}") 
     public Response getAllByEntityName (@Context HttpServletRequest req,
@@ -81,8 +97,7 @@ public class DinaService {
                                         @DefaultValue("asc") @QueryParam("sort") String sort,
                                         @QueryParam("orderby") String orderby) {
         
-        logger.info("getAllByEntityName : {} -- {}", entity, offset + " -- " + limit); 
-        logger.info("getAllByEntityName : {} -- {}", minid, maxid + " -- " + sort); 
+        logger.info("getAllByEntityName : {} -- {}", entity, offset + " -- " + limit);  
          
         List<String> order = new ArrayList();
         if(orderby != null) {
@@ -103,7 +118,13 @@ public class DinaService {
     }
 
     
-
+    /**
+     * Get all the records from database by the name of the entity and queries
+     * @param req           - HttpServletRequest
+     * @param entity        - the name of the entity
+     * @param info          - QueryParameters
+     * @return Response
+     */
     @GET
     @Path("{entity}/search")
     public Response getData(@Context HttpServletRequest req, @PathParam("entity") String entity, @Context UriInfo info) {
@@ -151,7 +172,7 @@ public class DinaService {
     }
         
     /**
-     * Generic method to get an entity by entity id from database.  
+     * Get single record frome database by the name of the entity and it's id
      * This method passes in a PathParam entity class name and entity id 
      *  
      * @param req
@@ -182,14 +203,13 @@ public class DinaService {
 
 
     /**
-     * Generic method to get an entity by entity id from database. This method
-     * passes in a PathParam entity class name and entity id
+     * Get a list of records frome database by the name of the entity and a list of corresponding ids. 
      *
-     * @param req
-     * @param entity - class name of the entity
-     * @param ids
+     * @param req       - HttpServletRequest
+     * @param entity    - The name of the entity
+     * @param ids       - List of ids separated by ','
      * 
-     * @return entity 
+     * @return Response 
      */
     @GET
     @Path("{entity}/search/{ids}/") 
@@ -211,13 +231,12 @@ public class DinaService {
  
 
     /**
-     * Generic method to get an entity by entity id from database.  
-     * This method passes in a PathParam entity class name and entity id 
+     * Get total count of records in the database for a given entity by its name   
      * 
-     * @param req
-     * @param entity - class name of the entity 
+     * @param req       - HttpServletRequest
+     * @param entity    - Class name of the entity 
      * 
-     * @return entity 
+     * @return Response 
      */
     @GET
     @Path("{entity}/count")  
@@ -238,12 +257,11 @@ public class DinaService {
     } 
 
     /**
-     * Generic method to create an entity by passing SpecifyBeanWrapper, the
-     * entity to be created is wrapped into SpecifyBeanWrapper
+     * Create an entity
      * 
-     * @param req
-     * @param entity
-     * @param json 
+     * @param req       - HttpServletRequest
+     * @param entity    - The name of the entity
+     * @param json      - Json String 
      * @return  Response
      *
      */
@@ -259,13 +277,19 @@ public class DinaService {
         try {  
             int agentId = getAgentIdToken(req); 
             EntityBean result = logic.createEntity(entity, json, agentId); 
-            return Response.ok(Helpclass.getInstance().buildEntityWrapper(result, meta, 200)).build();   
+            
+            String strUri = req.getRequestURI() + "/" + result.getIdentityString();
+            
+            return Response.created(new URI(strUri)).entity(Helpclass.getInstance().buildEntityWrapper(result, meta, 201)).build();
+//            return Response.created(Helpclass.getInstance().buildEntityWrapper(result, meta, 200)).build();   
         } catch(DinaConstraintViolationException e) {   
             ErrorBean error = new ErrorBean(entity, e.getMessage()); 
             return Response.status(e.getErrorCode()).entity(Helpclass.getInstance().buildEntityWrapper(error, meta, e.getErrorCode(), 0)).build();   
         }  catch(DinaException e) {   
             ErrorBean error = new ErrorBean(entity, e.getMessage()); 
             return Response.status(e.getErrorCode()).entity(Helpclass.getInstance().buildEntityWrapper(error, meta, e.getErrorCode(), 0)).build();   
+        } catch (URISyntaxException ex) {
+            return Response.status(500).entity(Helpclass.getInstance().buildEntityWrapper(new ErrorBean(entity, ex.getMessage()), meta, 500, 0)).build();   
         }  
     }
     
@@ -293,12 +317,12 @@ public class DinaService {
     
 
     /**
-     * Generic method update an entity
+     * Update an entity
      * 
-     * @param entity
-     * @param json 
+     * @param entity    - The name of the entity
+     * @param json      - Json String
      *
-     * @return
+     * @return Response
      *
      */
     @PUT
@@ -316,13 +340,12 @@ public class DinaService {
     }
       
     /**
-     * Generic method to delete an entity by entity id from database.  
-     * This method passes in a PathParam entity class name and entity id 
+     * Delete an record from database by the name of the entity and it's id
      * 
-     * @param entity - class name of the entity 
-     * @param id 
+     * @param entity    - Class name of the entity 
+     * @param id        - The id of the entity to be deleted
      * 
-     * @return entity 
+     * @return Response 
      */
     @DELETE
     @Path("{entity}/{id}")  

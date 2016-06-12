@@ -29,6 +29,11 @@ public class Metadata {
     private String next;
     private StringBuilder sb;
     
+    private final String HOST_NAME = "beta-api.dina-web.net";
+    private final String PROTOCAL = "https://"; 
+ 
+        
+    
     public Metadata() {
         
     } 
@@ -113,23 +118,13 @@ public class Metadata {
     }
      
     private void buildBaseUri(HttpServletRequest req, String entity) {
-        String uri = req.getRequestURI();
-        logger.info("uri : {}", uri);
-         
-        
-        logger.info("hoset : {}", req.getRemoteHost() + " -- " + req.getLocalName() + " -- " + req.getQueryString() + " -- " + req.getServerName() + " - " + req.getPathTranslated() + req.getProtocol());
+        String uri = req.getRequestURI();   
         version = StringUtils.substringBetween(uri, req.getContextPath() + "/v", "/" + entity);
-        
-//        String hostName = req.getLocalName();
-        String hostName = "beta-api.dina-web.net";
-        String protocal = "https://"; 
-        
-        sb = new StringBuilder();
-//        sb.append(StringUtils.replace(protocal, "/1.1", "://").toLowerCase());
-        sb.append(protocal);
-        sb.append(hostName);
-        sb.append(uri);
-//        sb.append(req.getQueryString());
+  
+        sb = new StringBuilder(); 
+        sb.append(PROTOCAL);
+        sb.append(HOST_NAME);
+        sb.append(uri); 
         callEndpoint = sb.toString(); 
     } 
     
@@ -155,5 +150,5 @@ public class Metadata {
         int nextOffset = offset + limit;
         next = buildPaging(callEndpoint, nextOffset, limit); 
         callEndpoint = buildPaging(callEndpoint, offset, limit); 
-    }  
+    }   
 }
