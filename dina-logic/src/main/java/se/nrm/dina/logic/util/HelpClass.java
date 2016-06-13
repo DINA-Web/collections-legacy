@@ -83,7 +83,7 @@ public class HelpClass {
     public boolean strToBoolean(String s) {
         
         if(s == null || s.isEmpty()) {
-            return true;
+            return false;
         } 
         try {
             return Boolean.valueOf(s.toLowerCase());
