@@ -11,8 +11,7 @@ import java.util.Map;
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;   
-import se.nrm.dina.data.exceptions.DinaException;
-import se.nrm.dina.datamodel.EntityBean;
+import se.nrm.dina.data.exceptions.DinaException; 
 
 /**
  *
@@ -39,14 +38,11 @@ public class NamedQueries {
      * Creates a query string
      * @param entityName
      * @param clazz 
-     * @param minid
-     * @param maxid
      * @param sort
      * @param orderBy 
      * @return String
      */
-    public String createQueryFindAll(String entityName, Class clazz, int minid, 
-                                     int maxid, String sort, List<String> orderBy ) {
+    public String createQueryFindAll(String entityName, Class clazz, String sort, List<String> orderBy ) {
   
         StringBuilder sb = new StringBuilder();
         sb.append("SELECT e From ");
@@ -54,12 +50,6 @@ public class NamedQueries {
         sb.append(" e ");
 
         try {
-            if (maxid > 0) {
-                buildMinAndMaxId(minid, maxid, clazz, sb);
-            } else if(minid > 0) {
-                buildMinId(minid, clazz, sb);
-            }
-
             if (orderBy != null && !orderBy.isEmpty()) {
                 buildOrderByString(clazz, orderBy, sort, sb);
             } else {
@@ -81,9 +71,7 @@ public class NamedQueries {
     /**
      * Creates a query string
      * @param entityName
-     * @param clazz 
-     * @param minid
-     * @param maxid
+     * @param clazz  
      * @param sort
      * @param orderBy
      * @param isExact
@@ -91,9 +79,7 @@ public class NamedQueries {
      * @return String
      */
     public String createQueryFindAllWithSearchCriteria(String entityName,
-                                                        Class clazz, 
-                                                        int minid,
-                                                        int maxid,
+                                                        Class clazz,  
                                                         String sort,
                                                         List<String> orderBy,
                                                         boolean isExact,
@@ -105,39 +91,12 @@ public class NamedQueries {
         sb.append(" e ");
 
         try {
-            if (criteria == null || criteria.isEmpty()) {
-                if (maxid > 0) {
-                    buildMinAndMaxId(minid, maxid, clazz, sb);
-                } else if (minid > 0) {
-                    buildMinId(minid, clazz, sb); 
-                }
-            } else {
-                String buildCriteria = " WHERE ";
-                if (maxid > 0) {
-                    buildMinAndMaxId(minid, maxid, clazz, sb);
-                    buildCriteria = " AND ";
-                } else if(minid > 0) {
-                    buildMinId(minid, clazz, sb);
-                    buildCriteria = " AND ";
-                }
+            if (criteria != null && !criteria.isEmpty()) { 
+                String buildCriteria = " WHERE "; 
                 sb.append(buildCriteria);
                 sb.append(buildSearchCriteria(clazz, criteria, isExact));
             }
-  
-
-//            if (maxid > 0) {
-//                buildMinAndMaxId(minid, maxid, clazz, sb);
-//                if (criteria != null && !criteria.isEmpty()) {
-//                    sb.append(" AND ");
-//                    sb.append(buildSearchCriteria(clazz, criteria, isExact));
-//                }
-//            } else {
-//                if (criteria != null && !criteria.isEmpty()) {
-//                    sb.append("WHERE");
-//                    sb.append(buildSearchCriteria(clazz, criteria, isExact));
-//                }
-//            }
-
+            
             if (orderBy != null && !orderBy.isEmpty()) {
                 buildOrderByString(clazz, orderBy, sort, sb);
             } else {
@@ -154,55 +113,55 @@ public class NamedQueries {
         }
     }
 
-    private void buildMinId(int minid, Class clazz, StringBuilder sb) {
+//    private void buildMinId(int minid, Class clazz, StringBuilder sb) {
+//
+//        try {
+//            EntityBean bean = JpaReflectionHelper.getInstance().createNewInstance(clazz);
+//            String idFieldName = JpaReflectionHelper.getInstance().getIDFieldName(bean);
+//            if (JpaReflectionHelper.getInstance().isIntField(clazz, idFieldName)) {
+//                buildBaseQuery(sb, minid, idFieldName);
+//            }
+//        } catch (DinaException e) {
+//            throw e;
+//        }
+//    }
 
-        try {
-            EntityBean bean = JpaReflectionHelper.getInstance().createNewInstance(clazz);
-            String idFieldName = JpaReflectionHelper.getInstance().getIDFieldName(bean);
-            if (JpaReflectionHelper.getInstance().isIntField(clazz, idFieldName)) {
-                buildBaseQuery(sb, minid, idFieldName);
-            }
-        } catch (DinaException e) {
-            throw e;
-        }
-    }
-
-    private void buildMinAndMaxId(int minid, int maxid, Class clazz, StringBuilder sb) {
-
-        try {
-            EntityBean bean = JpaReflectionHelper.getInstance().createNewInstance(clazz);
-            String idFieldName = JpaReflectionHelper.getInstance().getIDFieldName(bean);
-            if (JpaReflectionHelper.getInstance().isIntField(clazz, idFieldName)) {
-                if (maxid > minid) {
-                    buildBaseQuery(sb, minid, maxid, idFieldName);
-                } else {
-                    if (minid > 0) {
-                        buildBaseQuery(sb, minid, idFieldName);
-                    }
-                }
-            }
-        } catch(DinaException e) {
-            throw e;
-        } 
-    }
-
-    private void buildBaseQuery(StringBuilder sb, int minid, String idFieldName) {
-  
-        sb.append("WHERE e.");
-        sb.append(idFieldName);
-        sb.append(" >= ");
-        sb.append(minid); 
-    }
-    
-    private void buildBaseQuery(StringBuilder sb, int minid, int maxid, String idFieldName) {
-  
-        sb.append("WHERE e.");
-        sb.append(idFieldName);
-        sb.append(" BETWEEN ");
-        sb.append(minid);
-        sb.append(" AND ");
-        sb.append(maxid);
-    }
+//    private void buildMinAndMaxId(int minid, int maxid, Class clazz, StringBuilder sb) {
+//
+//        try {
+//            EntityBean bean = JpaReflectionHelper.getInstance().createNewInstance(clazz);
+//            String idFieldName = JpaReflectionHelper.getInstance().getIDFieldName(bean);
+//            if (JpaReflectionHelper.getInstance().isIntField(clazz, idFieldName)) {
+//                if (maxid > minid) {
+//                    buildBaseQuery(sb, minid, maxid, idFieldName);
+//                } else {
+//                    if (minid > 0) {
+//                        buildBaseQuery(sb, minid, idFieldName);
+//                    }
+//                }
+//            }
+//        } catch(DinaException e) {
+//            throw e;
+//        } 
+//    }
+//
+//    private void buildBaseQuery(StringBuilder sb, int minid, String idFieldName) {
+//  
+//        sb.append("WHERE e.");
+//        sb.append(idFieldName);
+//        sb.append(" >= ");
+//        sb.append(minid); 
+//    }
+//    
+//    private void buildBaseQuery(StringBuilder sb, int minid, int maxid, String idFieldName) {
+//  
+//        sb.append("WHERE e.");
+//        sb.append(idFieldName);
+//        sb.append(" BETWEEN ");
+//        sb.append(minid);
+//        sb.append(" AND ");
+//        sb.append(maxid);
+//    }
 
     private String buildSearchCriteria(Class clazz, Map<String, String> criteria, boolean isExact) {
 

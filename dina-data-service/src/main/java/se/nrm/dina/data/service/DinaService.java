@@ -12,8 +12,7 @@ import java.util.ArrayList;
 import java.util.Arrays; 
 import java.util.List;   
 import java.util.Map; 
-import java.util.function.Predicate;
-import java.util.logging.Level;
+import java.util.function.Predicate; 
 import java.util.stream.Collectors;
 import javax.ejb.EJB; 
 import javax.ejb.Stateless; 
@@ -42,8 +41,7 @@ import se.nrm.dina.data.exceptions.DinaConstraintViolationException;
 import se.nrm.dina.data.exceptions.DinaException;  
 import se.nrm.dina.data.service.metadata.Metadata;
 import se.nrm.dina.data.service.util.Helpclass; 
-import se.nrm.dina.data.service.vo.EntityCount;
-//import se.nrm.dina.data.service.vo.EntityCount;
+import se.nrm.dina.data.service.vo.EntityCount; 
 import se.nrm.dina.data.service.vo.MetadataBean;
 import se.nrm.dina.data.vo.ErrorBean;
 import se.nrm.dina.datamodel.EntityBean;
@@ -79,9 +77,7 @@ public class DinaService {
      * @param req       - HttpServletRequeset
      * @param entity    - Entity name
      * @param offset    - paging offset
-     * @param limit     - The amount of records to return
-     * @param minid     - The start minimum id
-     * @param maxid     - The maximum id to return
+     * @param limit     - The amount of records to return 
      * @param sort      - Sort order [ASC or DESC]
      * @param orderby   - Sort order by list of fields
      * @return Response
@@ -92,23 +88,21 @@ public class DinaService {
                                         @PathParam("entity") String entity, 
                                         @DefaultValue("0") @QueryParam("offset") int offset, 
                                         @DefaultValue("50") @QueryParam("limit") int limit, 
-                                        @DefaultValue("0") @QueryParam("minid") int minid,
-                                        @DefaultValue("0") @QueryParam("maxid") int maxid,
                                         @DefaultValue("asc") @QueryParam("sort") String sort,
                                         @QueryParam("orderby") String orderby) {
         
         logger.info("getAllByEntityName : {} -- {}", entity, offset + " -- " + limit);  
          
-        List<String> order = new ArrayList();
+        List<String> order = new ArrayList(); 
         if(orderby != null) {
             order = Arrays.asList(StringUtils.split(orderby, ","));
         }
 
         Metadata metadata = new Metadata();
-        MetadataBean meta = metadata.buildMetadata(req, entity, offset, limit, minid, maxid,  sort, order, orderby, true, null);
+        MetadataBean meta = metadata.buildMetadata(req, entity, offset, limit, sort, order, orderby, true, null);
  
         try {
-            List<EntityBean> results = logic.findAll(entity, limit, offset, minid, maxid, sort, order); 
+            List<EntityBean> results = logic.findAll(entity, limit, offset, sort, order); 
             
             return Response.ok(Helpclass.getInstance().buildEntityWrapper(results, meta, 200)).build();
         } catch (DinaException e) {  
@@ -131,9 +125,7 @@ public class DinaService {
 
         MultivaluedMap<String, String> map = info.getQueryParameters();
         int offset = se.nrm.dina.logic.util.HelpClass.getInstance().strToInt(map.getFirst("offset"));
-        int limit = se.nrm.dina.logic.util.HelpClass.getInstance().strToInt(map.getFirst("limit"));
-        int minid = se.nrm.dina.logic.util.HelpClass.getInstance().strToInt(map.getFirst("minid"));
-        int maxid = se.nrm.dina.logic.util.HelpClass.getInstance().strToInt(map.getFirst("maxid"));
+        int limit = se.nrm.dina.logic.util.HelpClass.getInstance().strToInt(map.getFirst("limit")); 
         String orderBy = map.getFirst("orderby");
         String sort = map.getFirst("sort");
         boolean exact =  se.nrm.dina.logic.util.HelpClass.getInstance().strToBoolean(map.getFirst("exact"));
@@ -150,9 +142,9 @@ public class DinaService {
                 .collect(Collectors.toMap(m -> m.getKey(), m -> m.getValue().get(0)));
 
         Metadata metadata = new Metadata(); 
-        MetadataBean meta = metadata.buildMetadata(req, entity, offset, limit == 0 ? 50 : limit, minid, maxid,  sort == null ? "asc" : sort, order, orderBy, exact, condition); 
+        MetadataBean meta = metadata.buildMetadata(req, entity, offset, limit == 0 ? 50 : limit, sort == null ? "asc" : sort, order, orderBy, exact, condition); 
         try {
-            List<EntityBean> results = logic.findAllBySearchCriteria(entity, limit, minid, maxid, offset, sort, order, condition, exact);
+            List<EntityBean> results = logic.findAllBySearchCriteria(entity, limit, offset, sort, order, condition, exact);
             return Response.ok(Helpclass.getInstance().buildEntityWrapper(results, meta, 200)).build();  
         } catch (DinaException e) { 
             ErrorBean error = new ErrorBean(entity, e.getMessage()); 
@@ -280,8 +272,7 @@ public class DinaService {
             
             String strUri = req.getRequestURI() + "/" + result.getIdentityString();
             
-            return Response.created(new URI(strUri)).entity(Helpclass.getInstance().buildEntityWrapper(result, meta, 201)).build();
-//            return Response.created(Helpclass.getInstance().buildEntityWrapper(result, meta, 200)).build();   
+            return Response.created(new URI(strUri)).entity(Helpclass.getInstance().buildEntityWrapper(result, meta, 201)).build(); 
         } catch(DinaConstraintViolationException e) {   
             ErrorBean error = new ErrorBean(entity, e.getMessage()); 
             return Response.status(e.getErrorCode()).entity(Helpclass.getInstance().buildEntityWrapper(error, meta, e.getErrorCode(), 0)).build();   

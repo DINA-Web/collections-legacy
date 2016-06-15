@@ -49,7 +49,7 @@ public class AdminClient {
         
         List<String> groups = new ArrayList();
         groups.add("admin");
-        groups.add("tester");
+        groups.add("user");
          
         Map<String, List<String>> roleMap = new HashMap<>();
         roleMap.put("collections", groups);
@@ -63,22 +63,22 @@ public class AdminClient {
                 MASTER_ADMIN_USERNAME, MASTER_ADMIN_PASSWORD, // the user
                 MASTER_AUTH_CLIENT_ID);
   
-        RoleRepresentation rr = new RoleRepresentation();
-        rr.setName("admin");
-        rr.setScopeParamRequired(false);
-         
-        kc.realm(DINA_REALM).roles().create(rr); 
-//        kc.realm(DINA_REALM).clients().get("dina-rest").roles().create(rr); 
-         
-        rr = new RoleRepresentation();
-        rr.setName("tester");
-        rr.setScopeParamRequired(false);
-         
-        kc.realm(DINA_REALM).roles().create(rr); 
+//        RoleRepresentation rr = new RoleRepresentation();
+//        rr.setName("admin");
+//        rr.setScopeParamRequired(false);
+//         
+//        kc.realm(DINA_REALM).roles().create(rr); 
+////        kc.realm(DINA_REALM).clients().get("dina-rest").roles().create(rr); 
+//         
+//        rr = new RoleRepresentation();
+//        rr.setName("user");
+//        rr.setScopeParamRequired(false);
+//         
+//        kc.realm(DINA_REALM).roles().create(rr); 
 //        kc.realm(DINA_REALM).clients().get("dina-rest").roles().create(rr); 
       
         
-        roleList = kc.realm(DINA_REALM).roles().list(); 
+//        roleList = kc.realm(DINA_REALM).roles().list(); 
          
         List<String> userIds = new ArrayList<>(); 
         list.stream()

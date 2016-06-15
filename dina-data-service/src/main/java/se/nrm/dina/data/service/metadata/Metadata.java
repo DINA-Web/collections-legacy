@@ -53,11 +53,12 @@ public class Metadata {
     }
  
     public MetadataBean buildMetadata(HttpServletRequest req, String entity,  int offset, int limit,
-                                      int minid, int maxid, String sortOrder, List<String> order, 
-                                      String orderby, boolean isExact, Map<String, String> condition) {
+                                      String sortOrder, List<String> order, String orderby, boolean isExact, 
+                                      Map<String, String> condition) {
         buildBaseUri(req, entity);
-        buildPaging(offset, limit); 
-        buildParameters(minid, maxid, sortOrder, orderby, isExact, condition);
+        buildPaging(offset, limit);
+         
+        buildParameters(sortOrder, orderby, isExact, condition);
          
         MetadataBean meta = new MetadataBean();
         meta.setCallEndpoint(callEndpoint);
@@ -79,17 +80,8 @@ public class Metadata {
     }
     
         
-    private void buildParameters(int minid, int maxid, String sortOrder, String orderby,
-                                boolean isExact, Map<String, String> condition) {
-        sb = new StringBuilder();
-        sb.append("&minid=");
-        sb.append(minid);
-        
-        if(maxid > 0) {
-            sb.append("&maxid=");
-            sb.append(maxid);
-        }
-        
+    private void buildParameters(String sortOrder, String orderby, boolean isExact, Map<String, String> condition) {
+        sb = new StringBuilder(); 
         sb.append("&sort=");
         sb.append(sortOrder);
         

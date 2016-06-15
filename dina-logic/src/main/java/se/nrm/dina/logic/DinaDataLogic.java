@@ -37,8 +37,7 @@ import se.nrm.dina.logic.util.HelpClass;
 public class DinaDataLogic<T extends EntityBean> implements Serializable {
 
     private final Logger logger = LoggerFactory.getLogger(this.getClass());
-     
-//    private final String CREATED_BY_USER_CLASS_NAME = "Agent";
+      
     private java.util.Date date; 
     private EntityBean createdByUserBean;
 
@@ -57,24 +56,21 @@ public class DinaDataLogic<T extends EntityBean> implements Serializable {
     /**
      * Finds all the instances of an entity
      * 
-     * 
-     * 
      * @param entityName 
      * @param limit
-     * @param offset
-     * @param minid
-     * @param maxid
+     * @param offset 
      * @param orderby
      * @param sort 
+     * 
      * @return List
      */
-    public List<T> findAll(String entityName, int limit, int offset, int minid, int maxid, String sort, List<String> orderby ) {
+    public List<T> findAll(String entityName, int limit, int offset, String sort, List<String> orderby ) {
           
         try {
             entityName = JpaReflectionHelper.getInstance().validateEntityName(entityName);
             Class clazz = JpaReflectionHelper.getInstance().convertClassNameToClass(entityName);
             
-            String strQuery = NamedQueries.getInstance().createQueryFindAll(entityName, clazz, minid, maxid, sort, orderby);
+            String strQuery = NamedQueries.getInstance().createQueryFindAll(entityName, clazz, sort, orderby);
  
             return dao.findAll(clazz, strQuery, limit, null, false, offset); 
         } catch (DinaException e) {
@@ -86,9 +82,7 @@ public class DinaDataLogic<T extends EntityBean> implements Serializable {
     /**
      * Finds all the instances of an entity by query
      * @param entityName
-     * @param limit
-     * @param minid
-     * @param maxid
+     * @param limit 
      * @param offset
      * @param sort
      * @param orderby
@@ -97,8 +91,8 @@ public class DinaDataLogic<T extends EntityBean> implements Serializable {
      * 
      * @return List
      */
-    public List<T> findAllBySearchCriteria(String entityName, int limit, int minid, int maxid, int offset, 
-                                            String sort, List<String> orderby, Map<String, String> condition, boolean isExact) {
+    public List<T> findAllBySearchCriteria(String entityName, int limit, int offset, String sort, 
+                                           List<String> orderby, Map<String, String> condition, boolean isExact) {
 
         logger.info("findAllBySearchCriteria : {}", condition);
 
@@ -108,8 +102,7 @@ public class DinaDataLogic<T extends EntityBean> implements Serializable {
             Class clazz = JpaReflectionHelper.getInstance().convertClassNameToClass(entityName); 
 
             String strQuery = NamedQueries.getInstance()
-                    .createQueryFindAllWithSearchCriteria(entityName, clazz, minid, maxid,
-                                                            HelpClass.getInstance().getSort(sort),
+                    .createQueryFindAllWithSearchCriteria(entityName, clazz,  HelpClass.getInstance().getSort(sort),
                                                             orderby, isExact, condition);
    
             logger.info("strQury : {}", strQuery);
@@ -186,7 +179,9 @@ public class DinaDataLogic<T extends EntityBean> implements Serializable {
 
         try {
             return dao.getCountByQuery(NamedQueries.getInstance()
-                    .createFindTotalCountNamedQuery(JpaReflectionHelper.getInstance().convertClassNameToClass(entityName).getSimpleName()));
+                    .createFindTotalCountNamedQuery(
+                            JpaReflectionHelper.getInstance().convertClassNameToClass(entityName)
+                                    .getSimpleName()));
         } catch (DinaException e) {
             throw e;
         }
@@ -210,9 +205,7 @@ public class DinaDataLogic<T extends EntityBean> implements Serializable {
             EntityBean bean = mappObject(entityName, json); 
             Class clazz = JpaReflectionHelper.getInstance().getCreatedByClazz();
             createdByUserBean = dao.findById(agentId, clazz, JpaReflectionHelper.getInstance().isVersioned(clazz));
-
-//            Class createByClass = JpaReflectionHelper.getInstance().convertClassNameToClass(
-//                                                DataModelHelper.getInstance().getCREATED_BY_FIELD());
+ 
             Field[] fields = bean.getClass().getDeclaredFields();
             Arrays.stream(fields)
                     .forEach(f -> {
@@ -397,28 +390,5 @@ public class DinaDataLogic<T extends EntityBean> implements Serializable {
                 throw new DinaException(ex.getMessage()); 
             }
         }
-    } 
-    
-    
-    
-    
-    
-    
-    
-    
-    //    /**
-//     * Finds all the instances of an entity
-//     * 
-//     * 
-//     * @param entityName 
-//     * @return List
-//     */
-//    public List<T> findAll(String entityName) { 
-//        try {
-//            return dao.findAll(JpaReflectionHelper.getInstance().convertClassNameToClass(entityName)); 
-//        } catch (DinaException e) {
-//            throw e;
-//        } 
-//    }
-    
+    }  
 }
