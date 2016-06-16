@@ -21,6 +21,7 @@ public class DataModelHelperNGTest {
     private final String TIME_CREAGED_FIELD = "timestampCreated";
     private final String VERSION = "Version";
     private final String ENTITY_PACKAGE = "se.nrm.dina.datamodel.impl.";
+    private final String CREATED_BY_CLASS_NAME = "Agent";
     
     private static DataModelHelper instance;
     
@@ -49,6 +50,22 @@ public class DataModelHelperNGTest {
         assertTrue(result instanceof DataModelHelper);
     }
 
+    
+    
+    /**
+     * Test of getInstance method, of class DataModelHelper.
+     */
+    @Test
+    public void testInstanceIsNull() {
+        
+        System.out.println("testInstanceIsNull"); 
+        
+        instance = null;
+        
+        instance = DataModelHelper.getInstance();
+        assertNotNull(instance);
+        assertTrue(instance instanceof DataModelHelper);
+    }
     /**
      * Test of getENTITY_PACKAGE method, of class DataModelHelper.
      */
@@ -89,5 +106,15 @@ public class DataModelHelperNGTest {
         System.out.println("getTIME_CREAGED_FIELD"); 
         String result = instance.getTIME_CREATED_FIELD();
         assertEquals(result, TIME_CREAGED_FIELD); 
+    } 
+    
+        /**
+     * Test of getTIME_CREATED_FIELD method, of class DataModelHelper.
+     */
+    @Test
+    public void testGetCreated_By_Class_Name() {
+        System.out.println("testGetCreated_By_Class_Name"); 
+        String result = instance.getCREATED_BY_CLASS_NAME();
+        assertEquals(result, CREATED_BY_CLASS_NAME); 
     } 
 }

@@ -6,6 +6,7 @@
 package se.nrm.dina.data.jpa.impl;
 
 import java.util.ArrayList; 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import javax.persistence.EntityManager;
@@ -34,6 +35,9 @@ public class DinaDaoImplNGTest {
     
     @Mock
     static EntityManager entityManager;
+    
+    @Mock
+    static QueryBuilder queryBuilder;
     
     @Mock
     static Query query;
@@ -104,6 +108,54 @@ public class DinaDaoImplNGTest {
         verify(query).getResultList();
         assertEquals(expResult, result.size());  
         assertSame(result, testEntities);
+    }
+    
+    
+    public void testFindAllWithCondition() throws Exception {
+        System.out.println("testFindAllWithCondition");
+        
+        List<Testentity> testEntities = new ArrayList<>();
+        Testentity testEntity = new Testentity(20);
+        testEntities.add(testEntity);
+        
+        testEntity = new Testentity(21);
+        testEntities.add(testEntity);
+        
+        testEntity = new Testentity(22);
+        testEntities.add(testEntity);
+        
+//        testEntity = new Testentity(23);
+//        testEntities.add(testEntity);
+//        
+//        testEntity = new Testentity(24);
+//        testEntities.add(testEntity);
+//        
+//        testEntity = new Testentity(25);
+//        testEntities.add(testEntity);
+//        
+//        testEntity = new Testentity(26);
+//        testEntities.add(testEntity);
+                
+        Map<String, String> conditions = new HashMap<>();
+        conditions.put("key", "value");
+        boolean isFuzzSearh = false;
+        
+        Class clazz = Testentity.class;
+        int limit = 2;
+        int offset = 2;
+        
+        when(entityManager.createQuery(strQuery)).thenReturn(query); 
+        when(queryBuilder.createQuery(query, clazz, conditions, isFuzzSearh)).thenReturn(query);
+        when(query.getResultList()).thenReturn(testEntities);
+        int expResult = 2;
+        
+        dao = new DinaDaoImpl(entityManager, query);
+        List<Testentity> result = dao.findAll(clazz, strQuery, limit, conditions, isFuzzSearh, offset);  
+        
+        verify(entityManager).createQuery(strQuery);
+        verify(query).getResultList();
+        verify(query).setFirstResult(offset);
+        assertEquals(expResult, result.size());   
     }
     
     

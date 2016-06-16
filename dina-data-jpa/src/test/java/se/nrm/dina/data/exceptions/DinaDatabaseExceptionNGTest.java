@@ -25,6 +25,7 @@ public class DinaDatabaseExceptionNGTest {
     private static ErrorBean errorBean;
     private static List<ErrorBean> errorBeans;
     private static int errorCode;
+    private static String errorMsg;
 
     public DinaDatabaseExceptionNGTest() {
     }
@@ -35,6 +36,7 @@ public class DinaDatabaseExceptionNGTest {
         errorBean = new ErrorBean("testName", "testError");
         errorBeans = new ArrayList<>();
         errorBeans.add(errorBean); 
+        errorMsg = "error";
     }
 
     @AfterClass
@@ -64,6 +66,17 @@ public class DinaDatabaseExceptionNGTest {
         assertEquals(results, errorBeans);
         assertEquals(resultCode, errorCode);
         assertEquals(results.size(), 1); 
+    }
+    
+    @Test
+    public void testConstructWithErrorMessage() {
+        System.out.println("testConstructWithErrorMessage");
+        instance = new DinaDatabaseException(errorMsg, errorCode);
+        String results = instance.getMessage();
+        int resultCode = instance.getErrorCode();
+        assertNotNull(results);
+        assertEquals(results, errorMsg);
+        assertEquals(resultCode, errorCode); 
     }
     
     @Test
