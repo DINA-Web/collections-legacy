@@ -4,8 +4,7 @@
  * and open the template in the editor.
  */
 package se.nrm.dina.logic.util;
-
-import java.lang.reflect.Field;
+ 
 import se.nrm.dina.data.util.Util;
 import java.util.List; 
 import java.util.Map; 

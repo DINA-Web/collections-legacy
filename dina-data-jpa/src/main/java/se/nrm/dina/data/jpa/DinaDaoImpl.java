@@ -29,7 +29,9 @@ import se.nrm.dina.data.exceptions.DinaConstraintViolationException;
 import se.nrm.dina.data.exceptions.DinaException;  
 import se.nrm.dina.data.util.HelpClass;
 import se.nrm.dina.data.util.Util;
-import se.nrm.dina.datamodel.*; 
+import se.nrm.dina.data.vo.ErrorBean;
+import se.nrm.dina.datamodel.EntityBean;
+import se.nrm.dina.datamodel.impl.*; 
 
 /**
  * CRUD operations to database
