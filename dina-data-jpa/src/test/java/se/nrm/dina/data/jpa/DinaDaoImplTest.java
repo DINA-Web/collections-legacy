@@ -38,13 +38,13 @@ import static org.testng.Assert.assertEquals;
 import static org.testng.Assert.fail;
 import se.nrm.dina.data.exceptions.DinaException; 
 import se.nrm.dina.datamodel.EntityBean;
-import se.nrm.dina.datamodel.impl.Accession;
-import se.nrm.dina.datamodel.impl.Geoname;
-import se.nrm.dina.datamodel.impl.Recordsetitem;
-import se.nrm.dina.datamodel.impl.Sppermission;
-import se.nrm.dina.datamodel.impl.Workbenchdataitem;
-import se.nrm.dina.datamodel.impl.Workbenchrow;
-import se.nrm.dina.datamodel.impl.Workbenchrowimage;
+import se.nrm.dina.datamodel.Accession;
+import se.nrm.dina.datamodel.Geoname;
+import se.nrm.dina.datamodel.Recordsetitem;
+import se.nrm.dina.datamodel.Sppermission;
+import se.nrm.dina.datamodel.Workbenchdataitem;
+import se.nrm.dina.datamodel.Workbenchrow;
+import se.nrm.dina.datamodel.Workbenchrowimage;
 
 /**
  *

@@ -28,10 +28,15 @@ import org.slf4j.LoggerFactory;
 import se.nrm.dina.data.exceptions.DinaConstraintViolationException;
 import se.nrm.dina.data.exceptions.DinaException;  
 import se.nrm.dina.data.util.HelpClass;
-import se.nrm.dina.data.util.Util;
-import se.nrm.dina.data.vo.ErrorBean;
+import se.nrm.dina.data.util.Util; 
 import se.nrm.dina.datamodel.EntityBean;
-import se.nrm.dina.datamodel.impl.*; 
+import se.nrm.dina.datamodel.ErrorBean;
+import se.nrm.dina.datamodel.Geoname;
+import se.nrm.dina.datamodel.Recordsetitem;
+import se.nrm.dina.datamodel.Sppermission;
+import se.nrm.dina.datamodel.Workbenchdataitem;
+import se.nrm.dina.datamodel.Workbenchrow;
+import se.nrm.dina.datamodel.Workbenchrowimage; 
 
 /**
  * CRUD operations to database

@@ -14,9 +14,9 @@ import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;  
 import se.nrm.dina.data.exceptions.DinaException;
 import se.nrm.dina.data.exceptions.ErrorMsg;
-import se.nrm.dina.datamodel.impl.Accession;
-import se.nrm.dina.datamodel.impl.Collectionobject;
-import se.nrm.dina.datamodel.impl.Division;
+import se.nrm.dina.datamodel.Accession;
+import se.nrm.dina.datamodel.Collectionobject;
+import se.nrm.dina.datamodel.Division;
 import se.nrm.dina.datamodel.EntityBean;
 
 /**

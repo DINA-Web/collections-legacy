@@ -2887,6 +2887,7 @@ public class Agent extends BaseEntity {
         this.institutionTCID = institutionTCID;
     }
  
+    @XmlIDREF
     public Division getDivisionID() {
         return divisionID;
     }
