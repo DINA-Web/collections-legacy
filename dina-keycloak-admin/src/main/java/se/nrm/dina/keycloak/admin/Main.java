@@ -12,6 +12,7 @@ package se.nrm.dina.keycloak.admin;
 public class Main {
     
     private static final String KEYLOAK_AUTH_PATH = "https://beta-sso.dina-web.net/auth";
+    private static final String TSV_PATH = "/Users/idali/Desktop/keycloakAdmin/users 2.tsv";
 
     public static void main(String[] args) {
       
@@ -23,9 +24,9 @@ public class Main {
             System.out.println(serviceUrl);
             System.out.println(tsvPath);
             new AdminClient().uploadUser(serviceUrl, tsvPath);
-        } else {
+        } else { 
             System.out.println("You need specify keycloak url and tsv file path");
             System.exit(0);
-        } 
-    } 
+        }  
+    }
 }
