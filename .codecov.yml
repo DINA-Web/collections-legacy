@@ -9,7 +9,7 @@ coverage:
   token: 2e9679cc-6cb5-4835-a539-4544d67ca529
 
   ignore:
-  - dina-datamodel/*
+  - dina-datamodel/src/main/java/se/nrm/dina/datamodel/BaseEntity.java
   - dina-data-service/src/main/java/org/netbeans/rest/application/config/ApplicationConfig.java
   
   status:
