@@ -90,7 +90,8 @@ public class DinaService {
     @GET
     @Path("{entity}/search")  
     public Response getData(@PathParam("entity") String entity, @Context UriInfo info) {
-
+        logger.info("getData");   
+        
         MultivaluedMap<String, String> map = info.getQueryParameters(); 
 
         try {  
