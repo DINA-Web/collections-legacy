@@ -1,12 +1,12 @@
 codecov:
-  branch: master
+  branch: master 
 
 comment:
   layout: header, changes, diff
  
 coverage:
 
-  token: 2e9679cc-6cb5-4835-a539-4544d67ca529
+
 
   ignore:
   - dina-datamodel/src/main/java/se/nrm/dina/datamodel/BaseEntity.java
