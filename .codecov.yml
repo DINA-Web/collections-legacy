@@ -7,7 +7,7 @@ comment:
 coverage:
   ignore:
   - dina-datamodel/src/main/java/se/nrm/dina/datamodel/BaseEntity.java
-  - dina-datamodel/src/main/java/se/nrm/dina/datamodel/impl
+  - dina-datamodel/src/main/java/se/nrm/dina/datamodel/impl/*
   - dina-data-service/src/main/java/org/netbeans/rest/application/config/ApplicationConfig.java
   
   status:
