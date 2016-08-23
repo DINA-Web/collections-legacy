@@ -123,13 +123,15 @@ public class DinaService {
     @Path("{entity}/search")
     public Response getData(@Context HttpServletRequest req, @PathParam("entity") String entity, @Context UriInfo info) {
 
+        logger.info("getData : {} -- {}", entity, info);
+        
         MultivaluedMap<String, String> map = info.getQueryParameters();
         int offset = se.nrm.dina.logic.util.HelpClass.getInstance().strToInt(map.getFirst("offset"));
         int limit = se.nrm.dina.logic.util.HelpClass.getInstance().strToInt(map.getFirst("limit")); 
         String orderBy = map.getFirst("orderby");
         String sort = map.getFirst("sort");
         boolean exact =  se.nrm.dina.logic.util.HelpClass.getInstance().strToBoolean(map.getFirst("exact"));
-         
+        logger.info("is exact search : {}", exact);
         
         List<String> order = new ArrayList<>();
         if (orderBy != null) {
@@ -156,8 +158,8 @@ public class DinaService {
     private Predicate<Map.Entry<String, List<String>>> filterCondition() {
         return s -> !s.getKey().equals("offset")
                 && !s.getKey().equals("limit")
-                && !s.getKey().equals("minid")
-                && !s.getKey().equals("maxid")
+//                && !s.getKey().equals("minid")
+//                && !s.getKey().equals("maxid")
                 && !s.getKey().equals("orderby")
                 && !s.getKey().equals("exact")
                 && !s.getKey().equals("sort");

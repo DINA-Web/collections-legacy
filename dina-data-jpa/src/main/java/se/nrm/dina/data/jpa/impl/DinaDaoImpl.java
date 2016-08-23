@@ -74,13 +74,13 @@ public class DinaDaoImpl<T extends EntityBean> implements DinaDao<T>, Serializab
     }
     
     @Override
-    public List<T> findAll(Class<T> clazz, String jpql, int limit, Map<String, String> conditions, boolean isFuzzSearh, int offset) {
+    public List<T> findAll(Class<T> clazz, String jpql, int limit, Map<String, String> conditions, boolean isExact, int offset) {
 //        logger.info("findAll : {} -- {}", jpql, conditions);
          
         try {
             query = entityManager.createQuery(jpql);   
             if(conditions != null && !conditions.isEmpty()) {
-                query =  QueryBuilder.getInstance().createQuery(query, clazz, conditions, isFuzzSearh);
+                query =  QueryBuilder.getInstance().createQuery(query, clazz, conditions, isExact);
             } 
             if(offset > 0) {
                 query.setFirstResult(offset);

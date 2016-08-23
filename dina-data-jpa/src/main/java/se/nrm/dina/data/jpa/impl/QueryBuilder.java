@@ -48,8 +48,8 @@ class QueryBuilder {
      * @param isFuzzSearch
      * @return Query
      */
-    public Query createQuery(Query query, Class clazz, Map<String, String> parameters, boolean isFuzzSearch) {
-        logger.info("createQuery : {}", isFuzzSearch);
+    public Query createQuery(Query query, Class clazz, Map<String, String> parameters, boolean isExact) {
+        logger.info("createQuery : {}", isExact);
         if (parameters != null) {
             parameters.entrySet()
                     .stream()
@@ -75,7 +75,7 @@ class QueryBuilder {
                                     setShotValue(fieldName, value, query);
                                     break;
                                 default:
-                                    setDefaultValue(fieldName, value, query, isFuzzSearch);
+                                    setDefaultValue(fieldName, value, query, isExact);
                                     break;
                             }
                         } catch (DinaException e) {
@@ -123,12 +123,12 @@ class QueryBuilder {
         } 
     } 
     
-    private void setDefaultValue(String fieldName, String value, Query query, boolean isFuzzSearch) {
-        logger.info("setDefaultValue : {} -- {}", value, isFuzzSearch);
-        if (isFuzzSearch) {
-            query.setParameter(fieldName, "%" + value + "%");
-        } else {
+    private void setDefaultValue(String fieldName, String value, Query query, boolean isExact) {
+        logger.info("setDefaultValue : {} -- {}", value, isExact);
+        if (isExact) {
             query.setParameter(fieldName, value);
+        } else {
+            query.setParameter(fieldName, "%" + value + "%"); 
         }
     } 
  
