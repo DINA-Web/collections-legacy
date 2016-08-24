@@ -106,7 +106,7 @@ public class DinaDaoImpl<T extends EntityBean> implements DinaDao<T>, Serializab
             if(isVersioned) {
                 tmp = entityManager.find(clazz, id, LockModeType.OPTIMISTIC); 
             } else {
-                tmp = entityManager.find(clazz, id, LockModeType.PESSIMISTIC_WRITE);
+                tmp = entityManager.find(clazz, id, LockModeType.PESSIMISTIC_READ);
             }  
             entityManager.flush();
             return tmp; 
@@ -148,8 +148,7 @@ public class DinaDaoImpl<T extends EntityBean> implements DinaDao<T>, Serializab
         T tmp = entity;
         try {
             entityManager.persist(entity);
-            entityManager.flush();
-            logger.info("temp : {}", tmp);     
+            entityManager.flush(); 
         } catch (javax.persistence.PersistenceException ex) {  
             if (ex.getCause() instanceof  org.hibernate.exception.ConstraintViolationException) {  
                 org.hibernate.exception.ConstraintViolationException e = (org.hibernate.exception.ConstraintViolationException) ex.getCause();

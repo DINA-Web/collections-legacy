@@ -5,25 +5,35 @@
  */
 package se.nrm.dina.data.jpa.impl;
 
+import java.math.BigDecimal;
 import java.util.ArrayList; 
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import javax.persistence.EntityManager;
+import javax.persistence.LockModeType;
+import javax.persistence.OptimisticLockException; 
 import javax.persistence.Query;
-import javax.persistence.TypedQuery;   
+import javax.persistence.TypedQuery;     
 import org.junit.AfterClass;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertSame;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertSame; 
+import static org.junit.Assert.assertTrue;
 import org.junit.BeforeClass; 
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.mockito.Mock; 
+import org.mockito.Mock;  
+import static org.mockito.Mockito.doThrow; 
+import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
-import org.mockito.runners.MockitoJUnitRunner; 
+import org.mockito.runners.MockitoJUnitRunner;   
+import se.nrm.dina.data.exceptions.DinaDatabaseException;  
+import se.nrm.dina.data.exceptions.DinaException;
 import se.nrm.dina.data.jpa.DinaDao;
+import se.nrm.dina.datamodel.EntityBean;
 import se.nrm.dina.datamodel.impl.Testentity;
 
 /**
@@ -53,6 +63,9 @@ public class DinaDaoImplNGTest {
     
     private String strQuery;
     private static DinaDao dao;
+    
+    private Testentity theEntity;
+    private Object PowerMockito;
     
     public DinaDaoImplNGTest() {
     }
@@ -95,8 +108,8 @@ public class DinaDaoImplNGTest {
    
         Class clazz = Testentity.class; 
         List<Testentity> testEntities = new ArrayList<>();
-        Testentity tetEntity = new Testentity(20);
-        testEntities.add(tetEntity);
+        theEntity = new Testentity(20);
+        testEntities.add(theEntity);
         
         when(entityManager.createNamedQuery(clazz.getSimpleName() + ".findAll")).thenReturn(query); 
         when(query.getResultList()).thenReturn(testEntities);
@@ -115,14 +128,14 @@ public class DinaDaoImplNGTest {
         System.out.println("testFindAllWithCondition");
         
         List<Testentity> testEntities = new ArrayList<>();
-        Testentity testEntity = new Testentity(20);
-        testEntities.add(testEntity);
+        theEntity = new Testentity(20);
+        testEntities.add(theEntity);
         
-        testEntity = new Testentity(21);
-        testEntities.add(testEntity);
+        theEntity = new Testentity(21);
+        testEntities.add(theEntity);
         
-        testEntity = new Testentity(22);
-        testEntities.add(testEntity);
+        theEntity = new Testentity(22);
+        testEntities.add(theEntity);
         
 //        testEntity = new Testentity(23);
 //        testEntities.add(testEntity);
@@ -175,8 +188,8 @@ public class DinaDaoImplNGTest {
         int offset = 0;
         
         List<Testentity> testEntities = new ArrayList<>();
-        Testentity tetEntity = new Testentity(20);
-        testEntities.add(tetEntity);
+        theEntity = new Testentity(20);
+        testEntities.add(theEntity);
         
         when(entityManager.createQuery(strQuery)).thenReturn(query); 
         when(query.getResultList()).thenReturn(testEntities);
@@ -221,156 +234,273 @@ public class DinaDaoImplNGTest {
 //    }
 
 
-//
-//    /**
-//     * Test of findById method, of class DinaDaoImpl.
-//     */
-//    @Test
-//    public void testFindById() throws Exception {
+
+    /**
+     * Test of findById method, of class DinaDaoImpl.
+     * @throws java.lang.Exception
+     */
+    @Test
+    public void testFindByIdOptimistic() throws Exception {
+        System.out.println("findById");
+        
+        theEntity = new Testentity(20);
+        when(entityManager.find(Testentity.class, 20, LockModeType.OPTIMISTIC)).thenReturn(theEntity); 
+        
+        dao = new DinaDaoImpl(entityManager);
+        EntityBean result = dao.findById(20, Testentity.class, true);
+         
+        verify(entityManager).find(Testentity.class, 20, LockModeType.OPTIMISTIC);
+        verify(entityManager).flush();
+        assertSame(theEntity, result);   
+    }
+    
+    /**
+     * Test of findById method, of class DinaDaoImpl.
+     * @throws java.lang.Exception
+     */
+    @Test
+    public void testFindByIdPessimistic() throws Exception {
+        System.out.println("findById");
+        
+        theEntity = new Testentity(20);
+        when(entityManager.find(Testentity.class, 20, LockModeType.PESSIMISTIC_READ)).thenReturn(theEntity); 
+        
+        dao = new DinaDaoImpl(entityManager);
+        EntityBean result = dao.findById(20, Testentity.class, false);
+         
+        verify(entityManager).find(Testentity.class, 20, LockModeType.PESSIMISTIC_READ);
+        verify(entityManager).flush();
+        assertSame(theEntity, result);  
+    }
+    
+        
+    @Test(expected = DinaDatabaseException.class)
+    public void testFindByIdFailure() throws Exception {
+        System.out.println("findById");
+        
+        when(entityManager.find(Testentity.class, 20, LockModeType.OPTIMISTIC)).thenThrow(new OptimisticLockException());
+        
+        dao = new DinaDaoImpl(entityManager); 
+        EntityBean result = dao.findById(20, Testentity.class, true); 
+         
+        verify(entityManager).find(Testentity.class, 20, LockModeType.OPTIMISTIC);
+        verify(entityManager).refresh(null);
+        assertNull(result);
+    }
+    
+//    @Test(expected = DinaDatabaseException.class)
+//    public void testFindByIdFailure2() {
 //        System.out.println("findById");
-//        int id = 0;
-//        Class<T> clazz = null;
-//        boolean isVersioned = false;
-//        DinaDaoImpl instance = new DinaDaoImpl();
-//        Object expResult = null;
-//        Object result = instance.findById(id, clazz, isVersioned);
-//        assertEquals(result, expResult);
-//        // TODO review the generated test code and remove the default call to fail.
-//        fail("The test case is a prototype.");
+// 
+//        doThrow(mock(Exception.class)).when(entityManager).find(Testentity.class, "20", LockModeType.NONE);
+////        when(entityManager.find(Testentity.class, 20, LockModeType.OPTIMISTIC)).thenThrow(new Exception());
+//        
+//        dao = new DinaDaoImpl(entityManager); 
+//        EntityBean result = dao.findById(20, Testentity.class, true); 
+//        assertNull(result);
 //    }
-//
-//    /**
-//     * Test of findByStringId method, of class DinaDaoImpl.
-//     */
-//    @Test
-//    public void testFindByStringId() throws Exception {
-//        System.out.println("findByStringId");
-//        String id = "";
-//        Class<T> clazz = null;
-//        DinaDaoImpl instance = new DinaDaoImpl();
-//        Object expResult = null;
-//        Object result = instance.findByStringId(id, clazz);
-//        assertEquals(result, expResult);
-//        // TODO review the generated test code and remove the default call to fail.
-//        fail("The test case is a prototype.");
-//    }
-//
-//    /**
-//     * Test of findByReference method, of class DinaDaoImpl.
-//     */
-//    @Test
-//    public void testFindByReference() throws Exception {
-//        System.out.println("findByReference");
-//        int id = 0;
-//        Class<T> clazz = null;
-//        DinaDaoImpl instance = new DinaDaoImpl();
-//        Object expResult = null;
-//        Object result = instance.findByReference(id, clazz);
-//        assertEquals(result, expResult);
-//        // TODO review the generated test code and remove the default call to fail.
-//        fail("The test case is a prototype.");
-//    }
-//
-//    /**
-//     * Test of create method, of class DinaDaoImpl.
-//     */
-//    @Test
-//    public void testCreate() throws Exception {
-//        System.out.println("create");
-//        Object entity = null;
-//        DinaDaoImpl instance = new DinaDaoImpl();
-//        Object expResult = null;
-//        Object result = instance.create(entity);
-//        assertEquals(result, expResult);
-//        // TODO review the generated test code and remove the default call to fail.
-//        fail("The test case is a prototype.");
-//    }
-//
-//    /**
-//     * Test of merge method, of class DinaDaoImpl.
-//     */
-//    @Test
-//    public void testMerge() throws Exception {
-//        System.out.println("merge");
-//        Object entity = null;
-//        DinaDaoImpl instance = new DinaDaoImpl();
-//        Object expResult = null;
-//        Object result = instance.merge(entity);
-//        assertEquals(result, expResult);
-//        // TODO review the generated test code and remove the default call to fail.
-//        fail("The test case is a prototype.");
-//    }
-//
-//    /**
-//     * Test of updateByJPQL method, of class DinaDaoImpl.
-//     */
-//    @Test
-//    public void testUpdateByJPQL() throws Exception {
-//        System.out.println("updateByJPQL");
-//        String jpql = "";
-//        DinaDaoImpl instance = new DinaDaoImpl();
-//        boolean expResult = false;
-//        boolean result = instance.updateByJPQL(jpql);
-//        assertEquals(result, expResult);
-//        // TODO review the generated test code and remove the default call to fail.
-//        fail("The test case is a prototype.");
-//    }
-//
-//    /**
-//     * Test of getEntityByJPQL method, of class DinaDaoImpl.
-//     */
-//    @Test
-//    public void testGetEntityByJPQL() throws Exception {
-//        System.out.println("getEntityByJPQL");
-//        String jpql = "";
-//        DinaDaoImpl instance = new DinaDaoImpl();
-//        Object expResult = null;
-//        Object result = instance.getEntityByJPQL(jpql);
-//        assertEquals(result, expResult);
-//        // TODO review the generated test code and remove the default call to fail.
-//        fail("The test case is a prototype.");
-//    }
-//
-//    /**
-//     * Test of getCountByQuery method, of class DinaDaoImpl.
-//     */
-//    @Test
-//    public void testGetCountByQuery() throws Exception {
-//        System.out.println("getCountByQuery");
-//        String strQuery = "";
-//        DinaDaoImpl instance = new DinaDaoImpl();
-//        int expResult = 0;
-//        int result = instance.getCountByQuery(strQuery);
-//        assertEquals(result, expResult);
-//        // TODO review the generated test code and remove the default call to fail.
-//        fail("The test case is a prototype.");
-//    }
-//
-//    /**
-//     * Test of delete method, of class DinaDaoImpl.
-//     */
-//    @Test
-//    public void testDelete() throws Exception {
-//        System.out.println("delete");
-//        Object entity = null;
-//        DinaDaoImpl instance = new DinaDaoImpl();
-//        instance.delete(entity);
-//        // TODO review the generated test code and remove the default call to fail.
-//        fail("The test case is a prototype.");
-//    }
-//
+
+    /**
+     * Test of findByStringId method, of class DinaDaoImpl.
+     * @throws java.lang.Exception
+     */
+    @Test
+    public void testFindByStringId() throws Exception {
+        System.out.println("testFindByStringId");
+ 
+        theEntity = new Testentity();
+        when(entityManager.find(Testentity.class, "20", LockModeType.NONE)).thenReturn(theEntity);
+ 
+        dao = new DinaDaoImpl(entityManager); 
+        EntityBean result = dao.findByStringId("20", Testentity.class);
+        verify(entityManager).find(Testentity.class, "20", LockModeType.NONE);
+        verify(entityManager).flush();
+        assertSame(theEntity, result);
+    }
+    
+    @Test(expected = DinaDatabaseException.class)
+    public void testFindByStringIdFailure() throws Exception {
+        System.out.println("testFindByStringId");
+ 
+        theEntity = new Testentity();
+        when(entityManager.find(Testentity.class, "20", LockModeType.NONE)).thenThrow(new OptimisticLockException());
+ 
+        dao = new DinaDaoImpl(entityManager); 
+        EntityBean result = dao.findByStringId("20", Testentity.class);
+        verify(entityManager).refresh(null);
+        assertNull(result);
+    }
+
+    /**
+     * Test of findByReference method, of class DinaDaoImpl.
+     * @throws java.lang.Exception
+     */
+    @Test
+    public void testFindByReference() throws Exception {
+        System.out.println("findByReference");
+        
+        theEntity = new Testentity();
+        
+        when(entityManager.getReference(Testentity.class, 20)).thenReturn(theEntity);
+        dao = new DinaDaoImpl(entityManager); 
+        EntityBean result = dao.findByReference(20, Testentity.class);
+        verify(entityManager).getReference(Testentity.class, 20);
+        assertEquals(theEntity, result);
+    }
+
+    /**
+     * Test of create method, of class DinaDaoImpl.
+     * @throws java.lang.Exception
+     */
+    @Test 
+    public void testCreate() throws Exception {
+        System.out.println("create");
+        
+        EntityBean bean = new Testentity(50);
+        
+        int expResult = 50;
+        
+        dao = new DinaDaoImpl(entityManager); 
+        Testentity result = (Testentity) dao.create(bean);
+        verify(entityManager).persist(bean);
+        verify(entityManager).flush();        
+        assertEquals(expResult, (int) result.getEntityId());
+    }
+    
+    @Test 
+    public void testCreateFailure() throws Exception {
+        System.out.println("create");
+         
+        EntityBean bean = new Testentity();
+        doThrow(org.hibernate.exception.ConstraintViolationException.class).when(entityManager).persist(bean); 
+  
+        dao = new DinaDaoImpl(entityManager); 
+        dao.create(bean);
+        verify(entityManager).persist(bean);   
+        verify(entityManager, times(0)).flush();
+    }
+
+    /**
+     * Test of merge method, of class DinaDaoImpl.
+     * @throws java.lang.Exception
+     */
+    @Test
+    public void testMerge() throws Exception {
+        System.out.println("merge");
+        
+        theEntity = new Testentity(20);
+        theEntity.setBgDecimal(BigDecimal.ONE);
+        BigDecimal expectedResult = BigDecimal.ONE;
+        
+        when(entityManager.merge(theEntity)).thenReturn(theEntity);
+        
+        dao = new DinaDaoImpl(entityManager); 
+        Testentity result = (Testentity) dao.merge(theEntity);
+        
+        verify(entityManager).merge(theEntity);
+        verify(entityManager).flush();
+        assertEquals(expectedResult, result.getBgDecimal());
+    }
+
+    /**
+     * Test of updateByJPQL method, of class DinaDaoImpl.
+     * @throws java.lang.Exception
+     */
+    @Test
+    public void testUpdateByJPQL() throws Exception {
+        System.out.println("updateByJPQL");
+        
+        StringBuilder sb = new StringBuilder();
+        sb.append("UPDATE Accession a SET a.assectionNumber = 'acc1235'");
+        sb.append(" WHERE a.accessionId = 20");
+        
+        when(entityManager.createQuery(sb.toString())).thenReturn(query);
+        when(query.executeUpdate()).thenReturn(1);
+        
+        dao = new DinaDaoImpl(entityManager); 
+        boolean result = dao.updateByJPQL(sb.toString());
+        verify(entityManager).createQuery(sb.toString());
+        verify(query).executeUpdate();
+        assertTrue(result);
+    }
+
+    /**
+     * Test of getEntityByJPQL method, of class DinaDaoImpl.
+     * @throws java.lang.Exception
+     */
+    @Test
+    public void testGetEntityByJPQL() throws Exception {
+        System.out.println("getEntityByJPQL");
+        
+        String jpql = "SELECT t FROM Testentity WHERE t.testEntity = 2";
+        
+        theEntity = new Testentity(2);
+        when(entityManager.createQuery(jpql)).thenReturn(query);
+        when(query.getSingleResult()).thenReturn(theEntity);
+        
+        Testentity expResult = theEntity;
+        
+        dao = new DinaDaoImpl(entityManager); 
+        EntityBean result = dao.getEntityByJPQL(jpql);
+        verify(entityManager).createQuery(jpql);
+        verify(query).getSingleResult();
+        assertEquals(expResult, result);
+        assertEquals(expResult.getEntityId(), result.getEntityId());
+    }
+
+    /**
+     * Test of getCountByQuery method, of class DinaDaoImpl.
+     * @throws java.lang.Exception
+     */
+    @Test
+    public void testGetCountByQuery() throws Exception {
+        System.out.println("testGetCountByQuery");
+         
+        when(entityManager.createQuery(strQuery)).thenReturn(query);
+        when(query.getSingleResult()).thenReturn(20);
+        
+        dao = new DinaDaoImpl(entityManager); 
+        int result = dao.getCountByQuery(strQuery);
+        verify(entityManager).createQuery(strQuery);
+        verify(query).getSingleResult();
+        assertEquals(result, 20);
+    }
+
+    /**
+     * Test of delete method, of class DinaDaoImpl.
+     * @throws java.lang.Exception
+     */
+    @Test
+    public void testDelete() throws Exception {
+        System.out.println("delete");
+        
+        theEntity = new Testentity(20);
+        
+        dao = new DinaDaoImpl(entityManager); 
+        dao.delete(theEntity);
+        
+        verify(entityManager).remove(theEntity);
+        verify(entityManager).flush();
+    }
+
 //    /**
 //     * Test of getRootCause method, of class DinaDaoImpl.
-//     */
+//     * @throws java.lang.Exception
+//     */ 
 //    @Test
 //    public void testGetRootCause() throws Exception {
 //        System.out.println("getRootCause");
-//        Throwable throwable = null;
-//        Throwable expResult = null;
+//         
+//        Throwable throwable = new DinaException(); 
+//        Throwable expResult = new DinaException();
+//        
+//        List<Throwable> throwables = new ArrayList<>();
+//        throwables.add(throwable);
+//         
+//        when(DinaDaoImpl.getThrowableList(throwable)).thenReturn(throwables);
+//        
 //        Throwable result = DinaDaoImpl.getRootCause(throwable);
-//        assertEquals(result, expResult);
-//        // TODO review the generated test code and remove the default call to fail.
-//        fail("The test case is a prototype.");
+//        assertEquals(result, expResult); 
 //    }
 //
 //    /**
