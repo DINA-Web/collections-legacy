@@ -12,8 +12,10 @@ import java.util.GregorianCalendar;
 import org.junit.AfterClass; 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
 import org.junit.BeforeClass;
 import org.junit.Test;
+import se.nrm.dina.data.exceptions.DinaException;
 
 /**
  *
@@ -66,10 +68,9 @@ public class HelpClassNGTest {
     public void testConvertStringToBigDecimal() {
         System.out.println("convertStringToBigDecimal");
         String strDouble = "20.5";
-        HelpClass instance = new HelpClass(); 
-        
+  
         BigDecimal expResult = new BigDecimal(20.5);
-        BigDecimal result = instance.convertStringToBigDecimal(strDouble);
+        BigDecimal result = testInstance.convertStringToBigDecimal(strDouble);
         assertEquals(result, expResult); 
     }
 
@@ -81,13 +82,47 @@ public class HelpClassNGTest {
         System.out.println("convertStringToDate");
         
         String strDate = "2000-01-01";
-        HelpClass instance = new HelpClass();
-        
+  
         Calendar calendar = new GregorianCalendar(2000, 00, 01);
         Date expResult = calendar.getTime();
-        Date result = instance.convertStringToDate(strDate);
-        System.out.println(result.toString());
+        Date result = testInstance.convertStringToDate(strDate); 
         assertEquals(result, expResult); 
+    }
+    
+    @Test(expected = DinaException.class)
+    public void testConvertStringToDateFailure() {
+        System.out.println("convertStringToDate");
+        
+        String strDate = "20001212"; 
+        Date result = testInstance.convertStringToDate(strDate);  
+        assertNull(result);
+    }
+    
+    @Test
+    public void testConvertStringToShort() {
+        System.out.println("testConvertStringToShort");
+        
+        String s = "2";  
+        int result = testInstance.convertStringToShort(s);
+        assertEquals(result, 2); 
+    }
+    
+    @Test
+    public void testConvertStringToShortNull() {
+        System.out.println("testConvertStringToShort");
+        
+        String s = null;  
+        int result = testInstance.convertStringToShort(s);
+        assertEquals(result, 0);
+    }
+    
+    @Test
+    public void testConvertStringToShortException() {
+        System.out.println("testConvertStringToShort");
+        
+        String s = "t";  
+        int result = testInstance.convertStringToShort(s);
+        assertEquals(result, 0);
     }
 
     /**
@@ -96,10 +131,9 @@ public class HelpClassNGTest {
     @Test
     public void testMaxLessThenLimit() {
         System.out.println("maxLimit");
-        int limit = 2000;
-        HelpClass instance = new HelpClass();
+        int limit = 2000; 
         int expResult = 500;
-        int result = instance.maxLimit(limit);
+        int result = testInstance.maxLimit(limit);
         assertEquals(result, expResult); 
     }
     
@@ -110,10 +144,18 @@ public class HelpClassNGTest {
     @Test
     public void testMaxGreatThenLimit() {
         System.out.println("maxLimit");
-        int limit = 20;
-        HelpClass instance = new HelpClass();
+        int limit = 20; 
         int expResult = 20;
-        int result = instance.maxLimit(limit);
+        int result = testInstance.maxLimit(limit);
         assertEquals(result, expResult); 
+    }
+    
+    @Test
+    public void testMaxLimit() {
+        System.out.println("maxLimit");
+        int limit = 0;
+ 
+        int result = testInstance.maxLimit(limit);
+        assertEquals(result, 50); 
     }
 }
