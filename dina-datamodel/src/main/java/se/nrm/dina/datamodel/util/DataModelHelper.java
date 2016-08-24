@@ -13,7 +13,7 @@ public class DataModelHelper {
     
     private final String CREATED_BY_FIELD = "createdByAgentID";
     private final String TIME_CREATED_FIELD = "timestampCreated";
-    private final String VERSION = "Version";
+    private final String VERSION = "version";
     private final String ENTITY_PACKAGE = "se.nrm.dina.datamodel.impl.";
     private final String CREATED_BY_CLASS_NAME = "Agent";
       

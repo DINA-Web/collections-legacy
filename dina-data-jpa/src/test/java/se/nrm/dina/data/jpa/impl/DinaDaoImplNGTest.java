@@ -30,8 +30,7 @@ import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 import org.mockito.runners.MockitoJUnitRunner;   
-import se.nrm.dina.data.exceptions.DinaDatabaseException;  
-import se.nrm.dina.data.exceptions.DinaException;
+import se.nrm.dina.data.exceptions.DinaDatabaseException;   
 import se.nrm.dina.data.jpa.DinaDao;
 import se.nrm.dina.datamodel.EntityBean;
 import se.nrm.dina.datamodel.impl.Testentity;
@@ -64,8 +63,7 @@ public class DinaDaoImplNGTest {
     private String strQuery;
     private static DinaDao dao;
     
-    private Testentity theEntity;
-    private Object PowerMockito;
+    private Testentity theEntity; 
     
     public DinaDaoImplNGTest() {
     }

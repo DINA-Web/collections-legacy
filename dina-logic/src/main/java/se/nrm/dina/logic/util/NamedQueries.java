@@ -198,7 +198,7 @@ public class NamedQueries {
                                 sb.append(" = :");
                                 sb.append(entry.getKey());
                             }
-                        } else if (JpaReflectionHelper.getInstance().isShotField(clazz, entry.getKey())) {
+                        } else if (JpaReflectionHelper.getInstance().isShortField(clazz, entry.getKey())) {
                             sb.append(" = :");
                             sb.append(entry.getKey());
                         } else {

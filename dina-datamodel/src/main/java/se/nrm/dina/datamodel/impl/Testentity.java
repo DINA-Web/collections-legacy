@@ -7,6 +7,7 @@ package se.nrm.dina.datamodel.impl;
 
 import java.math.BigDecimal;
 import java.util.List;
+import javax.persistence.Id;
 import se.nrm.dina.datamodel.BaseEntity; 
 
 /**
@@ -15,10 +16,15 @@ import se.nrm.dina.datamodel.BaseEntity;
  */
 public class Testentity extends BaseEntity {
     
+//    @Id
     private int id;
+    
     private Agent createdByAgentID;
-    private List<String> tetList;
+    private List<String> testList;
     private BigDecimal bgDecimal;
+    private short s;
+    private String string;
+    
     
     public Testentity() {
         
@@ -57,16 +63,28 @@ public class Testentity extends BaseEntity {
     public void setBgDecimal(BigDecimal bgDecimal) {
         this.bgDecimal = bgDecimal;
     }
+
+    public short getS() {
+        return s;
+    }
+
+    public void setS(short s) {
+        this.s = s;
+    }
+
+    public String getString() {
+        return string;
+    }
+
+    public void setString(String string) {
+        this.string = string;
+    }
      
-
-    
-    public List<String> getTetList() {
-        return tetList;
+    public List<String> getTestList() {
+        return testList;
     }
 
-    public void setTetList(List<String> tetList) {
-        this.tetList = tetList;
-    }
-    
-    
+    public void setTestList(List<String> testList) {
+        this.testList = testList;
+    }  
 }

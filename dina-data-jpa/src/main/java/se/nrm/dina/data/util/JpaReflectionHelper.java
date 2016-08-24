@@ -125,8 +125,8 @@ public class JpaReflectionHelper {
         }
     }
     
-    public boolean isShotField(Class clazz, String fieldName) {
-        logger.info("isShotField : {} -- {}", clazz, fieldName); 
+    public boolean isShortField(Class clazz, String fieldName) {
+        logger.info("isShortField : {} -- {}", clazz, fieldName); 
         
         
         try { 
@@ -138,7 +138,7 @@ public class JpaReflectionHelper {
             if (superClass == null) {
                 throw new DinaException(ErrorMsg.getInstance().getFieldNotExist(clazz.getSimpleName(), fieldName), 400);
             } else {
-                return isShotField(superClass, fieldName); 
+                return isShortField(superClass, fieldName); 
             }
         }
     }
@@ -260,7 +260,7 @@ public class JpaReflectionHelper {
                 return ValueType.DATE;
             } else if (isCollection(clazz, fieldName)) {
                 return ValueType.LIST;
-            } else if(isShotField(clazz, fieldName)) { 
+            } else if(isShortField(clazz, fieldName)) { 
                 return ValueType.SHORT;
             } else {
                 return ValueType.STRING;
@@ -284,7 +284,10 @@ public class JpaReflectionHelper {
         } catch (NoSuchFieldException e) {
             Class superClass = clazz.getSuperclass();
             if (superClass == null) {
-                throw new DinaException(ErrorMsg.getInstance().getFieldNotExist(clazz.getSimpleName(), fieldName), 400);
+                
+                // should return false?
+                // throw new DinaException(ErrorMsg.getInstance().getFieldNotExist(clazz.getSimpleName(), fieldName), 400);
+                return false;
             } else {
                 return validateFields(superClass, fieldName);
             }
@@ -364,16 +367,20 @@ public class JpaReflectionHelper {
         return getIDFieldName(bean.getClass()); 
     }
  
-    public String getIDFieldName(Class clazz) { 
+    public String getIDFieldName(Class clazz) {  
         return getIdField(clazz.getDeclaredFields()).getName(); 
     }
     
-    private Field getIdField(Field[] fields) {
-        return Arrays.asList(fields)
+    private Field getIdField(Field[] fields) {  
+        try {
+            return Arrays.asList(fields)
                 .stream()
                 .filter(f -> f.isAnnotationPresent(Id.class))
-                .findFirst()
+                .findAny() 
                 .get();
+        } catch(java.util.NoSuchElementException ex) {
+            throw new DinaException(ErrorMsg.getInstance().getNoIdAnnotatedFieldMsg(), 400);
+        } 
     }
 
     

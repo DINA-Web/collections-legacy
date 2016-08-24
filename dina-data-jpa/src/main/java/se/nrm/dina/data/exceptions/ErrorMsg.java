@@ -13,6 +13,7 @@ public class ErrorMsg {
     
     private final String CLASSNAME_CONVERT_ERROR = "No such entity ";
     private final String FIELD_NEMA_INVALID = "No such field ";
+    private final String NO_ID_ANNOTATED_FIELD_ERROR = "No id annotated field";
     
     private final int BAD_REQUEST_CODE = 400;
     
@@ -37,6 +38,10 @@ public class ErrorMsg {
         sb.append(" doesn't have this field: ");
         sb.append(fieldName);
         return sb.toString();
+    }
+    
+    public String getNoIdAnnotatedFieldMsg() { 
+        return NO_ID_ANNOTATED_FIELD_ERROR;
     }
     
     public int getNonUniqueErrorCode() {
