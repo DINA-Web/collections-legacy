@@ -48,7 +48,7 @@ public class NamedQueries {
         sb.append("SELECT e From ");
         sb.append(entityName);
         sb.append(" e ");
-
+          
         try {
             if (orderBy != null && !orderBy.isEmpty()) {
                 buildOrderByString(clazz, orderBy, sort, sb);
@@ -58,10 +58,7 @@ public class NamedQueries {
             String string = sb.toString().trim();
             if (StringUtils.endsWith(string, ",")) {
                 string = StringUtils.substringBeforeLast(string, ",");
-            }
-            
-            logger.info("String : {}", string);
-            
+            } 
             return string;
         } catch (DinaException e) {
             throw e;
@@ -107,62 +104,13 @@ public class NamedQueries {
             if(StringUtils.endsWith(string, ",")) {
                 string = StringUtils.substringBeforeLast(string, ",");
             }
+             
             return string;
         } catch(DinaException e) {
             throw e;
         }
     }
-
-//    private void buildMinId(int minid, Class clazz, StringBuilder sb) {
-//
-//        try {
-//            EntityBean bean = JpaReflectionHelper.getInstance().createNewInstance(clazz);
-//            String idFieldName = JpaReflectionHelper.getInstance().getIDFieldName(bean);
-//            if (JpaReflectionHelper.getInstance().isIntField(clazz, idFieldName)) {
-//                buildBaseQuery(sb, minid, idFieldName);
-//            }
-//        } catch (DinaException e) {
-//            throw e;
-//        }
-//    }
-
-//    private void buildMinAndMaxId(int minid, int maxid, Class clazz, StringBuilder sb) {
-//
-//        try {
-//            EntityBean bean = JpaReflectionHelper.getInstance().createNewInstance(clazz);
-//            String idFieldName = JpaReflectionHelper.getInstance().getIDFieldName(bean);
-//            if (JpaReflectionHelper.getInstance().isIntField(clazz, idFieldName)) {
-//                if (maxid > minid) {
-//                    buildBaseQuery(sb, minid, maxid, idFieldName);
-//                } else {
-//                    if (minid > 0) {
-//                        buildBaseQuery(sb, minid, idFieldName);
-//                    }
-//                }
-//            }
-//        } catch(DinaException e) {
-//            throw e;
-//        } 
-//    }
-//
-//    private void buildBaseQuery(StringBuilder sb, int minid, String idFieldName) {
-//  
-//        sb.append("WHERE e.");
-//        sb.append(idFieldName);
-//        sb.append(" >= ");
-//        sb.append(minid); 
-//    }
-//    
-//    private void buildBaseQuery(StringBuilder sb, int minid, int maxid, String idFieldName) {
-//  
-//        sb.append("WHERE e.");
-//        sb.append(idFieldName);
-//        sb.append(" BETWEEN ");
-//        sb.append(minid);
-//        sb.append(" AND ");
-//        sb.append(maxid);
-//    }
-
+ 
     private String buildSearchCriteria(Class clazz, Map<String, String> criteria, boolean isExact) {
 
         logger.info("buildSearchCriteria : {}", criteria);
@@ -207,6 +155,7 @@ public class NamedQueries {
                         }
                         sb.append(" AND ");
                     }); 
+              
             return StringUtils.substringBeforeLast(sb.toString(), " AND");
         } catch (DinaException e) {
             throw e;
@@ -254,56 +203,5 @@ public class NamedQueries {
         sb.append(" e"); 
         
         return sb.toString();
-    }
-
-    
-    
-    
-    
-    
-    
-    
-//    private void buildConditions(StringBuilder sb, Class clazz, Map<String, String> criteria, boolean isExact) {
-//        sb.append(" AND ");
-//        sb.append(buildSearchCriteria(clazz, criteria, isExact)); 
-//    }
-    
-        
-//    private void buildConditionsOnly(StringBuilder sb, Class clazz, Map<String, String> criteria, boolean isExact) { 
-//        sb.append("WHERE");
-//        sb.append(buildSearchCriteria(clazz, criteria, isExact)); 
-//    }
-//
-//    private String buildConditions(Class clazz, int minid, int maxid, Map<String, String> criteria, boolean isExact) {
-// 
-//        StringBuilder sb = new StringBuilder(buildMinAndMaxId(minid, maxid, clazz, null));
-// 
-//        if (criteria == null || criteria.isEmpty()) {
-//            return sb.toString().trim();
-//        } else { 
-//            sb.append(" AND ");
-//            sb.append(buildSearchCriteria(clazz, criteria, isExact));
-//            return sb.toString();
-//        } 
-//    }
-
-//    private String buildConditions(Class clazz, int offset, Map<String, String> criteria, boolean isExact) {
-//
-//        EntityBean bean = JpaReflectionHelper.getInstance().createNewInstance(clazz);
-//        String idFieldName = JpaReflectionHelper.getInstance().getIDFieldName(bean);
-//
-//        StringBuilder sb = new StringBuilder();
-//        sb.append("WHERE e.");
-//        sb.append(idFieldName);
-//        sb.append(" >= ");
-//        sb.append(offset);
-//
-//        if (criteria == null || criteria.isEmpty()) {
-//            return sb.toString().trim();
-//        } else { 
-//            sb.append(" AND ");
-//            sb.append(buildSearchCriteria(clazz, criteria, isExact));
-//            return sb.toString();
-//        } 
-//    }
+    } 
 }

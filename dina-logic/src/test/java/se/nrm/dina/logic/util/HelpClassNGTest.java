@@ -6,8 +6,7 @@
 package se.nrm.dina.logic.util;
 
 import java.sql.Date;
-import java.time.LocalDateTime;
-import java.util.ArrayList;
+import java.time.LocalDateTime; 
 import java.util.List;
 import org.junit.After;
 import org.junit.Before;
@@ -204,9 +203,20 @@ public class HelpClassNGTest {
     }
     
     @Test
-    public void testStrToBooleanEmptyFailure() {
+    public void testStrToBooleanFailure() {
         System.out.println("strToBoolean");
         String s = "sss";
+        instance = new HelpClass();
+ 
+        boolean result = instance.strToBoolean(s);
+        assertFalse(result); 
+    }
+    
+        
+    @Test
+    public void testStrToBooleanFailure1() {
+        System.out.println("strToBoolean");
+        String s = "1";
         instance = new HelpClass();
  
         boolean result = instance.strToBoolean(s);
