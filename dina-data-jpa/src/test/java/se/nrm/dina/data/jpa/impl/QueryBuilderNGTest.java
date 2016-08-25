@@ -95,6 +95,84 @@ public class QueryBuilderNGTest {
         assertNotNull(query); 
     }  
     
+    
+        
+    /**
+     * Test of createQuery method, of class QueryBuilder.
+     */
+    @Test
+    public void testCreateQueryBetween() {
+        System.out.println("createQuery");
+         
+        Class clazz = Testentity.class;
+         
+        Map<String, String> parameters = new HashMap<>();
+        parameters.put("id", "1");
+        parameters.put(DataModelHelper.getInstance().getCREATED_BY_FIELD(), "1");
+        parameters.put("bgDecimal", "between(1.0,10.0)"); 
+        parameters.put("s", "1");
+        parameters.put("string", "test");
+        parameters.put("version", "1");
+        parameters.put("timestampCreated", "between(2001-01-01,2003-10-10)");
+        
+        boolean isExact = true;
+   
+        instance = new QueryBuilder(); 
+           
+        query = instance.createQuery(query, clazz, parameters, isExact);
+        assertNotNull(query); 
+    }  
+    
+        /**
+     * Test of createQuery method, of class QueryBuilder.
+     */
+    @Test
+    public void testCreateQueryBetweenLessthan() {
+        System.out.println("createQuery");
+         
+        Class clazz = Testentity.class;
+         
+        Map<String, String> parameters = new HashMap<>();
+        parameters.put("id", "1");
+        parameters.put(DataModelHelper.getInstance().getCREATED_BY_FIELD(), "1");
+        parameters.put("bgDecimal", "lt(10.0)"); 
+        parameters.put("s", "1");
+        parameters.put("string", "test");
+        parameters.put("version", "1");
+        parameters.put("timestampCreated", "lt(2003-10-10)");
+        
+        boolean isExact = true;
+   
+        instance = new QueryBuilder(); 
+           
+        query = instance.createQuery(query, clazz, parameters, isExact);
+        assertNotNull(query); 
+    }  
+    
+    
+    @Test
+    public void testCreateQueryBetweenGreatthan() {
+        System.out.println("createQuery");
+         
+        Class clazz = Testentity.class;
+         
+        Map<String, String> parameters = new HashMap<>();
+        parameters.put("id", "1");
+        parameters.put(DataModelHelper.getInstance().getCREATED_BY_FIELD(), "1");
+        parameters.put("bgDecimal", "gt(10.0)"); 
+        parameters.put("s", "1");
+        parameters.put("string", "test");
+        parameters.put("version", "1");
+        parameters.put("timestampCreated", "gt(2003-10-10)");
+        
+        boolean isExact = true;
+   
+        instance = new QueryBuilder(); 
+           
+        query = instance.createQuery(query, clazz, parameters, isExact);
+        assertNotNull(query); 
+    }  
+    
     @Test
     public void testCreateQueryNullParameters() {
         System.out.println("createQuery");
@@ -104,9 +182,9 @@ public class QueryBuilderNGTest {
         boolean isExact = false;
         
         instance = new QueryBuilder();  
-        Query result = instance.createQuery(query, clazz, parameters, isExact);
+        query = instance.createQuery(query, clazz, parameters, isExact);
         verify(query, times(0)).setParameter("string", "string");
-        assertNotNull(result); 
+        assertNotNull(query); 
     } 
     
     @Test(expected = DinaException.class)

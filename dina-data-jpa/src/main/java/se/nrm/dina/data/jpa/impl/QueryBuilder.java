@@ -50,6 +50,7 @@ class QueryBuilder {
      */
     public Query createQuery(Query query, Class clazz, Map<String, String> parameters, boolean isExact) {
         logger.info("createQuery : {}", isExact);
+         
         if (parameters != null) {
             parameters.entrySet()
                     .stream()
@@ -87,7 +88,7 @@ class QueryBuilder {
     }
      
     private void setBigDecimal(String fieldName, String value, Query query) {
-   
+    
         if (value.toLowerCase().startsWith(BETWEEN)) {
             query.setParameter(fieldName + MIN, HelpClass.getInstance().convertStringToBigDecimal(StringUtils.substringBetween(value, "(", ",")));
             query.setParameter(fieldName + MAX, HelpClass.getInstance().convertStringToBigDecimal(StringUtils.substringBetween(value, ",", ")")));
