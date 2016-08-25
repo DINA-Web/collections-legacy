@@ -14,13 +14,11 @@ import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
 import org.junit.BeforeClass;
-import org.junit.Test;   
-import static org.mockito.Mockito.doThrow;
-import static org.mockito.Mockito.mock;
+import org.junit.Test;     
 import static org.mockito.Mockito.times;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.verify; 
 import se.nrm.dina.data.exceptions.DinaException;
+import se.nrm.dina.datamodel.BaseEntity;
 import se.nrm.dina.datamodel.EntityBean;
 import se.nrm.dina.datamodel.impl.Testentity;
 import se.nrm.dina.datamodel.util.DataModelHelper;
@@ -31,16 +29,14 @@ import se.nrm.dina.datamodel.util.DataModelHelper;
  * @author idali
  */  
 public class JpaReflectionHelperNGTest {
-     
-    
-    private static JpaReflectionHelper instance;
+      
+    private JpaReflectionHelper testInstance;
     
     public JpaReflectionHelperNGTest() {
     }
 
     @BeforeClass
-    public static void setUpClass() throws Exception { 
-        instance = JpaReflectionHelper.getInstance();
+    public static void setUpClass() throws Exception {    
     }
 
     @AfterClass
@@ -54,20 +50,20 @@ public class JpaReflectionHelperNGTest {
     public void testGetInstance() {
         System.out.println("getInstance");
         
-        instance = null;
-        instance = JpaReflectionHelper.getInstance();
+        testInstance = null;
+        testInstance = JpaReflectionHelper.getInstance();
 
-        assertNotNull(instance);
+        assertNotNull(testInstance);
     }
 
     @Test
     public void testGetInstance1() {
         System.out.println("getInstance");
 
-        instance = new JpaReflectionHelper();
-        instance = JpaReflectionHelper.getInstance();
+        testInstance = new JpaReflectionHelper();
+        testInstance = JpaReflectionHelper.getInstance();
 
-        assertNotNull(instance);
+        assertNotNull(testInstance);
     }
 
     /**
@@ -79,11 +75,25 @@ public class JpaReflectionHelperNGTest {
         
         String classname = "Testentity"; 
         Class expResult = Testentity.class;
-        Class result = instance.convertClassNameToClass(classname);
+        
+        testInstance = new JpaReflectionHelper();
+        
+        Class result = testInstance.convertClassNameToClass(classname);
         assertEquals(result, expResult);
         assertEquals(result.getSimpleName(), classname);
     }
  
+    @Test(expected = DinaException.class)
+    public void testConvertClassNameToClassFailure() {
+        System.out.println("convertClassNameToClass");
+        
+        String classname = "test";  
+        
+        testInstance = new JpaReflectionHelper();
+        Class result = testInstance.convertClassNameToClass(classname);
+        assertNull(result); 
+    }
+    
     /**
      * Test of reformClassName method, of class JpaReflectionHelper.
      */
@@ -94,7 +104,22 @@ public class JpaReflectionHelperNGTest {
           
         String entityName = "testEntity"; 
         String expResult = "Testentity";
-        String result = instance.reformClassName(entityName);
+        
+        testInstance = new JpaReflectionHelper();
+        String result = testInstance.reformClassName(entityName);
+        assertEquals(result, expResult); 
+    }
+    
+    @Test
+    public void testReformClassNameEmpty() {
+        
+        System.out.println("reformClassName");
+          
+        String entityName = ""; 
+        String expResult = "";
+        
+        testInstance = new JpaReflectionHelper();
+        String result = testInstance.reformClassName(entityName);
         assertEquals(result, expResult); 
     }
 
@@ -107,9 +132,32 @@ public class JpaReflectionHelperNGTest {
         
         Class clazz = Testentity.class; 
       
-        Testentity result = instance.createNewInstance(clazz);
+        testInstance = new JpaReflectionHelper();
+        Testentity result = testInstance.createNewInstance(clazz);
         assertNotNull(result);
         assertSame(clazz, result.getClass());
+    }
+    
+    @Test(expected = DinaException.class)
+    public void testCreateNewInstanceFailure() {
+        System.out.println("createNewInstance");
+        
+        Class clazz = EntityBean.class; 
+      
+        testInstance = new JpaReflectionHelper();
+        Testentity result = testInstance.createNewInstance(clazz);
+        assertNull(result); 
+    }
+    
+    @Test(expected = DinaException.class)
+    public void testCreateNewInstanceFailure1() {
+        System.out.println("createNewInstance");
+        
+        Class clazz = BaseEntity.class; 
+      
+        testInstance = new JpaReflectionHelper();
+        Testentity result = testInstance.createNewInstance(clazz);
+        assertNull(result); 
     }
 
     /**
@@ -121,7 +169,8 @@ public class JpaReflectionHelperNGTest {
         
         String entityName = "testEntity"; 
      
-        String result = instance.validateEntityName(entityName);
+        testInstance = new JpaReflectionHelper();
+        String result = testInstance.validateEntityName(entityName);
         assertEquals(result, Testentity.class.getSimpleName()); 
     }
 
@@ -129,9 +178,12 @@ public class JpaReflectionHelperNGTest {
     public void testValidateEntityNameFailure() {
         System.out.println("validateEntityName");
 
-        String entityName = "testEntity"; 
-        when(instance.validateEntityName(entityName)).thenThrow(new DinaException()); 
-        String result = instance.validateEntityName(entityName);
+        String entityName = "baseentity";  
+        
+        testInstance = new JpaReflectionHelper();
+        String result = testInstance.validateEntityName(entityName);
+        verify(testInstance, times(1)).convertClassNameToClass(entityName);
+        verify(testInstance, times(1)).createNewInstance(testInstance.convertClassNameToClass(entityName));
         assertNull(result);
     }
 
@@ -140,24 +192,38 @@ public class JpaReflectionHelperNGTest {
      * Test of isIntField method, of class JpaReflectionHelper.
      */
     @Test
-    public void testIsIntField() {
+    public void testIsIntFieldInt() {
         
         System.out.println("isIntField");
         
+        testInstance = new JpaReflectionHelper();
         Class clazz = Testentity.class;
         String fieldName = "version"; 
-        boolean result = instance.isIntField(clazz, fieldName);
+        boolean result = testInstance.isIntField(clazz, fieldName);
         assertTrue(result);
     }
     
     @Test
-    public void testIsIntField2() {
+    public void testIsIntFieldInteger() {
+        
+        System.out.println("isIntField");
+        
+        Class clazz = Testentity.class;
+        String fieldName = "id"; 
+        testInstance = new JpaReflectionHelper();
+        boolean result = testInstance.isIntField(clazz, fieldName);
+        assertTrue(result);
+    }
+    
+    @Test
+    public void testIsIntFieldFalse() {
         
         System.out.println("isIntField");
         
         Class clazz = Testentity.class;
         String fieldName = "bgDecimal"; 
-        boolean result = instance.isIntField(clazz, fieldName);
+        testInstance = new JpaReflectionHelper();
+        boolean result = testInstance.isIntField(clazz, fieldName);
         assertFalse(result);
     }
     
@@ -168,7 +234,9 @@ public class JpaReflectionHelperNGTest {
         
         Class clazz = Testentity.class;
         String fieldName = "testField"; 
-        boolean result = instance.isIntField(clazz, fieldName);
+        
+        testInstance = new JpaReflectionHelper();
+        boolean result = testInstance.isIntField(clazz, fieldName);
         assertNull(result);
     }
 
@@ -182,7 +250,9 @@ public class JpaReflectionHelperNGTest {
 
         Class clazz = Testentity.class;
         String fieldName = "s"; 
-        boolean result = instance.isShortField(clazz, fieldName);
+        
+        testInstance = new JpaReflectionHelper();
+        boolean result = testInstance.isShortField(clazz, fieldName);
         assertTrue(result);
     }
     
@@ -193,7 +263,9 @@ public class JpaReflectionHelperNGTest {
 
         Class clazz = Testentity.class;
         String fieldName = "version"; 
-        boolean result = instance.isShortField(clazz, fieldName);
+        
+        testInstance = new JpaReflectionHelper();
+        boolean result = testInstance.isShortField(clazz, fieldName);
         assertFalse(result);
     }
     
@@ -204,7 +276,9 @@ public class JpaReflectionHelperNGTest {
 
         Class clazz = Testentity.class;
         String fieldName = "testField"; 
-        boolean result = instance.isShortField(clazz, fieldName);
+        
+        testInstance = new JpaReflectionHelper();
+        boolean result = testInstance.isShortField(clazz, fieldName);
         assertNull(result);
     }
     
@@ -215,20 +289,25 @@ public class JpaReflectionHelperNGTest {
     @Test
     public void testIsEntity() {
         System.out.println("isEntity");
-        
+
         Class clazz = Testentity.class;
-        String fieldName = DataModelHelper.getInstance().getCREATED_BY_FIELD(); 
-        boolean result = instance.isEntity(clazz, fieldName);
+        String fieldName = DataModelHelper.getInstance().getCREATED_BY_FIELD();
+
+        testInstance = new JpaReflectionHelper();
+        boolean result = testInstance.isEntity(clazz, fieldName);
+ 
         assertTrue(result);
     }
-    
+
     @Test
     public void testIsEntityFalse() {
         System.out.println("isEntity");
         
         Class clazz = Testentity.class;
         String fieldName = "version"; 
-        boolean result = instance.isEntity(clazz, fieldName);
+        
+        testInstance = new JpaReflectionHelper();
+        boolean result = testInstance.isEntity(clazz, fieldName);
         assertFalse(result);
     }
     
@@ -239,7 +318,8 @@ public class JpaReflectionHelperNGTest {
         String fieldName = "testField";
         Class clazz = Testentity.class;  
  
-        boolean result = instance.isEntity(clazz, fieldName);
+        testInstance = new JpaReflectionHelper();
+        boolean result = testInstance.isEntity(clazz, fieldName);
         assertNull(result);
     }
  
@@ -252,7 +332,9 @@ public class JpaReflectionHelperNGTest {
         
         Class clazz = Testentity.class;
         String fieldName = "testList"; 
-        boolean result = instance.isCollection(clazz, fieldName);
+        
+        testInstance = new JpaReflectionHelper();
+        boolean result = testInstance.isCollection(clazz, fieldName);
         assertTrue(result);
     }
     
@@ -262,7 +344,9 @@ public class JpaReflectionHelperNGTest {
         
         Class clazz = Testentity.class;
         String fieldName = "version"; 
-        boolean result = instance.isCollection(clazz, fieldName);
+        
+        testInstance = new JpaReflectionHelper();
+        boolean result = testInstance.isCollection(clazz, fieldName);
         assertFalse(result);
     }
     
@@ -272,7 +356,9 @@ public class JpaReflectionHelperNGTest {
         
         Class clazz = Testentity.class;
         String fieldName = "testField"; 
-        boolean result = instance.isCollection(clazz, fieldName);
+        
+        testInstance = new JpaReflectionHelper();
+        boolean result = testInstance.isCollection(clazz, fieldName);
         assertNull(result);
     }
     
@@ -285,10 +371,10 @@ public class JpaReflectionHelperNGTest {
         System.out.println("isDate");
         
         Class clazz = Testentity.class;
-        String fieldName = DataModelHelper.getInstance().getTIME_CREATED_FIELD();
-        instance = new JpaReflectionHelper();
-      
-        boolean result = instance.isDate(clazz, fieldName);
+        String fieldName = DataModelHelper.getInstance().getTIME_CREATED_FIELD(); 
+        
+        testInstance = new JpaReflectionHelper();
+        boolean result = testInstance.isDate(clazz, fieldName);
         assertTrue(result);
     }
 
@@ -301,9 +387,9 @@ public class JpaReflectionHelperNGTest {
 
         Class clazz = Testentity.class;
         String fieldName = DataModelHelper.getInstance().getCREATED_BY_FIELD();
-        instance = new JpaReflectionHelper();
+        testInstance = new JpaReflectionHelper();
       
-        boolean result = instance.isDate(clazz, fieldName);
+        boolean result = testInstance.isDate(clazz, fieldName);
         assertFalse(result);
     }
     
@@ -312,15 +398,12 @@ public class JpaReflectionHelperNGTest {
         System.out.println("isDate");
 
         Class clazz = Testentity.class;
-        String fieldName = "testField";
-        instance = new JpaReflectionHelper();
-      
-        boolean result = instance.isDate(clazz, fieldName);
+        String fieldName = "testField"; 
+        
+        testInstance = new JpaReflectionHelper();
+        boolean result = testInstance.isDate(clazz, fieldName);
         assertNull(result);
-    }
-    
-    
-    
+    } 
     
     /**
      * Test of isBigDecimal method, of class JpaReflectionHelper.
@@ -330,10 +413,10 @@ public class JpaReflectionHelperNGTest {
         System.out.println("isBigDecimal");
         
         Class clazz = Testentity.class;
-        String fieldName = "bgDecimal";
-        instance = new JpaReflectionHelper(); 
+        String fieldName = "bgDecimal"; 
         
-        boolean result = instance.isBigDecimal(clazz, fieldName);
+        testInstance = new JpaReflectionHelper();
+        boolean result = testInstance.isBigDecimal(clazz, fieldName);
         assertTrue(result);
     }
     
@@ -346,10 +429,10 @@ public class JpaReflectionHelperNGTest {
         System.out.println("isBigDecimal");
         
         Class clazz = Testentity.class;
-        String fieldName = "version";
-        instance = new JpaReflectionHelper(); 
+        String fieldName = "version"; 
         
-        boolean result = instance.isBigDecimal(clazz, fieldName);
+        testInstance = new JpaReflectionHelper();
+        boolean result = testInstance.isBigDecimal(clazz, fieldName);
         assertFalse(result);
     }
     
@@ -362,10 +445,10 @@ public class JpaReflectionHelperNGTest {
         System.out.println("isBigDecimal");
         
         Class clazz = Testentity.class;
-        String fieldName = "testField";
-        instance = new JpaReflectionHelper(); 
+        String fieldName = "testField"; 
         
-        boolean result = instance.isBigDecimal(clazz, fieldName);
+        testInstance = new JpaReflectionHelper();
+        boolean result = testInstance.isBigDecimal(clazz, fieldName);
         assertNull(result);
     }
  
@@ -375,22 +458,38 @@ public class JpaReflectionHelperNGTest {
     @Test
     public void testGetEntity() {
         System.out.println("getEntity");
+        
         Class clazz = Testentity.class;
         String fieldName = DataModelHelper.getInstance().getCREATED_BY_FIELD();
-        instance = new JpaReflectionHelper();
+
+        testInstance = new JpaReflectionHelper();
+        EntityBean result = testInstance.getEntity(clazz, fieldName);
  
-        EntityBean result = instance.getEntity(clazz, fieldName);
-        assertNotNull(result); 
+        assertNotNull(result);
     }
 
     @Test(expected = DinaException.class)
     public void testGetEntityFailure() {
         System.out.println("getEntity");
+
         Class clazz = Testentity.class;
         String fieldName = "testField";
-        instance = new JpaReflectionHelper();
- 
-        EntityBean result = instance.getEntity(clazz, fieldName);
+  
+        testInstance = new JpaReflectionHelper();
+        EntityBean result = testInstance.getEntity(clazz, fieldName);
+        
+        assertNull(result);
+    }
+    
+    @Test(expected = DinaException.class)
+    public void testGetEntityFailure2() {
+        System.out.println("getEntity");
+        
+        Class clazz = Testentity.class;
+        String fieldName = "version";
+          
+        testInstance = new JpaReflectionHelper();
+        EntityBean result = testInstance.getEntity(clazz, fieldName);
         assertNull(result);
     }
     
@@ -407,7 +506,9 @@ public class JpaReflectionHelperNGTest {
         String fieldName = "version"; 
         
         ValueType expResult = ValueType.INT;
-        ValueType result = instance.getValueType(clazz, fieldName);
+        
+        testInstance = new JpaReflectionHelper();
+        ValueType result = testInstance.getValueType(clazz, fieldName);
         assertEquals(result, expResult); 
     }
     
@@ -420,7 +521,9 @@ public class JpaReflectionHelperNGTest {
         String fieldName = DataModelHelper.getInstance().getCREATED_BY_FIELD();
         
         ValueType expResult = ValueType.ENTITY;
-        ValueType result = instance.getValueType(clazz, fieldName);
+        
+        testInstance = new JpaReflectionHelper();
+        ValueType result = testInstance.getValueType(clazz, fieldName);
         assertEquals(result, expResult); 
     }
     
@@ -433,7 +536,9 @@ public class JpaReflectionHelperNGTest {
         String fieldName = "bgDecimal";
         
         ValueType expResult = ValueType.BIGDECIMAL;
-        ValueType result = instance.getValueType(clazz, fieldName);
+        
+        testInstance = new JpaReflectionHelper();
+        ValueType result = testInstance.getValueType(clazz, fieldName);
         assertEquals(result, expResult); 
     }
     
@@ -446,7 +551,9 @@ public class JpaReflectionHelperNGTest {
         String fieldName = DataModelHelper.getInstance().getTIME_CREATED_FIELD();
         
         ValueType expResult = ValueType.DATE;
-        ValueType result = instance.getValueType(clazz, fieldName);
+        
+        testInstance = new JpaReflectionHelper();
+        ValueType result = testInstance.getValueType(clazz, fieldName);
         assertEquals(result, expResult); 
     }
     
@@ -459,7 +566,9 @@ public class JpaReflectionHelperNGTest {
         String fieldName = "testList";
         
         ValueType expResult = ValueType.LIST;
-        ValueType result = instance.getValueType(clazz, fieldName);
+        
+        testInstance = new JpaReflectionHelper();
+        ValueType result = testInstance.getValueType(clazz, fieldName);
         assertEquals(result, expResult); 
     }
     
@@ -472,7 +581,9 @@ public class JpaReflectionHelperNGTest {
         String fieldName = "s";
         
         ValueType expResult = ValueType.SHORT;
-        ValueType result = instance.getValueType(clazz, fieldName);
+        
+        testInstance = new JpaReflectionHelper();
+        ValueType result = testInstance.getValueType(clazz, fieldName);
         assertEquals(result, expResult); 
     }
     
@@ -485,7 +596,9 @@ public class JpaReflectionHelperNGTest {
         String fieldName = "string";
         
         ValueType expResult = ValueType.STRING;
-        ValueType result = instance.getValueType(clazz, fieldName);
+        
+        testInstance = new JpaReflectionHelper();
+        ValueType result = testInstance.getValueType(clazz, fieldName);
         assertEquals(result, expResult); 
     }
     
@@ -497,7 +610,8 @@ public class JpaReflectionHelperNGTest {
         Class clazz = Testentity.class;
         String fieldName = "testField";
          
-        ValueType result = instance.getValueType(clazz, fieldName); 
+        testInstance = new JpaReflectionHelper();
+        ValueType result = testInstance.getValueType(clazz, fieldName); 
         assertNull(result);
     }
     
@@ -509,7 +623,9 @@ public class JpaReflectionHelperNGTest {
         System.out.println("validateFields");
         Class clazz = Testentity.class;
         String fieldName = "version";  
-        boolean result = instance.validateFields(clazz, fieldName);
+        
+        testInstance = new JpaReflectionHelper();
+        boolean result = testInstance.validateFields(clazz, fieldName);
         assertTrue(result);
     }
     
@@ -518,21 +634,49 @@ public class JpaReflectionHelperNGTest {
         System.out.println("validateFields");
         Class clazz = Testentity.class;
         String fieldName = "testField";  
-        boolean result = instance.validateFields(clazz, fieldName);
+        
+        testInstance = new JpaReflectionHelper();
+        boolean result = testInstance.validateFields(clazz, fieldName);
         assertFalse(result);
     }
     
-    /**
-     * Test of isVersioned method, of class JpaReflectionHelper.
+        
+        
+ /**
+     * Test of getIDFieldName method, of class JpaReflectionHelper.
      */
     @Test
-    public void testIsVersioned() {
+    public void testValidateFields1() {
+        System.out.println("validateFields");
+        Class clazz = Testentity.class;
+        String fieldName = "testField";  
+        
+        testInstance = new JpaReflectionHelper();
+        boolean result = testInstance.validateFields(clazz, fieldName);
+        assertFalse(result);
+    }
+ 
+
+    @Test
+    public void testIsVersionedTrue() {
         System.out.println("isVersioned");
         Class clazz = Testentity.class;  
-        boolean result = instance.isVersioned(clazz);
         
-        System.out.println("result : " + result);
+        testInstance = new JpaReflectionHelper();
+        boolean result = testInstance.isVersioned(clazz);
+         
         assertTrue(result);
+    }
+    
+    @Test
+    public void testIsVersionedFalse() {
+        System.out.println("isVersioned");
+        Class clazz = EntityBean.class;  
+        
+        testInstance = new JpaReflectionHelper();
+        boolean result = testInstance.isVersioned(clazz);
+         
+        assertFalse(result);
     }
   
     
@@ -546,20 +690,35 @@ public class JpaReflectionHelperNGTest {
         Class clazz = Testentity.class; 
          
         String expected = DataModelHelper.getInstance().getTIME_CREATED_FIELD();
-        Field result = instance.getTimestampCreated(clazz);
+        
+        testInstance = new JpaReflectionHelper();
+        Field result = testInstance.getTimestampCreated(clazz);
         assertEquals(result.getName(), expected); 
+    }
+    
+    @Test
+    public void testGetTimestampCreatedNull() {
+        System.out.println("getTimestampCreated");
+        
+        Class clazz = EntityBean.class;  
+        
+        testInstance = new JpaReflectionHelper();
+        Field result = testInstance.getTimestampCreated(clazz);
+        assertNull(result); 
     }
 
  
     /**
-     * Test of getTimestampCreated method, of class JpaReflectionHelper.
+     * Test of getCreatedByClazz method, of class JpaReflectionHelper.
      */
     @Test
-    public void testGetCreatedByClazz() {
+    public void testGetCreatedByClass() {
         System.out.println("testGetCreatedByClazz");
          
         String expactResult = DataModelHelper.getInstance().getCREATED_BY_CLASS_NAME(); 
-        Class result = instance.getCreatedByClazz();
+        
+        testInstance = new JpaReflectionHelper();
+        Class result = testInstance.getCreatedByClazz();
         assertEquals(expactResult, result.getSimpleName());
     }
     
@@ -573,46 +732,70 @@ public class JpaReflectionHelperNGTest {
         
         Class clazz = Testentity.class; 
     
-        String expectedFieldName = "createdByAgentID";
-        Field result = instance.getCreatedByField(clazz);
+        String expectedFieldName = DataModelHelper.getInstance().getCREATED_BY_FIELD();
+        
+        testInstance = new JpaReflectionHelper();
+        Field result = testInstance     .getCreatedByField(clazz);
         assertEquals(result.getName(), expectedFieldName); 
     }
  
-    
-    
+    @Test
+    public void testGetCreatedByFieldNull() {
+        System.out.println("getCreatedByField");
+        
+        Class clazz = BaseEntity.class; 
+     
+        testInstance = new JpaReflectionHelper();
+        Field result = testInstance.getCreatedByField(clazz); 
+        assertNull(result);
+    }
+     
     /**
      * Test of getIDFieldName method, of class JpaReflectionHelper.
      */
-    @Test(expected = DinaException.class)
+    @Test 
     public void testGetIDFieldNameEntityBean() {
         System.out.println("getIDFieldName");
         
         EntityBean bean = new Testentity();
           
-        String result = instance.getIDFieldName(bean);
-        verify(instance, times(1)).getIDFieldName(bean.getClass());
+        testInstance = new JpaReflectionHelper();
+        String result = testInstance.getIDFieldName(bean); 
  
-        assertNull(result); 
+        assertEquals(result, "id"); 
     }
-    
-    
-    
+   
     /**
      * Test of getIDFieldName method, of class JpaReflectionHelper.
      */
-    @Test(expected = DinaException.class)
+    @Test 
     public void testGetIDFieldNameClass() {
         System.out.println("getIDFieldName");
         Class clazz = Testentity.class; 
-        String result = instance.getIDFieldName(clazz); 
-        assertNull(result);
+        
+        testInstance = new JpaReflectionHelper();
+        String result = testInstance.getIDFieldName(clazz); 
+        assertEquals(result, "id");
     } 
     
     @Test(expected = DinaException.class)
+    public void testGetIDFieldNameFailure() {
+        System.out.println("getIDFieldName");
+        
+        Class clazz = BaseEntity.class; 
+        
+        testInstance = new JpaReflectionHelper();
+        String result = testInstance.getIDFieldName(clazz); 
+        assertNull(result);
+    } 
+    
+    @Test 
     public void testGetIDField() {
         System.out.println("testGetIDField");
         EntityBean bean = new Testentity();
-        Field result = instance.getIDField(bean);
-        assertNull(result);
-    } 
+        
+        testInstance = new JpaReflectionHelper();
+        Field result = testInstance.getIDField(bean);
+        assertEquals(result.getName(), "id");
+    }   
 }

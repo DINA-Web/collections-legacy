@@ -285,18 +285,7 @@ public class DinaDaoImplNGTest {
         verify(entityManager).refresh(null);
         assertNull(result);
     }
-    
-//    @Test(expected = DinaDatabaseException.class)
-//    public void testFindByIdFailure2() {
-//        System.out.println("findById");
-// 
-//        doThrow(mock(Exception.class)).when(entityManager).find(Testentity.class, "20", LockModeType.NONE);
-////        when(entityManager.find(Testentity.class, 20, LockModeType.OPTIMISTIC)).thenThrow(new Exception());
-//        
-//        dao = new DinaDaoImpl(entityManager); 
-//        EntityBean result = dao.findById(20, Testentity.class, true); 
-//        assertNull(result);
-//    }
+     
 
     /**
      * Test of findByStringId method, of class DinaDaoImpl.
@@ -479,40 +468,5 @@ public class DinaDaoImplNGTest {
         
         verify(entityManager).remove(theEntity);
         verify(entityManager).flush();
-    }
-
-//    /**
-//     * Test of getRootCause method, of class DinaDaoImpl.
-//     * @throws java.lang.Exception
-//     */ 
-//    @Test
-//    public void testGetRootCause() throws Exception {
-//        System.out.println("getRootCause");
-//         
-//        Throwable throwable = new DinaException(); 
-//        Throwable expResult = new DinaException();
-//        
-//        List<Throwable> throwables = new ArrayList<>();
-//        throwables.add(throwable);
-//         
-//        when(DinaDaoImpl.getThrowableList(throwable)).thenReturn(throwables);
-//        
-//        Throwable result = DinaDaoImpl.getRootCause(throwable);
-//        assertEquals(result, expResult); 
-//    }
-//
-//    /**
-//     * Test of getThrowableList method, of class DinaDaoImpl.
-//     */
-//    @Test
-//    public void testGetThrowableList() throws Exception {
-//        System.out.println("getThrowableList");
-//        Throwable throwable = null;
-//        List expResult = null;
-//        List result = DinaDaoImpl.getThrowableList(throwable);
-//        assertEquals(result, expResult);
-//        // TODO review the generated test code and remove the default call to fail.
-//        fail("The test case is a prototype.");
-//    }
-//    
+    } 
 }

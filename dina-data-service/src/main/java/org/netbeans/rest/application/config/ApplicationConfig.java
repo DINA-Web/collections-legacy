@@ -29,6 +29,8 @@ public class ApplicationConfig extends Application {
      * If required, comment out calling this method in getClasses().
      */
     private void addRestResourceClasses(Set<Class<?>> resources) {
+        resources.add(se.nrm.dina.data.service.CORSFilter.class);
+        resources.add(se.nrm.dina.data.service.DinaService.class);
     }
     
 }

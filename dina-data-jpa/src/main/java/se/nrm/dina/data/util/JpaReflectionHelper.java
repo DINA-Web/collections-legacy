@@ -352,7 +352,7 @@ public class JpaReflectionHelper {
             if (superClass == null) {
                 return null;
             } else {
-                return getTimestampCreated(superClass);
+                return getCreatedByField(superClass);
             }
         } 
     }

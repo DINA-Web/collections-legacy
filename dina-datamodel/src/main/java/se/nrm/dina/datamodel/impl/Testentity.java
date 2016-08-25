@@ -6,7 +6,7 @@
 package se.nrm.dina.datamodel.impl;
 
 import java.math.BigDecimal;
-import java.util.List;
+import java.util.List; 
 import javax.persistence.Id;
 import se.nrm.dina.datamodel.BaseEntity; 
 
@@ -16,7 +16,7 @@ import se.nrm.dina.datamodel.BaseEntity;
  */
 public class Testentity extends BaseEntity {
     
-//    @Id
+    @Id
     private int id;
     
     private Agent createdByAgentID;

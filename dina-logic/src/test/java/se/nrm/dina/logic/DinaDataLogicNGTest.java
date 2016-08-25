@@ -4,27 +4,23 @@
  * and open the template in the editor.
  */
 package se.nrm.dina.logic;
-
-import se.nrm.dina.data.util.JpaReflectionHelper;
-import java.io.IOException;   
+ 
+import java.util.ArrayList;
 import java.util.List; 
-import org.codehaus.jackson.map.ObjectMapper;
+import java.util.Map; 
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.mockito.Mock; 
-import static org.mockito.Mockito.doThrow;
-import static org.mockito.Mockito.mock;
+import org.mockito.Mock;  
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when; 
 import org.mockito.runners.MockitoJUnitRunner;
 import static org.testng.Assert.*;  
 import se.nrm.dina.data.exceptions.DinaException;
-import se.nrm.dina.data.jpa.DinaDao;
-import se.nrm.dina.logic.util.NamedQueries; 
-import se.nrm.dina.datamodel.EntityBean; 
+import se.nrm.dina.data.jpa.DinaDao; 
+import se.nrm.dina.datamodel.impl.Testentity;
 
 /**
  *
@@ -36,9 +32,7 @@ public class DinaDataLogicNGTest {
     @Mock
     DinaDao dao;
 
-    private DinaDataLogic instance;
-    private List<EntityBean> accessions;
-    private List<EntityBean> accessions1; 
+    private DinaDataLogic instance; 
     private String jsonInString;
    
     public DinaDataLogicNGTest() {
@@ -48,7 +42,7 @@ public class DinaDataLogicNGTest {
     @Before
     public void setUpClass() throws Exception {
         instance = new DinaDataLogic(dao);
-        preparaTestData();
+//        preparaTestData();
     }
 
     @After
@@ -67,41 +61,84 @@ public class DinaDataLogicNGTest {
      * Test of findAll method, of class DinaDataLogic.
      * @throws java.lang.Exception
      */
+    @Test
+    public void testFindAll_String() throws Exception {
+        System.out.println("findAll");
+        
+        String entityName = "Testentity";
+        
+        List<Testentity> list = new ArrayList<>();
+        Testentity testEntity = new Testentity(1);
+        list.add(testEntity);
+        testEntity = new Testentity(2);
+        list.add(testEntity);
+        
+        Class clazz = Testentity.class;
+        String strQuery = "SELECT e From Testentity e  ORDER BY e.id null";
+        int limit = 0;
+        Map<String, String> conditions = null;
+        boolean isExact = false;
+        int offset = 0;
+       
+        when(dao.findAll(clazz, strQuery, limit, conditions, isExact, offset)).thenReturn(list);
+        
+        
+        List<Testentity> results = (List<Testentity>)instance.findAll(entityName, limit, offset, null, null);
+        verify(dao).findAll(clazz, strQuery, limit, conditions, isExact, offset);
+        assertEquals(2, results.size());
+    }
+    
+    @Test(expected = DinaException.class)
+    public void testFindAll_StringFailure() throws Exception {
+        System.out.println("findAll");
+        
+        String entityName = "Test";
+         
+        
+        Class clazz = Testentity.class;
+        String strQuery = "SELECT e From Testentity e  ORDER BY e.id null";
+        int limit = 0;
+        Map<String, String> conditions = null;
+        boolean isExact = false;
+        int offset = 0;
+         
+        List<Testentity> results = (List<Testentity>)instance.findAll(entityName, limit, offset, null, null);
+        verify(dao, times(0)).findAll(clazz, strQuery, limit, conditions, isExact, offset);  
+        assertNull(results);
+    }
+    
+    /**
+     * Test of findAllBySearchCriteria method, of class DinaDataLogic.
+     * @throws java.lang.Exception
+     */
 //    @Test
-//    public void testFindAll_String() throws Exception {
-//        System.out.println("findAll");
-//        
-//        String entityName = "Accession";
-//         
-//        when(dao.findAll(Accession.class)).thenReturn(accessions);
-//        
-//        
-//        EntityWrapper results = (EntityWrapper)instance.findAll(entityName);
-//        verify(dao).findAll(Accession.class);
-//        assertEquals(10, results.getResults().size());
-//    }
-//
-//    /**
-//     * Test of findAll method, of class DinaDataLogic.
-//     *
-//     * @throws java.lang.Exception
-//     */
-//    @Test
-//    public void testFindAll_StringFailure() throws Exception {
-//        System.out.println("findAll");
-//
-//        String entityName = "Accession";
-//
-//        when(dao.findAll(Accession.class)).thenThrow(new DinaException("error"));
-//        
-//        try {
-//            instance.findAll(entityName);
-//            fail("Expected a DinaException to be thrown");  
-//        } catch(DinaException e) {
-//            verify(dao).findAll(Accession.class);
-//            assertEquals(e.getMessage(), "error"); 
-//        } 
-//    }
+    public void testFindAllBySearchCriteria() throws Exception {
+        System.out.println("findAllBySearchCriteria");
+         
+        Class clazz = Testentity.class;
+        String entityName = clazz.getSimpleName();
+        int limit = 0;
+        int offset = 0;
+        String sort = "asc";
+        List<String> orderBy = null;
+        Map<String, String> conditions = null;
+        boolean isExact = false;
+             
+        String strQuery = "";
+        
+        List<Testentity> list = new ArrayList<>();
+        Testentity testEntity = new Testentity(1);
+        list.add(testEntity);
+        testEntity = new Testentity(2);
+        list.add(testEntity);
+ 
+        when(dao.findAll(clazz, strQuery, limit, conditions, isExact, offset)).thenReturn(list);
+        
+        List result = instance.findAllBySearchCriteria(entityName, limit, offset, sort, orderBy, conditions, isExact);
+        verify(dao).findAll(clazz, strQuery, limit, conditions, isExact, offset);
+        assertEquals(result, list);
+    }
+ 
 
 //    /**
 //     * Test of findAll method, of class DinaDataLogic.
@@ -171,48 +208,7 @@ public class DinaDataLogicNGTest {
 //    }
     
 
-//    /**
-//     * Test of findAllBySearchCriteria method, of class DinaDataLogic.
-//     * @throws java.lang.Exception
-//     */
-////    @Test
-//    public void testFindAllBySearchCriteria() throws Exception {
-//        System.out.println("findAllBySearchCriteria");
-//         
-//        MultivaluedMap<String, String> map = new MultivaluedHashMap();
-//  
-//        String offset = map.getFirst("offset");
-//        String limit = map.getFirst("limit");
-//        String minid = map.getFirst("minid");
-//        String maxid = map.getFirst("maxid");
-//        String orderBy = map.getFirst("orderby");
-//        
-//        List<String> orderby = new ArrayList<>();
-//        if (orderBy != null) {
-//            orderby = Arrays.asList(orderBy.split(","));
-//        }
-//          
-//        Map<String, String> condition = map.entrySet()
-//                .stream() 
-//                .collect(Collectors.toMap(m -> m.getKey(), m -> m.getValue().get(0)));
-//        String entityName = "Accession";
-//        Class clazz = Accession.class;
-//        String strQuery = NamedQueries.getInstance()
-//                    .createQueryFindAllWithSearchCriteria(
-//                            entityName,
-//                            clazz,
-//                            Integer.parseInt(offset == null ? "0" : offset),
-//                            Integer.parseInt(minid == null ? "0" : minid),
-//                            Integer.parseInt(maxid == null ? "0" : maxid),
-//                            null,
-//                            orderby, false, condition);
-// 
-//        when(dao.findAllWithFuzzSearch(clazz, strQuery, Integer.parseInt(limit == null ? "50" : limit), condition)).thenReturn(accessions1);
-//        
-//        List result = instance.findAllBySearchCriteria(entityName, map);
-//        verify(dao).findAllWithFuzzSearch(clazz, strQuery, Integer.parseInt(limit == null ? "50" : limit), condition);
-//        assertEquals(result, accessions1);
-//    }
+
 //    
 //
 //    /**
@@ -636,50 +632,50 @@ public class DinaDataLogicNGTest {
 //            assertEquals("error", e.getMessage());
 //        } 
 //    }
-
-    /**
-     * Test of findEntityCount method, of class DinaDataLogic.
-     * @throws java.lang.Exception
-     */
-//    @Test
-    public void testFindEntityCount() throws Exception {
-        System.out.println("findEntityCount");
-        
-        String entityName = "Accession";
-        
-        int expResult = 10;
-        String strQuery = NamedQueries.getInstance().createFindTotalCountNamedQuery(JpaReflectionHelper.getInstance().convertClassNameToClass(entityName).getSimpleName());
-        
-        when(dao.getCountByQuery(strQuery)).thenReturn(10);
-         
-        int result = instance.findEntityCount(entityName);
-        verify(dao).getCountByQuery(strQuery);
-        
-        assertEquals(result, expResult); 
-    }
-    
-    /**
-     * Test of findEntityCount method, of class DinaDataLogic.
-     * @throws java.lang.Exception
-     */
-//    @Test
-    public void testFindEntityCountFailure() throws Exception {
-        System.out.println("findEntityCount");
-        
-        String entityName = "Accession";
-         
-        String strQuery = NamedQueries.getInstance().createFindTotalCountNamedQuery(JpaReflectionHelper.getInstance().convertClassNameToClass(entityName).getSimpleName());
-        
-        when(dao.getCountByQuery(strQuery)).thenThrow(new DinaException("The entity name is wrong"));
-         
-        try {
-            instance.findEntityCount(entityName);
-            fail();
-        } catch(DinaException e) {
-            verify(dao).getCountByQuery(strQuery);
-            assertEquals("The entity name is wrong", e.getMessage()); 
-        }   
-    }   
+//
+//    /**
+//     * Test of findEntityCount method, of class DinaDataLogic.
+//     * @throws java.lang.Exception
+//     */
+////    @Test
+//    public void testFindEntityCount() throws Exception {
+//        System.out.println("findEntityCount");
+//        
+//        String entityName = "Accession";
+//        
+//        int expResult = 10;
+//        String strQuery = NamedQueries.getInstance().createFindTotalCountNamedQuery(JpaReflectionHelper.getInstance().convertClassNameToClass(entityName).getSimpleName());
+//        
+//        when(dao.getCountByQuery(strQuery)).thenReturn(10);
+//         
+//        int result = instance.findEntityCount(entityName);
+//        verify(dao).getCountByQuery(strQuery);
+//        
+//        assertEquals(result, expResult); 
+//    }
+//    
+//    /**
+//     * Test of findEntityCount method, of class DinaDataLogic.
+//     * @throws java.lang.Exception
+//     */
+////    @Test
+//    public void testFindEntityCountFailure() throws Exception {
+//        System.out.println("findEntityCount");
+//        
+//        String entityName = "Accession";
+//         
+//        String strQuery = NamedQueries.getInstance().createFindTotalCountNamedQuery(JpaReflectionHelper.getInstance().convertClassNameToClass(entityName).getSimpleName());
+//        
+//        when(dao.getCountByQuery(strQuery)).thenThrow(new DinaException("The entity name is wrong"));
+//         
+//        try {
+//            instance.findEntityCount(entityName);
+//            fail();
+//        } catch(DinaException e) {
+//            verify(dao).getCountByQuery(strQuery);
+//            assertEquals("The entity name is wrong", e.getMessage()); 
+//        }   
+//    }   
 
 //    /**
 //     * Test of createEntity method, of class DinaDataLogic.
@@ -753,35 +749,35 @@ public class DinaDataLogicNGTest {
 //        assertTrue(result instanceof Accession);
 //    }
     
-    /**
-     * Test of updateEntity method, of class DinaDataLogic.
-     *
-     * @throws java.lang.Exception
-     */
-//    @Test
-    public void testUpdateEntityFailure() throws Exception {
-        System.out.println("updateEntity");
-
-        String entityName = "Accession"; 
-        
-        ObjectMapper mapper = new ObjectMapper();
-
-        EntityBean bean = null;
-        try {
-            bean = (EntityBean) mapper.readValue(jsonInString, JpaReflectionHelper.getInstance().convertClassNameToClass(entityName));
-        } catch (IOException ex) {
-            throw new DinaException(ex.getMessage());
-        }
-
-        when(dao.merge(bean)).thenThrow(new DinaException("error"));
-        try {
-            instance.updateEntity(entityName, jsonInString);
-            fail();
-        } catch(DinaException e) {
-            verify(dao).merge(bean);
-            assertEquals("error", e.getMessage());
-        }  
-    }
+//    /**
+//     * Test of updateEntity method, of class DinaDataLogic.
+//     *
+//     * @throws java.lang.Exception
+//     */
+////    @Test
+//    public void testUpdateEntityFailure() throws Exception {
+//        System.out.println("updateEntity");
+//
+//        String entityName = "Accession"; 
+//        
+//        ObjectMapper mapper = new ObjectMapper();
+//
+//        EntityBean bean = null;
+//        try {
+//            bean = (EntityBean) mapper.readValue(jsonInString, JpaReflectionHelper.getInstance().convertClassNameToClass(entityName));
+//        } catch (IOException ex) {
+//            throw new DinaException(ex.getMessage());
+//        }
+//
+//        when(dao.merge(bean)).thenThrow(new DinaException("error"));
+//        try {
+//            instance.updateEntity(entityName, jsonInString);
+//            fail();
+//        } catch(DinaException e) {
+//            verify(dao).merge(bean);
+//            assertEquals("error", e.getMessage());
+//        }  
+//    }
     
 //    /**
 //     * Test of updateEntity method, of class DinaDataLogic.
@@ -870,7 +866,7 @@ public class DinaDataLogicNGTest {
 //        }  
 //    }
     
-    private void preparaTestData() {
+//    private void preparaTestData() {
 //        accessions = new ArrayList();
 //        Accession accession = new Accession(1);
 //        accessions.add(accession);
@@ -901,19 +897,152 @@ public class DinaDataLogicNGTest {
 //        accession1 = new Accession(20);
 //        accession1.setAccessionNumber("acc00020");
         
-        
-        StringBuilder sb = new StringBuilder();
-        sb.append("{ \"timestampCreated\": 1297691649000,");
-        sb.append("\"accessionID\": 20,");
-        sb.append("\"accessionNumber\": \"2004-NHRS-001\",");
-        sb.append("\"dateAccessioned\": \"2004-07-07\",");
-        sb.append("\"dateReceived\": \"2004-07-07\",");
-        sb.append("\"status\": \"inprocess\",");
-        sb.append("\"modifiedByAgentID\": 1,");
-        sb.append("\"createdByAgentID\": 1,");
-        sb.append("\"version\": 10,");
-        sb.append("\"accessionagentList\": [1, 2, 7]}");
-        jsonInString = sb.toString();
-    }
+//        
+//        StringBuilder sb = new StringBuilder();
+//        sb.append("{ \"timestampCreated\": 1297691649000,");
+//        sb.append("\"accessionID\": 20,");
+//        sb.append("\"accessionNumber\": \"2004-NHRS-001\",");
+//        sb.append("\"dateAccessioned\": \"2004-07-07\",");
+//        sb.append("\"dateReceived\": \"2004-07-07\",");
+//        sb.append("\"status\": \"inprocess\",");
+//        sb.append("\"modifiedByAgentID\": 1,");
+//        sb.append("\"createdByAgentID\": 1,");
+//        sb.append("\"version\": 10,");
+//        sb.append("\"accessionagentList\": [1, 2, 7]}");
+//        jsonInString = sb.toString();
+//    }
+
+//    /**
+//     * Test of findAll method, of class DinaDataLogic.
+//     */
+//    @org.testng.annotations.Test
+//    public void testFindAll() throws Exception {
+//        System.out.println("findAll");
+//        String entityName = "";
+//        int limit = 0;
+//        int offset = 0;
+//        String sort = "";
+//        List<String> orderby = null;
+//        EJBContainer container = javax.ejb.embeddable.EJBContainer.createEJBContainer();
+//        DinaDataLogic instance = (DinaDataLogic)container.getContext().lookup("java:global/classes/DinaDataLogic");
+//        List expResult = null;
+//        List result = instance.findAll(entityName, limit, offset, sort, orderby);
+//        assertEquals(result, expResult);
+//        container.close();
+//        // TODO review the generated test code and remove the default call to fail.
+//        fail("The test case is a prototype.");
+//    }
+//
+//    /**
+//     * Test of findAllBySearchCriteria method, of class DinaDataLogic.
+//     */
+//    @org.testng.annotations.Test
+//    public void testFindAllBySearchCriteria() throws Exception {
+//        System.out.println("findAllBySearchCriteria");
+//        String entityName = "";
+//        int limit = 0;
+//        int offset = 0;
+//        String sort = "";
+//        List<String> orderby = null;
+//        Map<String, String> condition = null;
+//        boolean isExact = false;
+//        EJBContainer container = javax.ejb.embeddable.EJBContainer.createEJBContainer();
+//        DinaDataLogic instance = (DinaDataLogic)container.getContext().lookup("java:global/classes/DinaDataLogic");
+//        List expResult = null;
+//        List result = instance.findAllBySearchCriteria(entityName, limit, offset, sort, orderby, condition, isExact);
+//        assertEquals(result, expResult);
+//        container.close();
+//        // TODO review the generated test code and remove the default call to fail.
+//        fail("The test case is a prototype.");
+//    }
+//
+//    /**
+//     * Test of findById method, of class DinaDataLogic.
+//     */
+//    @org.testng.annotations.Test
+//    public void testFindById() throws Exception {
+//        System.out.println("findById");
+//        String id = "";
+//        String entityName = "";
+//        EJBContainer container = javax.ejb.embeddable.EJBContainer.createEJBContainer();
+//        DinaDataLogic instance = (DinaDataLogic)container.getContext().lookup("java:global/classes/DinaDataLogic");
+//        Object expResult = null;
+//        Object result = instance.findById(id, entityName);
+//        assertEquals(result, expResult);
+//        container.close();
+//        // TODO review the generated test code and remove the default call to fail.
+//        fail("The test case is a prototype.");
+//    }
+//
+//    /**
+//     * Test of findEntitiesByids method, of class DinaDataLogic.
+//     */
+//    @org.testng.annotations.Test
+//    public void testFindEntitiesByids() throws Exception {
+//        System.out.println("findEntitiesByids");
+//        String entityName = "";
+//        String ids = "";
+//        EJBContainer container = javax.ejb.embeddable.EJBContainer.createEJBContainer();
+//        DinaDataLogic instance = (DinaDataLogic)container.getContext().lookup("java:global/classes/DinaDataLogic");
+//        List expResult = null;
+//        List result = instance.findEntitiesByids(entityName, ids);
+//        assertEquals(result, expResult);
+//        container.close();
+//        // TODO review the generated test code and remove the default call to fail.
+//        fail("The test case is a prototype.");
+//    }
+
+//    /**
+//     * Test of createEntity method, of class DinaDataLogic.
+//     */
+//    @org.testng.annotations.Test
+//    public void testCreateEntity() throws Exception {
+//        System.out.println("createEntity");
+//        String entityName = "";
+//        String json = "";
+//        int agentId = 0;
+//        EJBContainer container = javax.ejb.embeddable.EJBContainer.createEJBContainer();
+//        DinaDataLogic instance = (DinaDataLogic)container.getContext().lookup("java:global/classes/DinaDataLogic");
+//        EntityBean expResult = null;
+//        EntityBean result = instance.createEntity(entityName, json, agentId);
+//        assertEquals(result, expResult);
+//        container.close();
+//        // TODO review the generated test code and remove the default call to fail.
+//        fail("The test case is a prototype.");
+//    }
+//
+//    /**
+//     * Test of updateEntity method, of class DinaDataLogic.
+//     */
+//    @org.testng.annotations.Test
+//    public void testUpdateEntity() throws Exception {
+//        System.out.println("updateEntity");
+//        String entityName = "";
+//        String json = "";
+//        EJBContainer container = javax.ejb.embeddable.EJBContainer.createEJBContainer();
+//        DinaDataLogic instance = (DinaDataLogic)container.getContext().lookup("java:global/classes/DinaDataLogic");
+//        EntityBean expResult = null;
+//        EntityBean result = instance.updateEntity(entityName, json);
+//        assertEquals(result, expResult);
+//        container.close();
+//        // TODO review the generated test code and remove the default call to fail.
+//        fail("The test case is a prototype.");
+//    }
+//
+//    /**
+//     * Test of deleteEntity method, of class DinaDataLogic.
+//     */
+//    @org.testng.annotations.Test
+//    public void testDeleteEntity() throws Exception {
+//        System.out.println("deleteEntity");
+//        String entityName = "";
+//        int id = 0;
+//        EJBContainer container = javax.ejb.embeddable.EJBContainer.createEJBContainer();
+//        DinaDataLogic instance = (DinaDataLogic)container.getContext().lookup("java:global/classes/DinaDataLogic");
+//        instance.deleteEntity(entityName, id);
+//        container.close();
+//        // TODO review the generated test code and remove the default call to fail.
+//        fail("The test case is a prototype.");
+//    }
     
 }
