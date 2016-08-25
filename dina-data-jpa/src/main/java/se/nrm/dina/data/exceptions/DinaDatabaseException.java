@@ -18,6 +18,10 @@ public class DinaDatabaseException extends DinaException {
  
     private Throwable t;
     
+    public DinaDatabaseException() {
+        super();
+    }
+    
     public DinaDatabaseException(ErrorBean errorBean, int errorCode) {
         super(errorBean, errorCode);
     }

@@ -267,72 +267,78 @@ public class DinaDaoImpl<T extends EntityBean> implements DinaDao<T>, Serializab
  
     private List<ErrorBean> handleConstraintViolations(ConstraintViolationException e) { 
         logger.error("handleConstraintViolations"); 
+
         List<ErrorBean> errorBeans = new ArrayList<>();
-        Set<ConstraintViolation<?>> cvs = e.getConstraintViolations(); 
-        cvs.stream().forEach(cv -> {
-            ErrorBean errorBean = new ErrorBean();
-            errorBean.setViolation(cv.getMessage());
-            errorBean.setEntityName(cv.getRootBeanClass().getSimpleName());
-            errorBean.setErrorMsg(cv.getMessage()); 
-            errorBean.setConstrianKey(cv.getPropertyPath().toString());  
-            errorBean.setInvalidValue(cv.getInvalidValue() == null ? null : cv.getInvalidValue().toString());
-            errorBeans.add(errorBean);
-        });
-        return errorBeans; 
+        Set<ConstraintViolation<?>> cvs = e.getConstraintViolations();
+
+        if (cvs != null) {
+            cvs.stream().forEach(cv -> {
+                ErrorBean errorBean = new ErrorBean();
+                errorBean.setViolation(cv.getMessage());
+                errorBean.setEntityName(cv.getRootBeanClass().getSimpleName());
+                errorBean.setErrorMsg(cv.getMessage());
+                errorBean.setConstrianKey(cv.getPropertyPath().toString());
+                errorBean.setInvalidValue(cv.getInvalidValue() == null ? null : cv.getInvalidValue().toString());
+                errorBeans.add(errorBean);
+            });
+        } 
+        return errorBeans;
     }
-    
-    
+
+
     
     /**
      * Method handles ConstraintViolationException. It logs exception messages,
      * entity properties with invalid values.
      *
      * @param e
-     * @return 
+     * @return
      */
     private String handleConstraintViolation(ConstraintViolationException e) {
         logger.error("handleConstraintViolation : {}", e.getMessage());
         StringBuilder sb = new StringBuilder();
 
         Set<ConstraintViolation<?>> cvs = e.getConstraintViolations();
-        cvs.stream().map((cv) -> { 
-            logger.info("------------------------------------------------");
-            return cv;
-        }).map((cv) -> {
-            logger.info("Violation: {}", cv.getMessage());
-            return cv;
-        }).map((cv) -> {
-            sb.append("Violation:");
-            sb.append(cv.getMessage());
-            return cv;
-        }).map((cv) -> {
-            logger.info("Entity: {}", cv.getRootBeanClass().getSimpleName());
-            return cv;
-        }).map((cv) -> {
-            sb.append(" - Entity: ");
-            sb.append(cv.getRootBeanClass().getSimpleName());
-            return cv;
-        }).map((cv) -> {
-            if (cv.getLeafBean() != null && cv.getRootBean() != cv.getLeafBean()) {
-                logger.info("Embeddable: {}", cv.getLeafBean().getClass().getSimpleName());
-                sb.append(" - Embeddable: ");
-                sb.append(cv.getLeafBean().getClass().getSimpleName());
-            }
-            return cv;
-        }).map((cv) -> {
-            logger.info("Attribute: {}", cv.getPropertyPath());
-            return cv;
-        }).map((cv) -> {
-            sb.append(" - Attribute: ");
-            sb.append(cv.getPropertyPath());
-            return cv;
-        }).map((cv) -> {
-            logger.info("Invalid value: {}", cv.getInvalidValue());
-            return cv;
-        }).forEach((cv) -> {
-            sb.append(" - Invalid value: ");
-            sb.append(cv.getInvalidValue());
-        });
+        if (cvs != null) { 
+            cvs.stream().map((cv) -> {
+                logger.info("------------------------------------------------");
+                return cv;
+            }).map((cv) -> {
+                logger.info("Violation: {}", cv.getMessage());
+                return cv;
+            }).map((cv) -> {
+                sb.append("Violation:");
+                sb.append(cv.getMessage());
+                return cv;
+            }).map((cv) -> {
+                logger.info("Entity: {}", cv.getRootBeanClass().getSimpleName());
+                return cv;
+            }).map((cv) -> {
+                sb.append(" - Entity: ");
+                sb.append(cv.getRootBeanClass().getSimpleName());
+                return cv;
+            }).map((cv) -> {
+                if (cv.getLeafBean() != null && cv.getRootBean() != cv.getLeafBean()) {
+                    logger.info("Embeddable: {}", cv.getLeafBean().getClass().getSimpleName());
+                    sb.append(" - Embeddable: ");
+                    sb.append(cv.getLeafBean().getClass().getSimpleName());
+                }
+                return cv;
+            }).map((cv) -> {
+                logger.info("Attribute: {}", cv.getPropertyPath());
+                return cv;
+            }).map((cv) -> {
+                sb.append(" - Attribute: ");
+                sb.append(cv.getPropertyPath());
+                return cv;
+            }).map((cv) -> {
+                logger.info("Invalid value: {}", cv.getInvalidValue());
+                return cv;
+            }).forEach((cv) -> {
+                sb.append(" - Invalid value: ");
+                sb.append(cv.getInvalidValue());
+            });
+        }
         return sb.toString();
-    } 
+    }
 }
