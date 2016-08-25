@@ -87,7 +87,7 @@ public class JpaReflectionHelperNGTest {
     public void testConvertClassNameToClassFailure() {
         System.out.println("convertClassNameToClass");
         
-        String classname = "test";  
+        String classname = "testFailure";  
         
         testInstance = new JpaReflectionHelper();
         Class result = testInstance.convertClassNameToClass(classname);
@@ -459,13 +459,26 @@ public class JpaReflectionHelperNGTest {
     public void testGetEntity() {
         System.out.println("getEntity");
         
-        Class clazz = Testentity.class;
+        Class clazz = Testentity.class; 
         String fieldName = DataModelHelper.getInstance().getCREATED_BY_FIELD();
 
         testInstance = new JpaReflectionHelper();
         EntityBean result = testInstance.getEntity(clazz, fieldName);
- 
-        assertNotNull(result);
+          
+        assertNotNull(result); 
+    }
+    
+    @Test(expected = DinaException.class)
+    public void testGetEntityFailure1() {
+        System.out.println("getEntity");
+
+        Class clazz = Testentity.class;
+        String fieldName = "testField";
+  
+        testInstance = new JpaReflectionHelper();
+        EntityBean result = testInstance.getEntity(clazz, fieldName);
+        
+        assertNull(result);
     }
 
     @Test(expected = DinaException.class)
@@ -473,7 +486,7 @@ public class JpaReflectionHelperNGTest {
         System.out.println("getEntity");
 
         Class clazz = Testentity.class;
-        String fieldName = "testField";
+        String fieldName = "timestampCreated";
   
         testInstance = new JpaReflectionHelper();
         EntityBean result = testInstance.getEntity(clazz, fieldName);

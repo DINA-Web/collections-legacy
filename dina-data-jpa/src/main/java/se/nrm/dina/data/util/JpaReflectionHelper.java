@@ -382,18 +382,7 @@ public class JpaReflectionHelper {
             throw new DinaException(ErrorMsg.getInstance().getNoIdAnnotatedFieldMsg(), 400);
         } 
     }
-
-    
-    
-//    public String getIDFieldName(Class clazz) {
-//        return getIdFieldName(getAllFieldsFromClazz(clazz)); 
-//    }
-//    
-    
-    
-
  
-
     /**
      * Find id field name for the entity bean
      *
