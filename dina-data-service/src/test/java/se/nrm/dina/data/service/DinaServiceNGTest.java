@@ -4,9 +4,9 @@
  * and open the template in the editor.
  */
 package se.nrm.dina.data.service;
-  
+   
 import javax.servlet.http.HttpServletResponse;
-import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.MediaType; 
 import org.codehaus.jackson.map.ObjectMapper;
 import org.jboss.resteasy.core.Dispatcher;
 import org.jboss.resteasy.mock.MockDispatcherFactory;
@@ -416,5 +416,5 @@ public class DinaServiceNGTest {
         verify(logic).deleteEntity(entity, 20);
         Assert.assertEquals(HttpServletResponse.SC_BAD_REQUEST, response.getStatus());
     }
-
+ 
 }

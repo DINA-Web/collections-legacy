@@ -100,8 +100,12 @@
             <artifactId>skeleton-key-core</artifactId>
             <version>3.0.13.Final</version>
         </dependency>
-        
-  
+        <dependency>
+            <groupId>org.testng</groupId>
+            <artifactId>testng</artifactId>
+            <version>6.8.1</version>
+            <scope>test</scope>
+        </dependency>
         <dependency>
             <groupId>javax</groupId>
             <artifactId>javaee-web-api</artifactId>

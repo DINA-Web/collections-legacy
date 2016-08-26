@@ -9,6 +9,7 @@ coverage:
   - dina-datamodel/src/main/java/se/nrm/dina/datamodel/BaseEntity.java
   - dina-datamodel/src/main/java/se/nrm/dina/datamodel/impl/*
   - dina-data-service/src/main/java/org/netbeans/rest/application/config/ApplicationConfig.java
+  - dina-data-service/src/main/java/se/nrm/dina/data/service/vo/*
   
   status:
     patch: false

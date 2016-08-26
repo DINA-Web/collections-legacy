@@ -5,14 +5,10 @@
  */
 package se.nrm.dina.data.service.vo;
  
-import java.io.Serializable;
-import java.util.List;
-import javax.xml.bind.annotation.XmlAttribute;
+import java.io.Serializable; 
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement; 
-import org.codehaus.jackson.map.annotate.JsonSerialize;
-import se.nrm.dina.data.vo.ErrorBean;
-import se.nrm.dina.datamodel.EntityBean;
+import org.codehaus.jackson.map.annotate.JsonSerialize; 
 
 /**
  *
