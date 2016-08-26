@@ -5,6 +5,7 @@
  */
 package se.nrm.dina.logic;
  
+import java.security.DigestException;
 import java.util.ArrayList;
 import java.util.List; 
 import java.util.Map; 
@@ -51,6 +52,7 @@ public class DinaDataLogicNGTest {
 
     @Before
     public void setUpClass() throws Exception {
+        instance = new DinaDataLogic(dao);
         instance = new DinaDataLogic(dao, mapper); 
     }
 
@@ -365,21 +367,79 @@ public class DinaDataLogicNGTest {
         System.out.println("createEntity");
         
         String entityName = "Testentity"; 
-        EntityBean theTest = new Testentity();
         
         ObjectMapper mapper1 = new ObjectMapper();
-        String json = mapper1.writeValueAsString(theTest);
+        String json = mapper1.writeValueAsString(mockBean);
      
-        when((EntityBean)mapper.readValue(json, JpaReflectionHelper.getInstance().convertClassNameToClass(entityName))).thenReturn(theTest);
+        when((EntityBean)mapper.readValue(json, Testentity.class)).thenReturn(mockBean);
          
         Class clazz = JpaReflectionHelper.getInstance().getCreatedByClazz();
           
-        when(dao.create(theTest)).thenReturn(theTest);
+        when(dao.create(mockBean)).thenReturn(mockBean);
         
         EntityBean result = instance.createEntity(entityName, json, 0);
-        verify(dao).create(theTest);
-        assertEquals(result, theTest);
+        verify(dao).create(mockBean);
+        assertEquals(result, mockBean);
         assertTrue(result instanceof Testentity);
+    }
+    
+    
+    
+    
+    
+    
+    
+    /**
+     * Test of deleteEntity method, of class DinaDataLogic.
+     *
+     * @throws java.lang.Exception
+     */
+    @Test
+    public void testDeleteEntity() throws Exception {
+        System.out.println("deleteEntity");
+
+        String entityName = "Testentity";
+        int id = 20;
+
+        Testentity theEntity = new Testentity(20);
+        when(dao.findByReference(id, JpaReflectionHelper.getInstance().convertClassNameToClass(entityName))).thenReturn(theEntity);
+
+        instance.deleteEntity(entityName, id);
+        verify(dao).delete(theEntity);
+    }
+    
+    /**
+     * Test of deleteEntity method, of class DinaDataLogic.
+     *
+     * @throws java.lang.Exception
+     */
+    @Test
+    public void testDeleteEntityNotFound() throws Exception {
+        System.out.println("deleteEntity");
+
+        String entityName = "Testentity";
+        int id = 20;
+ 
+        Testentity theEntity = new Testentity(20);
+        when(dao.findByReference(id, JpaReflectionHelper.getInstance().convertClassNameToClass(entityName))).thenReturn(null);
+
+        instance.deleteEntity(entityName, id);
+        verify(dao, times(0)).delete(theEntity);
+    }
+    
+    /**
+     * Test of deleteEntity method, of class DinaDataLogic.
+     *
+     * @throws java.lang.Exception
+     */
+    @Test(expected = DigestException.class)
+    public void testDeleteEntityException() throws Exception {
+        System.out.println("deleteEntity");
+
+        String entityName = "BaseEntity";
+        int id = 20;
+  
+        instance.deleteEntity(entityName, id); 
     }
     
 
@@ -488,23 +548,7 @@ public class DinaDataLogicNGTest {
 //    }
 
 
-//    /**
-//     * Test of deleteEntity method, of class DinaDataLogic.
-//     *
-//     * @throws java.lang.Exception
-//     */
-//    @Test
-//    public void testDeleteEntity() throws Exception {
-//        System.out.println("deleteEntity");
-//
-//        String entityName = "Accession";
-//        int id = 20;
-//         
-//        when(dao.findByReference(id, JpaReflectionHelper.getInstance().convertClassNameToClass(entityName))).thenReturn(accession1);
-//    
-//        instance.deleteEntity(entityName, id); 
-//        verify(dao).delete(accession1);
-//    }
+
     
 
 //    /**
