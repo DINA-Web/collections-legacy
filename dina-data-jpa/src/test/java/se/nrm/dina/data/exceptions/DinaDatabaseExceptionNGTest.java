@@ -43,6 +43,13 @@ public class DinaDatabaseExceptionNGTest {
     public static void tearDownClass() throws Exception {
         instance = null;  
     }
+    
+    @Test
+    public void testConstruct() {
+        System.out.println("testConstructWithErrorBean");
+        instance = new DinaDatabaseException(); 
+        assertNotNull(instance);  
+    }
 
     @Test
     public void testConstructWithErrorBean() {

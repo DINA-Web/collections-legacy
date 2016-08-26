@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List; 
 import java.util.Map;
+import org.apache.commons.lang.StringUtils;
 import org.junit.AfterClass;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;  
@@ -105,6 +106,30 @@ public class NamedQueriesNGTest {
         assertEquals(result, expResult); 
     }
     
+    
+    
+    /**
+     * Test of createQueryFindAll method, of class NamedQueries.
+     */
+    @Test
+    public void testCreateQueryFindAllNoOrderByEmpty() {
+        System.out.println("createQueryFindAll");
+        
+        String entityName = "Testentity";
+        Class clazz = Testentity.class;
+         
+        String sort = "asc";
+        List<String> orderBy = new ArrayList();
+        
+        instance = new NamedQueries();
+        String expResult = "SELECT e From Testentity e  ORDER BY e.id asc";
+        String result = instance.createQueryFindAll(entityName, clazz, sort, orderBy);
+        assertEquals(result, expResult); 
+    }
+    
+    
+    
+    
     @Test(expected = DinaException.class)
     public void testCreateQueryFindAllException() {
         System.out.println("createQueryFindAll");
@@ -139,6 +164,22 @@ public class NamedQueriesNGTest {
         assertEquals(result, expResult); 
     }
 
+    @Test
+    public void testCreateQueryFindAllWithSearchCriteriaEmpty() {
+        System.out.println("createQueryFindAllWithSearchCriteria");
+        
+        String entityName = "Testentity";
+        Class clazz = Testentity.class;
+        String sort = "asc";
+        List<String> orderBy = new ArrayList();
+        boolean isExact = false;
+        
+        Map<String, String> criteria = new HashMap();
+        instance = new NamedQueries();
+        String expResult = "SELECT e From Testentity e  ORDER BY e.id asc";
+        String result = instance.createQueryFindAllWithSearchCriteria(entityName, clazz, sort, orderBy, isExact, criteria);
+        assertEquals(result, expResult); 
+    }
     
     @Test
     public void testCreateQueryFindAllWithSearchCriteria1() {
@@ -164,7 +205,81 @@ public class NamedQueriesNGTest {
         assertTrue(result.contains("WHERE"));
     }
     
+        
+    @Test
+    public void testCreateQueryFindAllWithSearchCriteriaBetween() {
+        System.out.println("createQueryFindAllWithSearchCriteria");
+        
+        String entityName = "Testentity";
+        Class clazz = Testentity.class;
+        String sort = "asc";
+        List<String> orderBy = new ArrayList<>();
+        orderBy.add("version");
+        
+        boolean isExact = true;
+        
+        Map<String, String> criteria = new HashMap<>();
+        criteria.put("version", "1");
+        criteria.put("s", "2");
+        criteria.put(DataModelHelper.getInstance().getCREATED_BY_FIELD(), "1");
+        criteria.put("bgDecimal", "between(1,20)");
+        criteria.put("timestampCreated", "between(2000-01-01,2003-01-01");
+         
+        instance = new NamedQueries(); 
+        String result = instance.createQueryFindAllWithSearchCriteria(entityName, clazz, sort, orderBy, isExact, criteria);
+        assertTrue(result.contains("WHERE"));
+        assertTrue(result.contains(" BETWEEN ")); 
+    }
     
+     @Test
+    public void testCreateQueryFindAllWithSearchCriteriaLt() {
+        System.out.println("createQueryFindAllWithSearchCriteria");
+        
+        String entityName = "Testentity";
+        Class clazz = Testentity.class;
+        String sort = "asc";
+        List<String> orderBy = new ArrayList<>();
+        orderBy.add("version");
+        
+        boolean isExact = true;
+        
+        Map<String, String> criteria = new HashMap<>();
+        criteria.put("version", "1");
+        criteria.put("s", "2");
+        criteria.put(DataModelHelper.getInstance().getCREATED_BY_FIELD(), "1");
+        criteria.put("bgDecimal", "lt(20)");
+        criteria.put("timestampCreated", "lt(2003-01-01");
+         
+        instance = new NamedQueries(); 
+        String result = instance.createQueryFindAllWithSearchCriteria(entityName, clazz, sort, orderBy, isExact, criteria);
+        assertTrue(result.contains("WHERE"));
+        assertTrue(result.contains(" <= :")); 
+    }
+    
+    @Test
+    public void testCreateQueryFindAllWithSearchCriteriaGt() {
+        System.out.println("createQueryFindAllWithSearchCriteria");
+        
+        String entityName = "Testentity";
+        Class clazz = Testentity.class;
+        String sort = "asc";
+        List<String> orderBy = new ArrayList<>();
+        orderBy.add("version");
+        
+        boolean isExact = false;
+        
+        Map<String, String> criteria = new HashMap<>();
+        criteria.put("version", "1");
+        criteria.put("s", "2");
+        criteria.put(DataModelHelper.getInstance().getCREATED_BY_FIELD(), "1");
+        criteria.put("bgDecimal", "gt(20)");
+        criteria.put("timestampCreated", "gt(2000-01-01");
+         
+        instance = new NamedQueries(); 
+        String result = instance.createQueryFindAllWithSearchCriteria(entityName, clazz, sort, orderBy, isExact, criteria);
+        assertTrue(result.contains("WHERE"));
+        assertTrue(result.contains(">= :")); 
+    }
     
     @Test(expected = DinaException.class)
     public void testCreateQueryFindAllWithSearchCriteriaException() {
