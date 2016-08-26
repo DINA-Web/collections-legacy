@@ -41,7 +41,7 @@ public class MetadataBeanNGTest {
     /**
      * Test of getCallEndpoint method, of class MetadataBean.
      */
-    @Test
+//    @Test
     public void testGetCallEndpoint() {
         System.out.println("getCallEndpoint");
         MetadataBean instance = new MetadataBean();
@@ -55,7 +55,7 @@ public class MetadataBeanNGTest {
     /**
      * Test of getCallDate method, of class MetadataBean.
      */
-    @Test
+//    @Test
     public void testGetCallDate() {
         System.out.println("getCallDate");
         MetadataBean instance = new MetadataBean();
@@ -69,7 +69,7 @@ public class MetadataBeanNGTest {
     /**
      * Test of getApiVersion method, of class MetadataBean.
      */
-    @Test
+//    @Test
     public void testGetApiVersion() {
         System.out.println("getApiVersion");
         MetadataBean instance = new MetadataBean();
@@ -83,7 +83,7 @@ public class MetadataBeanNGTest {
     /**
      * Test of setCallEndpoint method, of class MetadataBean.
      */
-    @Test
+//    @Test
     public void testSetCallEndpoint() {
         System.out.println("setCallEndpoint");
         String callEndpoint = "";
@@ -96,7 +96,7 @@ public class MetadataBeanNGTest {
     /**
      * Test of setCallDate method, of class MetadataBean.
      */
-    @Test
+//    @Test
     public void testSetCallDate() {
         System.out.println("setCallDate");
         String callDate = "";
@@ -109,7 +109,7 @@ public class MetadataBeanNGTest {
     /**
      * Test of setApiVersion method, of class MetadataBean.
      */
-    @Test
+//    @Test
     public void testSetApiVersion() {
         System.out.println("setApiVersion");
         String apiVersion = "";
@@ -122,7 +122,7 @@ public class MetadataBeanNGTest {
     /**
      * Test of getSupportedLanguages method, of class MetadataBean.
      */
-    @Test
+//    @Test
     public void testGetSupportedLanguages() {
         System.out.println("getSupportedLanguages");
         MetadataBean instance = new MetadataBean();
@@ -136,7 +136,7 @@ public class MetadataBeanNGTest {
     /**
      * Test of setSupportedLanguages method, of class MetadataBean.
      */
-    @Test
+//    @Test
     public void testSetSupportedLanguages() {
         System.out.println("setSupportedLanguages");
         List<String> supportedLanguages = null;
@@ -149,7 +149,7 @@ public class MetadataBeanNGTest {
     /**
      * Test of getLimit method, of class MetadataBean.
      */
-    @Test
+//    @Test
     public void testGetLimit() {
         System.out.println("getLimit");
         MetadataBean instance = new MetadataBean();
@@ -163,7 +163,7 @@ public class MetadataBeanNGTest {
     /**
      * Test of setLimit method, of class MetadataBean.
      */
-    @Test
+//    @Test
     public void testSetLimit() {
         System.out.println("setLimit");
         int limit = 0;
@@ -176,7 +176,7 @@ public class MetadataBeanNGTest {
     /**
      * Test of getOrderBy method, of class MetadataBean.
      */
-    @Test
+//    @Test
     public void testGetOrderBy() {
         System.out.println("getOrderBy");
         MetadataBean instance = new MetadataBean();
@@ -190,7 +190,7 @@ public class MetadataBeanNGTest {
     /**
      * Test of setOrderBy method, of class MetadataBean.
      */
-    @Test
+//    @Test
     public void testSetOrderBy() {
         System.out.println("setOrderBy");
         List<String> orderBy = null;
@@ -203,7 +203,7 @@ public class MetadataBeanNGTest {
     /**
      * Test of getSortOrder method, of class MetadataBean.
      */
-    @Test
+//    @Test
     public void testGetSortOrder() {
         System.out.println("getSortOrder");
         MetadataBean instance = new MetadataBean();
@@ -217,7 +217,7 @@ public class MetadataBeanNGTest {
     /**
      * Test of setSortOrder method, of class MetadataBean.
      */
-    @Test
+//    @Test
     public void testSetSortOrder() {
         System.out.println("setSortOrder");
         String sortOrder = "";
@@ -230,7 +230,7 @@ public class MetadataBeanNGTest {
     /**
      * Test of getMaintenanceContact method, of class MetadataBean.
      */
-    @Test
+//    @Test
     public void testGetMaintenanceContact() {
         System.out.println("getMaintenanceContact");
         MetadataBean instance = new MetadataBean();
@@ -244,7 +244,7 @@ public class MetadataBeanNGTest {
     /**
      * Test of setMaintenanceContact method, of class MetadataBean.
      */
-    @Test
+//    @Test
     public void testSetMaintenanceContact() {
         System.out.println("setMaintenanceContact");
         String maintenanceContact = "";
@@ -257,7 +257,7 @@ public class MetadataBeanNGTest {
     /**
      * Test of getStatusCode method, of class MetadataBean.
      */
-    @Test
+//    @Test
     public void testGetStatusCode() {
         System.out.println("getStatusCode");
         MetadataBean instance = new MetadataBean();
@@ -271,7 +271,7 @@ public class MetadataBeanNGTest {
     /**
      * Test of setStatusCode method, of class MetadataBean.
      */
-    @Test
+//    @Test
     public void testSetStatusCode() {
         System.out.println("setStatusCode");
         int statusCode = 0;
@@ -284,7 +284,7 @@ public class MetadataBeanNGTest {
     /**
      * Test of getOffset method, of class MetadataBean.
      */
-    @Test
+//    @Test
     public void testGetOffset() {
         System.out.println("getOffset");
         MetadataBean instance = new MetadataBean();
@@ -298,7 +298,7 @@ public class MetadataBeanNGTest {
     /**
      * Test of setOffset method, of class MetadataBean.
      */
-    @Test
+//    @Test
     public void testSetOffset() {
         System.out.println("setOffset");
         int offset = 0;
@@ -311,7 +311,7 @@ public class MetadataBeanNGTest {
     /**
      * Test of getResultCount method, of class MetadataBean.
      */
-    @Test
+//    @Test
     public void testGetResultCount() {
         System.out.println("getResultCount");
         MetadataBean instance = new MetadataBean();
@@ -325,7 +325,7 @@ public class MetadataBeanNGTest {
     /**
      * Test of setResultCount method, of class MetadataBean.
      */
-    @Test
+//    @Test
     public void testSetResultCount() {
         System.out.println("setResultCount");
         int resultCount = 0;
@@ -338,7 +338,7 @@ public class MetadataBeanNGTest {
     /**
      * Test of getPrevious method, of class MetadataBean.
      */
-    @Test
+//    @Test
     public void testGetPrevious() {
         System.out.println("getPrevious");
         MetadataBean instance = new MetadataBean();
@@ -352,7 +352,7 @@ public class MetadataBeanNGTest {
     /**
      * Test of setPrevious method, of class MetadataBean.
      */
-    @Test
+//    @Test
     public void testSetPrevious() {
         System.out.println("setPrevious");
         String previous = "";
@@ -365,7 +365,7 @@ public class MetadataBeanNGTest {
     /**
      * Test of getNext method, of class MetadataBean.
      */
-    @Test
+//    @Test
     public void testGetNext() {
         System.out.println("getNext");
         MetadataBean instance = new MetadataBean();
@@ -379,7 +379,7 @@ public class MetadataBeanNGTest {
     /**
      * Test of setNext method, of class MetadataBean.
      */
-    @Test
+//    @Test
     public void testSetNext() {
         System.out.println("setNext");
         String next = "";
@@ -392,7 +392,7 @@ public class MetadataBeanNGTest {
     /**
      * Test of getResultLanguages method, of class MetadataBean.
      */
-    @Test
+//    @Test
     public void testGetResultLanguages() {
         System.out.println("getResultLanguages");
         MetadataBean instance = new MetadataBean();
@@ -406,7 +406,7 @@ public class MetadataBeanNGTest {
     /**
      * Test of setResultLanguages method, of class MetadataBean.
      */
-    @Test
+//    @Test
     public void testSetResultLanguages() {
         System.out.println("setResultLanguages");
         List<String> resultLanguages = null;
@@ -419,7 +419,7 @@ public class MetadataBeanNGTest {
     /**
      * Test of getContentLicenses method, of class MetadataBean.
      */
-    @Test
+//    @Test
     public void testGetContentLicenses() {
         System.out.println("getContentLicenses");
         MetadataBean instance = new MetadataBean();
@@ -433,7 +433,7 @@ public class MetadataBeanNGTest {
     /**
      * Test of setContentLicenses method, of class MetadataBean.
      */
-    @Test
+//    @Test
     public void testSetContentLicenses() {
         System.out.println("setContentLicenses");
         List<String> contentLicenses = null;
@@ -446,7 +446,7 @@ public class MetadataBeanNGTest {
     /**
      * Test of getMessage method, of class MetadataBean.
      */
-    @Test
+//    @Test
     public void testGetMessage() {
         System.out.println("getMessage");
         MetadataBean instance = new MetadataBean();
@@ -460,7 +460,7 @@ public class MetadataBeanNGTest {
     /**
      * Test of setMessage method, of class MetadataBean.
      */
-    @Test
+//    @Test
     public void testSetMessage() {
         System.out.println("setMessage");
         String message = "";

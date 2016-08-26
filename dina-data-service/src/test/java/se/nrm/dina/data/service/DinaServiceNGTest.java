@@ -5,8 +5,11 @@
  */
 package se.nrm.dina.data.service;
    
+import java.util.Arrays;
+import java.util.List;
 import javax.servlet.http.HttpServletResponse;
 import javax.ws.rs.core.MediaType; 
+import org.apache.commons.lang.StringUtils;
 import org.codehaus.jackson.map.ObjectMapper;
 import org.jboss.resteasy.core.Dispatcher;
 import org.jboss.resteasy.mock.MockDispatcherFactory;
@@ -81,21 +84,21 @@ public class DinaServiceNGTest {
      * @throws java.lang.Exception
      */
 //    @Test
-//    public void testGetAllByEntityName() throws Exception {
-//        System.out.println("getAllByEntityName");
-//
-//        String orderby = "test";
-//        List<String> orders = Arrays.asList(StringUtils.split(orderby, ","));
-// 
-//        when(logic.findAll(entity, 0, 0, 0, 0, "asc", orders, null)).thenReturn(list.getTestEntities());
-//
-//        MockHttpRequest request = MockHttpRequest.get("/v0/TestEntity?offset=0&limit=0&minid=0&maxid=0&orderby=test");
-//        response = new MockHttpResponse();
-//
-//        dispatcher.invoke(request, response);
-//        verify(logic).findAll(entity, 0, 0, 0, 0, "asc", orders, null);
-//        assertEquals(HttpServletResponse.SC_OK, response.getStatus());
-//    }
+    public void testGetAllByEntityName() throws Exception {
+        System.out.println("getAllByEntityName");
+
+        String orderby = "version";
+        List<String> orders = Arrays.asList(StringUtils.split(orderby, ","));
+ 
+        when(logic.findAll(entity, 0, 0, "asc", orders)).thenReturn(list.getTestEntities());
+
+        MockHttpRequest request = MockHttpRequest.get("/v0/TestEntity?offset=0&limit=0&orderby=version");
+        response = new MockHttpResponse();
+
+        dispatcher.invoke(request, response);
+        verify(logic).findAll(entity, 0, 0, "asc", orders);
+        assertEquals(HttpServletResponse.SC_OK, response.getStatus());
+    }
 
     /**
      * Test of getAllByEntityName method, of class DinaService.

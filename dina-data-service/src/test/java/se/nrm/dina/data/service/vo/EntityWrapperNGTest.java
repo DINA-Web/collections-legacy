@@ -40,7 +40,7 @@ public class EntityWrapperNGTest {
     /**
      * Test of getMeta method, of class EntityWrapper.
      */
-    @Test
+//    @Test
     public void testGetMeta() {
         System.out.println("getMeta");
         EntityWrapper instance = null;
@@ -54,7 +54,7 @@ public class EntityWrapperNGTest {
     /**
      * Test of getData method, of class EntityWrapper.
      */
-    @Test
+//    @Test
     public void testGetData() {
         System.out.println("getData");
         EntityWrapper instance = null;

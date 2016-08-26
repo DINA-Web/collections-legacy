@@ -40,7 +40,7 @@ public class ResultWrapperNGTest {
     /**
      * Test of getId method, of class ResultWrapper.
      */
-    @Test
+//    @Test
     public void testGetId() {
         System.out.println("getId");
         ResultWrapper instance = null;
@@ -54,7 +54,7 @@ public class ResultWrapperNGTest {
     /**
      * Test of getType method, of class ResultWrapper.
      */
-    @Test
+//    @Test
     public void testGetType() {
         System.out.println("getType");
         ResultWrapper instance = null;
@@ -68,7 +68,7 @@ public class ResultWrapperNGTest {
     /**
      * Test of getAttributes method, of class ResultWrapper.
      */
-    @Test
+//    @Test
     public void testGetAttributes() {
         System.out.println("getAttributes");
         ResultWrapper instance = null;
