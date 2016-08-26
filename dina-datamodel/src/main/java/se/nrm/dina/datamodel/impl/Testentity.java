@@ -7,17 +7,23 @@ package se.nrm.dina.datamodel.impl;
 
 import java.math.BigDecimal;
 import java.util.List; 
-import javax.persistence.Id;
+import javax.persistence.Id; 
+import javax.xml.bind.annotation.XmlTransient;
+import org.codehaus.jackson.annotate.JsonIgnoreProperties;
 import se.nrm.dina.datamodel.BaseEntity; 
 
 /**
  *
  * @author idali
  */
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class Testentity extends BaseEntity {
     
     @Id
     private int id;
+    
+//    private String identityString;
+//    private int entityId;
     
     private Agent createdByAgentID;
     private List<String> testList;
@@ -33,12 +39,14 @@ public class Testentity extends BaseEntity {
     public Testentity(int id) {
         this.id = id;
     }
-
-    @Override
+ 
+    @XmlTransient 
+    @Override 
     public String getIdentityString() {
         return String.valueOf(id);
     }
 
+    @XmlTransient 
     @Override
     public int getEntityId() {
         return id;

@@ -41,6 +41,8 @@ public class DinaDataLogic<T extends EntityBean> implements Serializable {
     private java.util.Date date; 
     private EntityBean createdByUserBean;
 
+    private ObjectMapper mapper;
+    
     @EJB
     private DinaDao dao;
 
@@ -51,7 +53,10 @@ public class DinaDataLogic<T extends EntityBean> implements Serializable {
         this.dao = dao;
     }
 
-
+    public DinaDataLogic(DinaDao dao, ObjectMapper mapper) {
+        this.dao = dao;
+        this.mapper = mapper;
+    }
    
     /**
      * Finds all the instances of an entity
@@ -104,8 +109,7 @@ public class DinaDataLogic<T extends EntityBean> implements Serializable {
             String strQuery = NamedQueries.getInstance()
                     .createQueryFindAllWithSearchCriteria(entityName, clazz,  HelpClass.getInstance().getSort(sort),
                                                             orderby, isExact, condition);
-   
-            logger.info("strQury : {}", strQuery);
+    
             return dao.findAll(clazz, strQuery, limit, condition, isExact, offset);
         } catch (DinaException e) {
             throw e;
@@ -205,7 +209,7 @@ public class DinaDataLogic<T extends EntityBean> implements Serializable {
             EntityBean bean = mappObject(entityName, json); 
             Class clazz = JpaReflectionHelper.getInstance().getCreatedByClazz();
             createdByUserBean = dao.findById(agentId, clazz, JpaReflectionHelper.getInstance().isVersioned(clazz));
- 
+  
             Field[] fields = bean.getClass().getDeclaredFields();
             Arrays.stream(fields)
                     .forEach(f -> {
@@ -243,7 +247,7 @@ public class DinaDataLogic<T extends EntityBean> implements Serializable {
 
     private EntityBean mappObject(String entityName, String json) {
 
-        ObjectMapper mapper = new ObjectMapper();
+        mapper = new ObjectMapper();
 
         EntityBean bean = null;
         try {
