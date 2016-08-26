@@ -40,9 +40,8 @@ public class DinaDataLogicNGTest {
     
     @Mock
     ObjectMapper mapper;
-    
-    @Mock
-    EntityBean mockBean;
+     
+    EntityBean testBean;
 
     private DinaDataLogic instance;  
    
@@ -52,8 +51,9 @@ public class DinaDataLogicNGTest {
 
     @Before
     public void setUpClass() throws Exception {
+        testBean = new Testentity();
         instance = new DinaDataLogic(dao);
-        instance = new DinaDataLogic(dao, mapper); 
+        instance = new DinaDataLogic(dao, mapper, testBean); 
     }
 
     @After
@@ -362,24 +362,21 @@ public class DinaDataLogicNGTest {
      * Test of createEntity method, of class DinaDataLogic.
      * @throws java.lang.Exception
      */
-//    @Test
+    @Test
     public void testCreateEntity() throws Exception {
         System.out.println("createEntity");
         
         String entityName = "Testentity"; 
         
         ObjectMapper mapper1 = new ObjectMapper();
-        String json = mapper1.writeValueAsString(mockBean);
+        String json = mapper1.writeValueAsString(testBean);
      
-        when((EntityBean)mapper.readValue(json, Testentity.class)).thenReturn(mockBean);
-         
-        Class clazz = JpaReflectionHelper.getInstance().getCreatedByClazz();
-          
-        when(dao.create(mockBean)).thenReturn(mockBean);
+        when((EntityBean)mapper.readValue(json, Testentity.class)).thenReturn(testBean); 
+        when(dao.create(testBean)).thenReturn(testBean);
         
         EntityBean result = instance.createEntity(entityName, json, 0);
-        verify(dao).create(mockBean);
-        assertEquals(result, mockBean);
+        verify(dao).create(testBean);
+        assertEquals(result, testBean);
         assertTrue(result instanceof Testentity);
     }
     
@@ -432,7 +429,7 @@ public class DinaDataLogicNGTest {
      *
      * @throws java.lang.Exception
      */
-    @Test(expected = DigestException.class)
+    @Test(expected = DinaException.class)
     public void testDeleteEntityException() throws Exception {
         System.out.println("deleteEntity");
 

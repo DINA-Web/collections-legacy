@@ -42,20 +42,23 @@ public class DinaDataLogic<T extends EntityBean> implements Serializable {
     private EntityBean createdByUserBean;
 
     private ObjectMapper mapper;
+    private EntityBean bean;
     
     @EJB
     private DinaDao dao;
 
     public DinaDataLogic() { 
+        mapper = new ObjectMapper();
     }
     
     public DinaDataLogic(DinaDao dao) {
         this.dao = dao;
     }
 
-    public DinaDataLogic(DinaDao dao, ObjectMapper mapper) {
+    public DinaDataLogic(DinaDao dao, ObjectMapper mapper, EntityBean bean) {
         this.dao = dao;
         this.mapper = mapper;
+        this.bean = bean;
     }
    
     /**
@@ -161,9 +164,9 @@ public class DinaDataLogic<T extends EntityBean> implements Serializable {
             Arrays.asList(ids.split(",")).stream()
                     .forEach(strId -> {
                         int id =  HelpClass.getInstance().strToInt(strId); 
-                        T bean = (T) dao.findById(id, clazz, isVersioned);
-                        if(bean != null) {
-                            beans.add(bean);
+                        T t = (T) dao.findById(id, clazz, isVersioned);
+                        if(t != null) {
+                            beans.add(t);
                         } 
                     }); 
             return beans;
@@ -205,8 +208,11 @@ public class DinaDataLogic<T extends EntityBean> implements Serializable {
         LocalDateTime ld = LocalDateTime.now();
         date = Timestamp.valueOf(ld);
 
+        System.out.println("bean : " + bean);
         try {
-            EntityBean bean = mappObject(entityName, json); 
+            bean = mappObject(entityName, json); 
+            
+            System.out.println("bean 1 .. " + bean);
             Class clazz = JpaReflectionHelper.getInstance().getCreatedByClazz();
             createdByUserBean = dao.findById(agentId, clazz, JpaReflectionHelper.getInstance().isVersioned(clazz));
   
@@ -238,7 +244,7 @@ public class DinaDataLogic<T extends EntityBean> implements Serializable {
         logger.info("updateEntity : {} -- {}", entityName, json);
 
         try {
-            EntityBean bean = mappObject(entityName, json);
+            bean = mappObject(entityName, json);
             return dao.merge(bean);
         } catch (DinaException ex) {
             throw new DinaException(ex.getMessage());
@@ -246,10 +252,8 @@ public class DinaDataLogic<T extends EntityBean> implements Serializable {
     }
 
     private EntityBean mappObject(String entityName, String json) {
-
-        mapper = new ObjectMapper();
-
-        EntityBean bean = null;
+ 
+        bean = null;
         try {
             bean = (EntityBean) mapper.readValue(json, JpaReflectionHelper.getInstance().convertClassNameToClass(entityName));
         } catch (IOException ex) {
@@ -269,7 +273,7 @@ public class DinaDataLogic<T extends EntityBean> implements Serializable {
         logger.info("deleteEntity : {} -- {}", entityName, id);
 
         try {
-            EntityBean bean = dao.findByReference(id, JpaReflectionHelper.getInstance().convertClassNameToClass(entityName));
+            bean = dao.findByReference(id, JpaReflectionHelper.getInstance().convertClassNameToClass(entityName));
 
             if (bean != null) {
                 dao.delete(bean);
