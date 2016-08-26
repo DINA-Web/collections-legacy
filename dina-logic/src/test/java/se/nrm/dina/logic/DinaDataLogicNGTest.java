@@ -111,7 +111,7 @@ public class DinaDataLogicNGTest {
      * Test of findAllBySearchCriteria method, of class DinaDataLogic.
      * @throws java.lang.Exception
      */
-//    @Test
+    @Test
     public void testFindAllBySearchCriteria() throws Exception {
         System.out.println("findAllBySearchCriteria");
          
@@ -124,7 +124,7 @@ public class DinaDataLogicNGTest {
         Map<String, String> conditions = null;
         boolean isExact = false;
              
-        String strQuery = "";
+        String strQuery = "SELECT e From Testentity e  ORDER BY e.id ASC";
         
         List<Testentity> list = new ArrayList<>();
         Testentity testEntity = new Testentity(1);

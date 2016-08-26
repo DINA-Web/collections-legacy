@@ -14,11 +14,14 @@ import org.junit.AfterClass;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;  
 import org.junit.BeforeClass;
-import org.junit.Test;
-import static org.testng.Assert.fail;
+import org.junit.Test; 
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
+import static org.testng.Assert.assertTrue;
 import se.nrm.dina.data.exceptions.DinaException;
 import se.nrm.dina.datamodel.BaseEntity;
 import se.nrm.dina.datamodel.impl.Testentity;
+import se.nrm.dina.datamodel.util.DataModelHelper;
 /**
  *
  * @author idali
@@ -152,13 +155,16 @@ public class NamedQueriesNGTest {
         Map<String, String> criteria = new HashMap<>();
         criteria.put("version", "1");
         criteria.put("s", "2");
-        
-        
-        instance = new NamedQueries();
-        String expResult = "SELECT e From Testentity e  WHERE  e.s = :s AND  e.version = :version ORDER BY e.version asc";
+        criteria.put(DataModelHelper.getInstance().getCREATED_BY_FIELD(), "1");
+        criteria.put("bgDecimal", "1");
+        criteria.put("timestampCreated", "2000-01-01");
+         
+        instance = new NamedQueries(); 
         String result = instance.createQueryFindAllWithSearchCriteria(entityName, clazz, sort, orderBy, isExact, criteria);
-        assertEquals(result, expResult); 
+        assertTrue(result.contains("WHERE"));
     }
+    
+    
     
     @Test(expected = DinaException.class)
     public void testCreateQueryFindAllWithSearchCriteriaException() {
