@@ -51,6 +51,7 @@
         <module>dina-data-jpa</module>
         <module>dina-logic</module>
         <module>dina-data-service</module> 
+        <module>dina-keycloak-admin</module> 
     </modules>
 
     <dependencies>
