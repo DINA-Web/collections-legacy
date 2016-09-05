@@ -37,9 +37,7 @@ public class AdminClient {
         TSVReader fileReader = new TSVReader(tsvFile);
         List<String[]> list = fileReader.readTSVFile();
         list.remove(0);
-        
-        System.out.println("list : " + list.size());
-        
+       
         List<String> groups = new ArrayList();
         groups.add("admin"); 
          
@@ -100,36 +98,14 @@ public class AdminClient {
                     List<CredentialRepresentation> clist = new ArrayList<>();
                     clist.add(credential);
               
-                    user.setCredentials(clist);
-                       
-                    javax.ws.rs.core.Response response = kc.realm(DINA_REALM).users().create(user);  
-                    
-//                    String locationHeader = response.getHeaderString("Location");
-//                    System.out.println("location : " + locationHeader);
-//                    
-//                    String uId = StringUtils.substringAfterLast("/", locationHeader);
-//                     
-//                    userIds.add(uId); 
-                    response.close();
+                    user.setCredentials(clist); 
+                    javax.ws.rs.core.Response response = kc.realm(DINA_REALM).users().create(user);
+                     
+                    if(response != null) {
+                        response.close();
+                    }  
                 });
-            
-                 
-//               RoleResource rr = kc.realm(DINA_REALM).roles().get("admin");
-//               roleList = kc.realm(DINA_REALM).roles().list();
-//               
-//               System.out.println("rolelist : " + roleList);
-//               
-//               userIds.stream()
-//                .forEach(u -> {
-//                    RoleMappingResource r = kc.realm(DINA_REALM).users().get(u).roles();
-//                    r.realmLevel().add(roleList); 
-//                });
-//
-//                List<ClientRepresentation> clients = kc.realm(DINA_REALM).clients().findAll();
-//                clients.stream()
-//                        .forEach(c -> { 
-//                            System.out.println("c -> " + c.getClientId());
-//                        }); 
+             
     }
      
 }

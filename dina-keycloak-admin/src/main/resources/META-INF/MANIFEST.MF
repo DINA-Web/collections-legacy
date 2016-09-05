@@ -1,2 +1,4 @@
-Main-Class: se.nrm.dina.keycloak.admin.Main 
-Class-Path:  lib/univocity-parsers-2.0.2.jar 
+Manifest-Version: 1.0
+Sealed: true
+Main-Class: se.nrm.dina.keycloak.admin.Main
+
