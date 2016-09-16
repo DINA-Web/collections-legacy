@@ -5,7 +5,7 @@
     <parent>
         <artifactId>dinaproject</artifactId>
         <groupId>se.nrm.dina</groupId>
-        <version>0.2-beta</version>
+        <version>0.3-SNAPSHOT</version>
     </parent>
     
     <artifactId>dina-keycloak-admin</artifactId>

@@ -9,7 +9,7 @@
     <parent>
         <groupId>se.nrm.dina</groupId>
         <artifactId>dinaproject</artifactId>
-        <version>0.2-beta</version>
+        <version>0.3-SNAPSHOT</version>
     </parent>
    
     <artifactId>dina-datamodel</artifactId>
