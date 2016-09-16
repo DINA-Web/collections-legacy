@@ -55,7 +55,7 @@ public class Workbenchrowimage implements EntityBean, Serializable {
     @Lob
     @Column(name = "CardImageData")
     private byte[] cardImageData;
-    
+
     
     @Size(max = 255)
     @Column(name = "CardImageFullPath")

@@ -367,5 +367,5 @@ public class Project extends BaseEntity {
     @Override
     public String toString() {
         return "se.nrm.dina.datamodel.Project[ projectID=" + projectID + " ]";
-    } 
+    }  
 }

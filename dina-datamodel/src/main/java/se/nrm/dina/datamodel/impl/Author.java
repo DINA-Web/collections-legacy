@@ -18,7 +18,7 @@ import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.persistence.Table;  
+import javax.persistence.Table;   
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlAttribute;
@@ -38,7 +38,7 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Author.findByAuthorID", query = "SELECT a FROM Author a WHERE a.authorID = :authorID"), 
     @NamedQuery(name = "Author.findByOrderNumber", query = "SELECT a FROM Author a WHERE a.orderNumber = :orderNumber")})
 public class Author extends BaseEntity {
-   
+    
     private static final long serialVersionUID = 1L;
     
     @Id
@@ -186,5 +186,5 @@ public class Author extends BaseEntity {
     @Override
     public String toString() {
         return "se.nrm.dina.datamodel.Author[ authorID=" + authorID + " ]";
-    } 
+    }  
 }

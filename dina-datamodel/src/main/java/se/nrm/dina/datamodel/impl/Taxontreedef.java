@@ -22,6 +22,8 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;  
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlAttribute;
@@ -43,7 +45,6 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Taxontreedef.findByFullNameDirection", query = "SELECT t FROM Taxontreedef t WHERE t.fullNameDirection = :fullNameDirection"),
     @NamedQuery(name = "Taxontreedef.findByName", query = "SELECT t FROM Taxontreedef t WHERE t.name = :name") })
 public class Taxontreedef extends BaseEntity {
-    
     
     private static final long serialVersionUID = 1L;
     
@@ -212,5 +213,5 @@ public class Taxontreedef extends BaseEntity {
     @Override
     public String toString() {
         return "se.nrm.dina.datamodel.Taxontreedef[ taxonTreeDefID=" + taxonTreeDefID + " ]";
-    } 
+    }  
 }

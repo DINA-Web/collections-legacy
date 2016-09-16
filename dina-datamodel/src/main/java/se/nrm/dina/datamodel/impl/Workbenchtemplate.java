@@ -22,7 +22,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
-import javax.persistence.Table;  
+import javax.persistence.Table;   
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlID;
@@ -43,7 +43,7 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Workbenchtemplate.findByName", query = "SELECT w FROM Workbenchtemplate w WHERE w.name = :name"),
     @NamedQuery(name = "Workbenchtemplate.findBySrcFilePath", query = "SELECT w FROM Workbenchtemplate w WHERE w.srcFilePath = :srcFilePath")})
 public class Workbenchtemplate extends BaseEntity {
-   
+    
     private static final long serialVersionUID = 1L;
     
     @Id
@@ -224,5 +224,5 @@ public class Workbenchtemplate extends BaseEntity {
     @Override
     public String toString() {
         return "se.nrm.dina.datamodel.Workbenchtemplate[ workbenchTemplateID=" + workbenchTemplateID + " ]";
-    } 
+    }  
 }

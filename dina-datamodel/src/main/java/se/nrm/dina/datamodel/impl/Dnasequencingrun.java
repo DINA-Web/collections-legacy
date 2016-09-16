@@ -58,7 +58,7 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Dnasequencingrun.findBySequencePrimerSequence53", query = "SELECT d FROM Dnasequencingrun d WHERE d.sequencePrimerSequence53 = :sequencePrimerSequence53"),
     @NamedQuery(name = "Dnasequencingrun.findByTraceFileName", query = "SELECT d FROM Dnasequencingrun d WHERE d.traceFileName = :traceFileName") })
 public class Dnasequencingrun extends BaseEntity {
-  
+    
     private static final long serialVersionUID = 1L;
     
     @Id
@@ -525,5 +525,5 @@ public class Dnasequencingrun extends BaseEntity {
     @Override
     public String toString() {
         return "se.nrm.dina.datamodel.Dnasequencingrun[ dNASequencingRunID=" + dNASequencingRunID + " ]";
-    } 
+    }  
 }

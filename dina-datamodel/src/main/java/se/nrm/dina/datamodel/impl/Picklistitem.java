@@ -18,6 +18,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;  
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlAttribute;
@@ -39,7 +41,7 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Picklistitem.findByTitle", query = "SELECT p FROM Picklistitem p WHERE p.title = :title"),
     @NamedQuery(name = "Picklistitem.findByValue", query = "SELECT p FROM Picklistitem p WHERE p.value = :value")})
 public class Picklistitem extends BaseEntity {
-   
+    
     private static final long serialVersionUID = 1L;
     
     @Id
@@ -184,5 +186,5 @@ public class Picklistitem extends BaseEntity {
     @Override
     public String toString() {
         return "se.nrm.dina.datamodel.Picklistitem[ pickListItemID=" + pickListItemID + " ]";
-    } 
+    }  
 }

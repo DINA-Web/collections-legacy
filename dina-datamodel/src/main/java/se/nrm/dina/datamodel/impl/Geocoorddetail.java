@@ -21,7 +21,7 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
-import javax.persistence.TemporalType;  
+import javax.persistence.TemporalType;   
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlID;
@@ -393,5 +393,5 @@ public class Geocoorddetail extends BaseEntity {
     @Override
     public String toString() {
         return "se.nrm.dina.datamodel.Geocoorddetail[ geoCoordDetailID=" + geoCoordDetailID + " ]";
-    } 
+    }  
 }

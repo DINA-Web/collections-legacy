@@ -413,5 +413,5 @@ public class Storage extends BaseEntity {
     @Override
     public String toString() {
         return "se.nrm.dina.datamodel.Storage[ storageID=" + storageID + " ]";
-    } 
+    }  
 }

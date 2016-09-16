@@ -19,6 +19,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;  
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlAttribute;
@@ -38,6 +40,16 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Deaccessionagent.findByDeaccessionAgentID", query = "SELECT d FROM Deaccessionagent d WHERE d.deaccessionAgentID = :deaccessionAgentID"),
     @NamedQuery(name = "Deaccessionagent.findByRole", query = "SELECT d FROM Deaccessionagent d WHERE d.role = :role")})
 public class Deaccessionagent extends BaseEntity {
+    @Basic(optional = false)
+    @NotNull
+    @Column(name = "TimestampCreated")
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date timestampCreated;
+    @Column(name = "TimestampModified")
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date timestampModified;
+    @Column(name = "Version")
+    private Integer version;
     
     private static final long serialVersionUID = 1L;
     
@@ -189,5 +201,5 @@ public class Deaccessionagent extends BaseEntity {
     @Override
     public String toString() {
         return "se.nrm.dina.datamodel.Deaccessionagent[ deaccessionAgentID=" + deaccessionAgentID + " ]";
-    } 
+    }  
 }

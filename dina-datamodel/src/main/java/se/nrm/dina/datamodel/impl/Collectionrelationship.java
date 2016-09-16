@@ -17,7 +17,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.persistence.Table;  
+import javax.persistence.Table;   
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlID;
@@ -35,7 +35,7 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Collectionrelationship.findAll", query = "SELECT c FROM Collectionrelationship c"),
     @NamedQuery(name = "Collectionrelationship.findByCollectionRelationshipID", query = "SELECT c FROM Collectionrelationship c WHERE c.collectionRelationshipID = :collectionRelationshipID")})
 public class Collectionrelationship extends BaseEntity {
-  
+     
     private static final long serialVersionUID = 1L;
     
     @Id
@@ -193,5 +193,5 @@ public class Collectionrelationship extends BaseEntity {
     @Override
     public String toString() {
         return "se.nrm.dina.datamodel.Collectionrelationship[ collectionRelationshipID=" + collectionRelationshipID + " ]";
-    } 
+    }  
 }

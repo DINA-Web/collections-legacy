@@ -42,7 +42,7 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Borrowreturnmaterial.findByQuantity", query = "SELECT b FROM Borrowreturnmaterial b WHERE b.quantity = :quantity"),
     @NamedQuery(name = "Borrowreturnmaterial.findByReturnedDate", query = "SELECT b FROM Borrowreturnmaterial b WHERE b.returnedDate = :returnedDate")})
 public class Borrowreturnmaterial extends BaseEntity {
- 
+    
     private static final long serialVersionUID = 1L;
     
     @Id
@@ -214,5 +214,5 @@ public class Borrowreturnmaterial extends BaseEntity {
     @Override
     public String toString() {
         return "se.nrm.dina.datamodel.Borrowreturnmaterial[ borrowReturnMaterialID=" + borrowReturnMaterialID + " ]";
-    } 
+    }  
 }

@@ -24,7 +24,7 @@ import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
-import javax.persistence.TemporalType;  
+import javax.persistence.TemporalType;   
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlID;
@@ -48,7 +48,7 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Collectingevent.findByVisibility", query = "SELECT c FROM Collectingevent c WHERE c.visibility = :visibility"),
     @NamedQuery(name = "Collectingevent.findByGuid", query = "SELECT c FROM Collectingevent c WHERE c.guid = :guid")  })
 public class Collectingevent extends BaseEntity {
-   
+     
     private static final long serialVersionUID = 1L;
     
     @Id
@@ -552,5 +552,5 @@ public class Collectingevent extends BaseEntity {
     @Override
     public String toString() {
         return "se.nrm.dina.datamodel.Collectingevent[ collectingEventID=" + collectingEventID + " ]";
-    }  
+    }   
 }

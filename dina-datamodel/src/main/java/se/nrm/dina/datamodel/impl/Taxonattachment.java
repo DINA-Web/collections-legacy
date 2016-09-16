@@ -19,6 +19,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;  
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlAttribute;
@@ -38,7 +40,7 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Taxonattachment.findByTaxonAttachmentID", query = "SELECT t FROM Taxonattachment t WHERE t.taxonAttachmentID = :taxonAttachmentID"), 
     @NamedQuery(name = "Taxonattachment.findByOrdinal", query = "SELECT t FROM Taxonattachment t WHERE t.ordinal = :ordinal")})
 public class Taxonattachment extends  BaseEntity {
-    
+     
     private static final long serialVersionUID = 1L;
     
     @Id
@@ -186,5 +188,5 @@ public class Taxonattachment extends  BaseEntity {
     @Override
     public String toString() {
         return "se.nrm.dina.datamodel.Taxonattachment[ taxonAttachmentID=" + taxonAttachmentID + " ]";
-    } 
+    }  
 }

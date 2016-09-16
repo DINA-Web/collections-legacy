@@ -52,7 +52,7 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Preparation.findByStatus", query = "SELECT p FROM Preparation p WHERE p.status = :status"),
     @NamedQuery(name = "Preparation.findByStorageLocation", query = "SELECT p FROM Preparation p WHERE p.storageLocation = :storageLocation"), })
 public class Preparation extends BaseEntity {
-  
+     
     private static final long serialVersionUID = 1L;
     
     @Id
@@ -508,5 +508,5 @@ public class Preparation extends BaseEntity {
     @Override
     public String toString() {
         return "se.nrm.dina.datamodel.Preparation[ preparationID=" + preparationID + " ]";
-    } 
+    }  
 }

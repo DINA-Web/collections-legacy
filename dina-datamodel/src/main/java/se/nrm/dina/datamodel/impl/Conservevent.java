@@ -24,7 +24,7 @@ import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
-import javax.persistence.TemporalType;  
+import javax.persistence.TemporalType;   
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlID;
@@ -46,7 +46,7 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Conservevent.findByCuratorApprovalDate", query = "SELECT c FROM Conservevent c WHERE c.curatorApprovalDate = :curatorApprovalDate"), 
     @NamedQuery(name = "Conservevent.findByTreatmentCompDatePrecision", query = "SELECT c FROM Conservevent c WHERE c.treatmentCompDatePrecision = :treatmentCompDatePrecision")})
 public class Conservevent extends BaseEntity {
-  
+     
     private static final long serialVersionUID = 1L;
     
     @Id
@@ -455,5 +455,5 @@ public class Conservevent extends BaseEntity {
     @Override
     public String toString() {
         return "se.nrm.dina.datamodel.Conservevent[ conservEventID=" + conservEventID + " ]";
-    } 
+    }  
 }

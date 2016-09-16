@@ -53,7 +53,7 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Borrow.findByBorrowDate", query = "SELECT b FROM Borrow b WHERE b.borrowDate = :borrowDate"), 
     @NamedQuery(name = "Borrow.findByNumberOfItemsBorrowed", query = "SELECT b FROM Borrow b WHERE b.numberOfItemsBorrowed = :numberOfItemsBorrowed")})
 public class Borrow extends BaseEntity {
- 
+     
     private static final long serialVersionUID = 1L;
     
     @Id
@@ -411,5 +411,5 @@ public class Borrow extends BaseEntity {
     @Override
     public String toString() {
         return "se.nrm.dina.datamodel.Borrow[ borrowID=" + borrowID + " ]";
-    } 
+    }  
 }

@@ -22,7 +22,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
-import javax.persistence.Table;  
+import javax.persistence.Table;   
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlAttribute;
@@ -42,7 +42,7 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Loanpreparation.findAll", query = "SELECT l FROM Loanpreparation l"),
     @NamedQuery(name = "Loanpreparation.findByLoanPreparationID", query = "SELECT l FROM Loanpreparation l WHERE l.loanPreparationID = :loanPreparationID")})
 public class Loanpreparation extends BaseEntity {
-   
+    
     private static final long serialVersionUID = 1L;
     
     @Id
@@ -286,5 +286,5 @@ public class Loanpreparation extends BaseEntity {
     @Override
     public String toString() {
         return "se.nrm.dina.datamodel.Loanpreparation[ loanPreparationID=" + loanPreparationID + " ]";
-    } 
+    }  
 }

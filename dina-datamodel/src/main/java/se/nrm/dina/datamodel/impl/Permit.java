@@ -366,5 +366,5 @@ public class Permit extends BaseEntity {
     @Override
     public String toString() {
         return "se.nrm.dina.datamodel.Permit[ permitID=" + permitID + " ]";
-    } 
+    }  
 }

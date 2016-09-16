@@ -307,4 +307,28 @@ public class Geologictimeperiodtreedefitem extends BaseEntity {
     public String toString() {
         return "se.nrm.dina.datamodel.Geologictimeperiodtreedefitem[ geologicTimePeriodTreeDefItemID=" + geologicTimePeriodTreeDefItemID + " ]";
     } 
+
+    public Date getTimestampCreated() {
+        return timestampCreated;
+    }
+
+    public void setTimestampCreated(Date timestampCreated) {
+        this.timestampCreated = timestampCreated;
+    }
+
+    public Date getTimestampModified() {
+        return timestampModified;
+    }
+
+    public void setTimestampModified(Date timestampModified) {
+        this.timestampModified = timestampModified;
+    }
+
+    public Integer getVersion() {
+        return version;
+    }
+
+    public void setVersion(Integer version) {
+        this.version = version;
+    }
 }

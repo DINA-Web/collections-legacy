@@ -21,6 +21,8 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;  
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlAttribute;
@@ -45,7 +47,7 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Spviewsetobj.findByMetaData", query = "SELECT s FROM Spviewsetobj s WHERE s.metaData = :metaData"),
     @NamedQuery(name = "Spviewsetobj.findByName", query = "SELECT s FROM Spviewsetobj s WHERE s.name = :name")})
 public class Spviewsetobj extends BaseEntity {
-    
+     
     private static final long serialVersionUID = 1L;
     
     @Id
@@ -229,5 +231,5 @@ public class Spviewsetobj extends BaseEntity {
     @Override
     public String toString() {
         return "se.nrm.dina.datamodel.Spviewsetobj[ spViewSetObjID=" + spViewSetObjID + " ]";
-    } 
+    }  
 }

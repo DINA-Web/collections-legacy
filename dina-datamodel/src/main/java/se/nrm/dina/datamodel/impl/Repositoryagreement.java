@@ -388,5 +388,5 @@ public class Repositoryagreement extends BaseEntity {
     @Override
     public String toString() {
         return "se.nrm.dina.datamodel.Repositoryagreement[ repositoryAgreementID=" + repositoryAgreementID + " ]";
-    } 
+    }  
 }

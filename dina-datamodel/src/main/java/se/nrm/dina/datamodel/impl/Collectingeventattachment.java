@@ -19,7 +19,7 @@ import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.persistence.Table;  
+import javax.persistence.Table;   
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlAttribute;
@@ -41,7 +41,7 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Collectingeventattachment.findByCollectionMemberID", query = "SELECT c FROM Collectingeventattachment c WHERE c.collectionMemberID = :collectionMemberID"),
     @NamedQuery(name = "Collectingeventattachment.findByOrdinal", query = "SELECT c FROM Collectingeventattachment c WHERE c.ordinal = :ordinal")})
 public class Collectingeventattachment extends BaseEntity {
- 
+     
     private static final long serialVersionUID = 1L;
     
     @Id
@@ -203,5 +203,5 @@ public class Collectingeventattachment extends BaseEntity {
     @Override
     public String toString() {
         return "se.nrm.dina.datamodel.Collectingeventattachment[ collectingEventAttachmentID=" + collectingEventAttachmentID + " ]";
-    } 
+    }  
 }

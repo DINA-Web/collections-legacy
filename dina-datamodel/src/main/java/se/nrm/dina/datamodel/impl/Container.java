@@ -21,6 +21,8 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;  
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlAttribute;
@@ -44,7 +46,7 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Container.findByName", query = "SELECT c FROM Container c WHERE c.name = :name"), 
     @NamedQuery(name = "Container.findByType", query = "SELECT c FROM Container c WHERE c.type = :type")})
 public class Container extends BaseEntity {
-    
+   
     private static final long serialVersionUID = 1L;
     
     @Id
@@ -261,5 +263,5 @@ public class Container extends BaseEntity {
     @Override
     public String toString() {
         return "se.nrm.dina.datamodel.Container[ containerID=" + containerID + " ]";
-    } 
+    }  
 }

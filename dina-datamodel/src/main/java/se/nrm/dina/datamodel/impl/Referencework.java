@@ -23,6 +23,8 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;  
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlAttribute;
@@ -50,7 +52,7 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Referencework.findByTitle", query = "SELECT r FROM Referencework r WHERE r.title = :title"),
     @NamedQuery(name = "Referencework.findByVolume", query = "SELECT r FROM Referencework r WHERE r.volume = :volume") })
 public class Referencework extends BaseEntity {
-     
+    
     private static final long serialVersionUID = 1L;
     
     @Id
@@ -521,5 +523,5 @@ public class Referencework extends BaseEntity {
     @Override
     public String toString() {
         return "se.nrm.dina.datamodel.Referencework[ referenceWorkID=" + referenceWorkID + " ]";
-    } 
+    }  
 }

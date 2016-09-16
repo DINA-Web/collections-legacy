@@ -20,7 +20,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
-import javax.persistence.Table;  
+import javax.persistence.Table;   
 import javax.validation.constraints.NotNull;
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlID;
@@ -224,5 +224,5 @@ public class Spauditlog extends BaseEntity {
     @Override
     public String toString() {
         return "se.nrm.dina.datamodel.Spauditlog[ spAuditLogID=" + spAuditLogID + " ]";
-    } 
+    }  
 }

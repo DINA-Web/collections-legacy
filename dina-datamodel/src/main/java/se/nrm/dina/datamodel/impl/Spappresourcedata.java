@@ -18,7 +18,7 @@ import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.persistence.Table;  
+import javax.persistence.Table;   
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlID;
 import javax.xml.bind.annotation.XmlIDREF;
@@ -36,6 +36,8 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Spappresourcedata.findBySpAppResourceDataID", query = "SELECT s FROM Spappresourcedata s WHERE s.spAppResourceDataID = :spAppResourceDataID")})
 public class Spappresourcedata extends BaseEntity {
     
+    
+    
  
     
     private static final long serialVersionUID = 1L;
@@ -49,7 +51,7 @@ public class Spappresourcedata extends BaseEntity {
     @Lob
     @Column(name = "data")
     private byte[] data;
-    
+     
     @JoinColumn(name = "SpViewSetObjID", referencedColumnName = "SpViewSetObjID")
     @ManyToOne
     private Spviewsetobj spViewSetObjID;
@@ -133,13 +135,6 @@ public class Spappresourcedata extends BaseEntity {
     }
     
     
-    public byte[] getData() {
-        return data;
-    }
-
-    public void setData(byte[] data) {
-        this.data = data;
-    }
 
     @XmlIDREF
     public Agent getCreatedByAgentID() {
@@ -170,7 +165,15 @@ public class Spappresourcedata extends BaseEntity {
     @Override
     public String toString() {
         return "se.nrm.dina.datamodel.Spappresourcedata[ spAppResourceDataID=" + spAppResourceDataID + " ]";
-    } 
+    }  
+    
+    public byte[] getData() {
+        return data;
+    }
+
+    public void setData(byte[] data) {
+        this.data = data;
+    }
 
     
 }

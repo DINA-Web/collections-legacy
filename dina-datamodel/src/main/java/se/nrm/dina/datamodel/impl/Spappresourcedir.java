@@ -21,7 +21,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
-import javax.persistence.Table;  
+import javax.persistence.Table;   
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlAttribute;
@@ -44,8 +44,7 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Spappresourcedir.findByIsPersonal", query = "SELECT s FROM Spappresourcedir s WHERE s.isPersonal = :isPersonal"),
     @NamedQuery(name = "Spappresourcedir.findByUserType", query = "SELECT s FROM Spappresourcedir s WHERE s.userType = :userType")})
 public class Spappresourcedir extends BaseEntity {
-  
-    
+     
     private static final long serialVersionUID = 1L;
     
     @Id
@@ -243,4 +242,5 @@ public class Spappresourcedir extends BaseEntity {
     public String toString() {
         return "se.nrm.dina.datamodel.Spappresourcedir[ spAppResourceDirID=" + spAppResourceDirID + " ]";
     } 
+ 
 }

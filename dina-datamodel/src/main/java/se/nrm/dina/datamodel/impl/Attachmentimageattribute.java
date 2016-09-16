@@ -18,7 +18,7 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
-import javax.persistence.TemporalType;  
+import javax.persistence.TemporalType;   
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlID;
@@ -40,7 +40,7 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Attachmentimageattribute.findByImageType", query = "SELECT a FROM Attachmentimageattribute a WHERE a.imageType = :imageType"), 
     @NamedQuery(name = "Attachmentimageattribute.findByViewDescription", query = "SELECT a FROM Attachmentimageattribute a WHERE a.viewDescription = :viewDescription") })
 public class Attachmentimageattribute extends BaseEntity {
- 
+   
     private static final long serialVersionUID = 1L;
     
     @Id
@@ -340,6 +340,5 @@ public class Attachmentimageattribute extends BaseEntity {
     @Override
     public String toString() {
         return "se.nrm.dina.datamodel.Attachmentimageattribute[ attachmentImageAttributeID=" + attachmentImageAttributeID + " ]";
-    } 
-    
+    }  
 }

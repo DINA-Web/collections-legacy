@@ -16,7 +16,7 @@ import javax.persistence.Id;
 import javax.persistence.Lob;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.persistence.Table;  
+import javax.persistence.Table;   
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlAttribute;
@@ -38,7 +38,7 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Latlonpolygon.findBySpVisualQueryID", query = "SELECT l FROM Latlonpolygon l WHERE l.spVisualQueryID = :spVisualQueryID"),
     @NamedQuery(name = "Latlonpolygon.findByLocalityID", query = "SELECT l FROM Latlonpolygon l WHERE l.localityID = :localityID") })
 public class Latlonpolygon extends BaseEntity {
- 
+   
     private static final long serialVersionUID = 1L;
     
     @Id
@@ -193,5 +193,5 @@ public class Latlonpolygon extends BaseEntity {
     @Override
     public String toString() {
         return "se.nrm.dina.datamodel.Latlonpolygon[ latLonPolygonID=" + latLonPolygonID + " ]";
-    } 
+    }  
 }

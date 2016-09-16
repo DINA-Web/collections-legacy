@@ -54,7 +54,7 @@ import org.codehaus.jackson.annotate.JsonIgnore;
     @NamedQuery(name = "Attachment.findByVisibility", query = "SELECT a FROM Attachment a WHERE a.visibility = :visibility"),
     @NamedQuery(name = "Attachment.findByAttachmentImageAttributeID", query = "SELECT a FROM Attachment a WHERE a.attachmentImageAttributeID = :attachmentImageAttributeID")})
 public class Attachment extends BaseEntity {
-   
+    
     private static final long serialVersionUID = 1L;
     
     @Id
@@ -633,7 +633,5 @@ public class Attachment extends BaseEntity {
     @Override
     public String toString() {
         return "se.nrm.dina.datamodel.Attachment[ attachmentID=" + attachmentID + " ]";
-    } 
-
-    
+    }  
 }

@@ -19,6 +19,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;  
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlAttribute;
@@ -38,7 +40,7 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Permitattachment.findByPermitAttachmentID", query = "SELECT p FROM Permitattachment p WHERE p.permitAttachmentID = :permitAttachmentID"), 
     @NamedQuery(name = "Permitattachment.findByOrdinal", query = "SELECT p FROM Permitattachment p WHERE p.ordinal = :ordinal")})
 public class Permitattachment extends BaseEntity {
- 
+   
     private static final long serialVersionUID = 1L;
     
     @Id
@@ -186,5 +188,5 @@ public class Permitattachment extends BaseEntity {
     @Override
     public String toString() {
         return "se.nrm.dina.datamodel.Permitattachment[ permitAttachmentID=" + permitAttachmentID + " ]";
-    } 
+    }  
 }

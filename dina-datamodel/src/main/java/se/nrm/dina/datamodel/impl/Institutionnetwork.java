@@ -16,7 +16,7 @@ import javax.persistence.Id;
 import javax.persistence.Lob;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.persistence.Table;  
+import javax.persistence.Table;   
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlID;
@@ -37,7 +37,7 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Institutionnetwork.findByUri", query = "SELECT i FROM Institutionnetwork i WHERE i.uri = :uri"),
     @NamedQuery(name = "Institutionnetwork.findByAddressID", query = "SELECT i FROM Institutionnetwork i WHERE i.addressID = :addressID") })
 public class Institutionnetwork extends BaseEntity {
-     
+    
     private static final long serialVersionUID = 1L;
     
     @Id
@@ -291,5 +291,5 @@ public class Institutionnetwork extends BaseEntity {
     @Override
     public String toString() {
         return "se.nrm.dina.datamodel.Institutionnetwork[ institutionNetworkID=" + institutionNetworkID + " ]";
-    } 
+    }  
 }

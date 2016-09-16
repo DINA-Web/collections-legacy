@@ -42,7 +42,7 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Preparationattachment.findByCollectionMemberID", query = "SELECT p FROM Preparationattachment p WHERE p.collectionMemberID = :collectionMemberID"),
     @NamedQuery(name = "Preparationattachment.findByOrdinal", query = "SELECT p FROM Preparationattachment p WHERE p.ordinal = :ordinal")})
 public class Preparationattachment extends BaseEntity {
-   
+    
     private static final long serialVersionUID = 1L;
     
     @Id
@@ -204,5 +204,5 @@ public class Preparationattachment extends BaseEntity {
     @Override
     public String toString() {
         return "se.nrm.dina.datamodel.Preparationattachment[ preparationAttachmentID=" + preparationAttachmentID + " ]";
-    } 
+    }  
 }

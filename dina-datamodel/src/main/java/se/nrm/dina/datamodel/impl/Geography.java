@@ -57,7 +57,7 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Geography.findByName", query = "SELECT g FROM Geography g WHERE g.name = :name"), 
     @NamedQuery(name = "Geography.findByRankID", query = "SELECT g FROM Geography g WHERE g.rankID = :rankID") })
 public class Geography extends BaseEntity {
-   
+    
     private static final long serialVersionUID = 1L;
     
     @Id
@@ -491,5 +491,5 @@ public class Geography extends BaseEntity {
     @Override
     public String toString() {
         return "se.nrm.dina.datamodel.Geography[ geographyID=" + geographyID + " ]";
-    } 
+    }  
 }

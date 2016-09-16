@@ -17,7 +17,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.persistence.Table;  
+import javax.persistence.Table;   
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlAttribute;
@@ -37,7 +37,7 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Attachmenttag.findByAttachmentTagID", query = "SELECT a FROM Attachmenttag a WHERE a.attachmentTagID = :attachmentTagID"), 
     @NamedQuery(name = "Attachmenttag.findByTag", query = "SELECT a FROM Attachmenttag a WHERE a.tag = :tag")})
 public class Attachmenttag extends BaseEntity {
- 
+    
     private static final long serialVersionUID = 1L;
     
     @Id
@@ -160,5 +160,5 @@ public class Attachmenttag extends BaseEntity {
     @Override
     public String toString() {
         return "se.nrm.dina.datamodel.Attachmenttag[ attachmentTagID=" + attachmentTagID + " ]";
-    }
+    } 
 }

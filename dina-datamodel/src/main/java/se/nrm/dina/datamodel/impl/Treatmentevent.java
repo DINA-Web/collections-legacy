@@ -25,6 +25,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;  
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlID;
@@ -55,9 +56,7 @@ import org.codehaus.jackson.annotate.JsonIgnore;
     @NamedQuery(name = "Treatmentevent.findByTreatmentNumber", query = "SELECT t FROM Treatmentevent t WHERE t.treatmentNumber = :treatmentNumber"),
     @NamedQuery(name = "Treatmentevent.findByType", query = "SELECT t FROM Treatmentevent t WHERE t.type = :type")})
 public class Treatmentevent extends BaseEntity {
-   
-    
-    
+     
     private static final long serialVersionUID = 1L;
     
     @Id
@@ -526,5 +525,5 @@ public class Treatmentevent extends BaseEntity {
     @Override
     public String toString() {
         return "se.nrm.dina.datamodel.Treatmentevent[ treatmentEventID=" + treatmentEventID + " ]";
-    }  
+    }   
 }

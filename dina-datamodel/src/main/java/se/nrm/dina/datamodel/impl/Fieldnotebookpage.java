@@ -46,7 +46,7 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Fieldnotebookpage.findByPageNumber", query = "SELECT f FROM Fieldnotebookpage f WHERE f.pageNumber = :pageNumber"),
     @NamedQuery(name = "Fieldnotebookpage.findByScanDate", query = "SELECT f FROM Fieldnotebookpage f WHERE f.scanDate = :scanDate")})
 public class Fieldnotebookpage extends BaseEntity {
-    
+   
     private static final long serialVersionUID = 1L;
     
     @Id
@@ -230,5 +230,5 @@ public class Fieldnotebookpage extends BaseEntity {
     @Override
     public String toString() {
         return "se.nrm.dina.datamodel.Fieldnotebookpage[ fieldNotebookPageID=" + fieldNotebookPageID + " ]";
-    } 
+    }  
 }

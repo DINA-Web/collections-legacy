@@ -21,6 +21,7 @@ import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;  
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlID;
@@ -41,7 +42,7 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Loanreturnpreparation.findByQuantityReturned", query = "SELECT l FROM Loanreturnpreparation l WHERE l.quantityReturned = :quantityReturned"),
     @NamedQuery(name = "Loanreturnpreparation.findByReturnedDate", query = "SELECT l FROM Loanreturnpreparation l WHERE l.returnedDate = :returnedDate")})
 public class Loanreturnpreparation extends BaseEntity {
-  
+    
     private static final long serialVersionUID = 1L;
     
     @Id
@@ -235,5 +236,5 @@ public class Loanreturnpreparation extends BaseEntity {
     @Override
     public String toString() {
         return "se.nrm.dina.datamodel.Loanreturnpreparation[ loanReturnPreparationID=" + loanReturnPreparationID + " ]";
-    } 
+    }  
 }

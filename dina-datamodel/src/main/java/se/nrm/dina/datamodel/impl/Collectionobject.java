@@ -60,7 +60,7 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Collectionobject.findBySGRStatus", query = "SELECT c FROM Collectionobject c WHERE c.sGRStatus = :sGRStatus")}) 
 //@JsonInclude(Include.NON_NULL)
 public class Collectionobject extends BaseEntity {
-     
+    
     private static final long serialVersionUID = 1L;
     
     @Id
@@ -962,5 +962,5 @@ public class Collectionobject extends BaseEntity {
     @Override
     public String toString() {
         return "se.nrm.dina.datamodel.Collectionobject[ collectionObjectID=" + collectionObjectID + " ]";
-    } 
+    }  
 }

@@ -17,9 +17,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.persistence.Table; 
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
+import javax.persistence.Table;  
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlAttribute;
@@ -43,7 +41,7 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Spfieldvaluedefault.findByStrValue", query = "SELECT s FROM Spfieldvaluedefault s WHERE s.strValue = :strValue"),
     @NamedQuery(name = "Spfieldvaluedefault.findByTableName", query = "SELECT s FROM Spfieldvaluedefault s WHERE s.tableName = :tableName")})
 public class Spfieldvaluedefault extends BaseEntity {
-   
+  
     private static final long serialVersionUID = 1L;
     
     @Id
@@ -199,6 +197,5 @@ public class Spfieldvaluedefault extends BaseEntity {
     @Override
     public String toString() {
         return "se.nrm.dina.datamodel.Spfieldvaluedefault[ spFieldValueDefaultID=" + spFieldValueDefaultID + " ]";
-    } 
-    
+    }  
 }

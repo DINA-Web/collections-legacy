@@ -21,7 +21,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
-import javax.persistence.Table;  
+import javax.persistence.Table;   
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlID;
@@ -44,7 +44,7 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Spexportschemaitem.findByFieldName", query = "SELECT s FROM Spexportschemaitem s WHERE s.fieldName = :fieldName"),
     @NamedQuery(name = "Spexportschemaitem.findByFormatter", query = "SELECT s FROM Spexportschemaitem s WHERE s.formatter = :formatter")})
 public class Spexportschemaitem extends BaseEntity {
-  
+     
     private static final long serialVersionUID = 1L;
     
     @Id
@@ -224,5 +224,5 @@ public class Spexportschemaitem extends BaseEntity {
     @Override
     public String toString() {
         return "se.nrm.dina.datamodel.Spexportschemaitem[ spExportSchemaItemID=" + spExportSchemaItemID + " ]";
-    } 
+    }  
 }

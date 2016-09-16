@@ -18,7 +18,7 @@ import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.persistence.Table;  
+import javax.persistence.Table;   
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlAttribute;
@@ -38,7 +38,7 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Loanattachment.findByLoanAttachmentID", query = "SELECT l FROM Loanattachment l WHERE l.loanAttachmentID = :loanAttachmentID"), 
     @NamedQuery(name = "Loanattachment.findByOrdinal", query = "SELECT l FROM Loanattachment l WHERE l.ordinal = :ordinal")})
 public class Loanattachment extends BaseEntity {
-    
+   
     private static final long serialVersionUID = 1L;
     
     @Id
@@ -187,5 +187,5 @@ public class Loanattachment extends BaseEntity {
     @Override
     public String toString() {
         return "se.nrm.dina.datamodel.Loanattachment[ loanAttachmentID=" + loanAttachmentID + " ]";
-    } 
+    }  
 }

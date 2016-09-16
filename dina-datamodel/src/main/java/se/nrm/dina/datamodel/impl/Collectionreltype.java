@@ -21,7 +21,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
-import javax.persistence.Table;  
+import javax.persistence.Table;   
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlID;
@@ -41,7 +41,7 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Collectionreltype.findByCollectionRelTypeID", query = "SELECT c FROM Collectionreltype c WHERE c.collectionRelTypeID = :collectionRelTypeID"), 
     @NamedQuery(name = "Collectionreltype.findByName", query = "SELECT c FROM Collectionreltype c WHERE c.name = :name")})
 public class Collectionreltype extends BaseEntity {
-   
+    
     private static final long serialVersionUID = 1L;
     
     @Id
@@ -199,5 +199,5 @@ public class Collectionreltype extends BaseEntity {
     @Override
     public String toString() {
         return "se.nrm.dina.datamodel.Collectionreltype[ collectionRelTypeID=" + collectionRelTypeID + " ]";
-    } 
+    }  
 }

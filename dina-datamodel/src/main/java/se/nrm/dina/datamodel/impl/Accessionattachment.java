@@ -18,7 +18,7 @@ import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.persistence.Table;  
+import javax.persistence.Table;   
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlAttribute;
@@ -39,8 +39,7 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Accessionattachment.findByAccessionAttachmentID", query = "SELECT a FROM Accessionattachment a WHERE a.accessionAttachmentID = :accessionAttachmentID"), 
     @NamedQuery(name = "Accessionattachment.findByOrdinal", query = "SELECT a FROM Accessionattachment a WHERE a.ordinal = :ordinal")})
 public class Accessionattachment extends BaseEntity {
- 
-    
+     
     private static final long serialVersionUID = 1L;
     
     @Id
@@ -191,8 +190,5 @@ public class Accessionattachment extends BaseEntity {
     @Override
     public String toString() {
         return "se.nrm.dina.datamodel.Accessionattachment[ accessionAttachmentID=" + accessionAttachmentID + " ]";
-    }
- 
-
-    
+    } 
 }

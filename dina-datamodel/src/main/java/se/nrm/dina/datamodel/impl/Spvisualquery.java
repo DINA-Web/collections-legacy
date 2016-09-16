@@ -17,6 +17,8 @@ import javax.persistence.Lob;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;  
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlAttribute;
@@ -171,5 +173,5 @@ public class Spvisualquery extends BaseEntity {
     @Override
     public String toString() {
         return "se.nrm.dina.datamodel.Spvisualquery[ spVisualQueryID=" + spVisualQueryID + " ]";
-    } 
+    }  
 }

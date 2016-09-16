@@ -24,7 +24,7 @@ import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
-import javax.persistence.TemporalType;  
+import javax.persistence.TemporalType;   
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlID;
@@ -45,7 +45,7 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Deaccession.findByDeaccessionDate", query = "SELECT d FROM Deaccession d WHERE d.deaccessionDate = :deaccessionDate"),
     @NamedQuery(name = "Deaccession.findByDeaccessionNumber", query = "SELECT d FROM Deaccession d WHERE d.deaccessionNumber = :deaccessionNumber") })
 public class Deaccession extends BaseEntity {
-   
+    
     private static final long serialVersionUID = 1L;
     
     @Id
@@ -297,5 +297,5 @@ public class Deaccession extends BaseEntity {
     @Override
     public String toString() {
         return "se.nrm.dina.datamodel.Deaccession[ deaccessionID=" + deaccessionID + " ]";
-    } 
+    }  
 }

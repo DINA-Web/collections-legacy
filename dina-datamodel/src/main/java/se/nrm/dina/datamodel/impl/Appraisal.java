@@ -47,7 +47,7 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Appraisal.findByAppraisalValue", query = "SELECT a FROM Appraisal a WHERE a.appraisalValue = :appraisalValue"),
     @NamedQuery(name = "Appraisal.findByMonetaryUnitType", query = "SELECT a FROM Appraisal a WHERE a.monetaryUnitType = :monetaryUnitType")})
 public class Appraisal extends BaseEntity {
- 
+     
     private static final long serialVersionUID = 1L;
     
     @Id
@@ -248,5 +248,5 @@ public class Appraisal extends BaseEntity {
     @Override
     public String toString() {
         return "se.nrm.dina.datamodel.Appraisal[ appraisalID=" + appraisalID + " ]";
-    } 
+    }  
 }

@@ -18,7 +18,7 @@ import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.persistence.Table;  
+import javax.persistence.Table;   
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlID;
@@ -184,5 +184,5 @@ public class Agentgeography extends BaseEntity {
     @Override
     public String toString() {
         return "se.nrm.dina.datamodel.Agentgeography[ agentGeographyID=" + agentGeographyID + " ]";
-    } 
+    }  
 }

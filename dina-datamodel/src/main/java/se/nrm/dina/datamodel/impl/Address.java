@@ -24,6 +24,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;  
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlID;
@@ -57,7 +58,7 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Address.findByPostalCode", query = "SELECT a FROM Address a WHERE a.postalCode = :postalCode"),  
     @NamedQuery(name = "Address.findByTypeOfAddr", query = "SELECT a FROM Address a WHERE a.typeOfAddr = :typeOfAddr")})
 public class Address extends BaseEntity {
- 
+     
     private static final long serialVersionUID = 1L;
     
     @Id
@@ -450,6 +451,5 @@ public class Address extends BaseEntity {
     @Override
     public String toString() {
         return "se.nrm.dina.datamodel.Address[ addressID=" + addressID + " ]";
-    } 
-    
+    }  
 }

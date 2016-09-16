@@ -52,7 +52,7 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Dnasequence.findByMoleculeType", query = "SELECT d FROM Dnasequence d WHERE d.moleculeType = :moleculeType"), 
     @NamedQuery(name = "Dnasequence.findByTargetMarker", query = "SELECT d FROM Dnasequence d WHERE d.targetMarker = :targetMarker") })
 public class Dnasequence extends BaseEntity {
-   
+     
     private static final long serialVersionUID = 1L;
     
     @Id
@@ -491,5 +491,5 @@ public class Dnasequence extends BaseEntity {
     @Override
     public String toString() {
         return "se.nrm.dina.datamodel.Dnasequence[ dnaSequenceID=" + dnaSequenceID + " ]";
-    } 
+    }  
 }

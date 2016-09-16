@@ -22,6 +22,9 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;  
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlID;
@@ -41,7 +44,7 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Deaccessionpreparation.findByDeaccessionPreparationID", query = "SELECT d FROM Deaccessionpreparation d WHERE d.deaccessionPreparationID = :deaccessionPreparationID"), 
     @NamedQuery(name = "Deaccessionpreparation.findByQuantity", query = "SELECT d FROM Deaccessionpreparation d WHERE d.quantity = :quantity")})
 public class Deaccessionpreparation extends BaseEntity {
-   
+     
     private static final long serialVersionUID = 1L;
     
     @Id
@@ -200,4 +203,5 @@ public class Deaccessionpreparation extends BaseEntity {
     public String toString() {
         return "se.nrm.dina.datamodel.Deaccessionpreparation[ deaccessionPreparationID=" + deaccessionPreparationID + " ]";
     } 
+ 
 }

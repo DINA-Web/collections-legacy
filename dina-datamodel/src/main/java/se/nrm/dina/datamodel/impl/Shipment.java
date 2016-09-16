@@ -43,7 +43,7 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Shipment.findByShipmentMethod", query = "SELECT s FROM Shipment s WHERE s.shipmentMethod = :shipmentMethod"),
     @NamedQuery(name = "Shipment.findByShipmentNumber", query = "SELECT s FROM Shipment s WHERE s.shipmentNumber = :shipmentNumber") })
 public class Shipment extends BaseEntity {
-    
+     
     private static final long serialVersionUID = 1L;
     
     @Id
@@ -400,5 +400,5 @@ public class Shipment extends BaseEntity {
     @Override
     public String toString() {
         return "se.nrm.dina.datamodel.Shipment[ shipmentID=" + shipmentID + " ]";
-    } 
+    }  
 }

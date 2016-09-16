@@ -18,7 +18,7 @@ import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.persistence.Table;  
+import javax.persistence.Table;   
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlAttribute;
@@ -38,7 +38,7 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Conserveventattachment.findByConservEventAttachmentID", query = "SELECT c FROM Conserveventattachment c WHERE c.conservEventAttachmentID = :conservEventAttachmentID"), 
     @NamedQuery(name = "Conserveventattachment.findByOrdinal", query = "SELECT c FROM Conserveventattachment c WHERE c.ordinal = :ordinal")})
 public class Conserveventattachment extends BaseEntity {
-    
+   
     private static final long serialVersionUID = 1L;
     
     @Id
@@ -186,6 +186,5 @@ public class Conserveventattachment extends BaseEntity {
     @Override
     public String toString() {
         return "se.nrm.dina.datamodel.Conserveventattachment[ conservEventAttachmentID=" + conservEventAttachmentID + " ]";
-    }
- 
+    } 
 }

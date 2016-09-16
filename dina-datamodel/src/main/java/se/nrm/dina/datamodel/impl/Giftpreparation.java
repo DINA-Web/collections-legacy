@@ -18,7 +18,7 @@ import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.persistence.Table;  
+import javax.persistence.Table;   
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlID;
@@ -38,7 +38,7 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Giftpreparation.findByDescriptionOfMaterial", query = "SELECT g FROM Giftpreparation g WHERE g.descriptionOfMaterial = :descriptionOfMaterial"),
     @NamedQuery(name = "Giftpreparation.findByQuantity", query = "SELECT g FROM Giftpreparation g WHERE g.quantity = :quantity")})
 public class Giftpreparation extends BaseEntity {
-   
+     
     private static final long serialVersionUID = 1L;
     
     @Id
@@ -234,5 +234,5 @@ public class Giftpreparation extends BaseEntity {
     @Override
     public String toString() {
         return "se.nrm.dina.datamodel.Giftpreparation[ giftPreparationID=" + giftPreparationID + " ]";
-    } 
+    }  
 }

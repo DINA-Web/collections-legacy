@@ -24,7 +24,7 @@ import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
-import javax.persistence.TemporalType;  
+import javax.persistence.TemporalType;   
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlID;
@@ -47,7 +47,7 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Fieldnotebook.findByName", query = "SELECT f FROM Fieldnotebook f WHERE f.name = :name"),
     @NamedQuery(name = "Fieldnotebook.findByStartDate", query = "SELECT f FROM Fieldnotebook f WHERE f.startDate = :startDate")})
 public class Fieldnotebook extends BaseEntity {
-     
+   
     private static final long serialVersionUID = 1L;
     
     @Id
@@ -267,5 +267,5 @@ public class Fieldnotebook extends BaseEntity {
     @Override
     public String toString() {
         return "se.nrm.dina.datamodel.Fieldnotebook[ fieldNotebookID=" + fieldNotebookID + " ]";
-    } 
+    }  
 }

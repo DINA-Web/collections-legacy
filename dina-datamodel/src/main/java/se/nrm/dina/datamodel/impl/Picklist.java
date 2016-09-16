@@ -22,6 +22,8 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;  
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlAttribute;
@@ -48,7 +50,7 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Picklist.findByTableName", query = "SELECT p FROM Picklist p WHERE p.tableName = :tableName"),
     @NamedQuery(name = "Picklist.findByType", query = "SELECT p FROM Picklist p WHERE p.type = :type")})
 public class Picklist extends BaseEntity {
-  
+      
     private static final long serialVersionUID = 1L;
     
     @Id
@@ -306,5 +308,5 @@ public class Picklist extends BaseEntity {
     @Override
     public String toString() {
         return "se.nrm.dina.datamodel.Picklist[ pickListID=" + pickListID + " ]";
-    } 
+    }  
 }

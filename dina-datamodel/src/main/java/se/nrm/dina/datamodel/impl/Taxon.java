@@ -23,6 +23,8 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;  
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlAttribute;
@@ -61,7 +63,6 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Taxon.findByNodeNumber", query = "SELECT t FROM Taxon t WHERE t.nodeNumber = :nodeNumber"), 
     @NamedQuery(name = "Taxon.findByRankID", query = "SELECT t FROM Taxon t WHERE t.rankID = :rankID") })
 public class Taxon extends BaseEntity {
-     
     
     private static final long serialVersionUID = 1L;
     
@@ -904,5 +905,5 @@ public class Taxon extends BaseEntity {
     @Override
     public String toString() {
         return "se.nrm.dina.datamodel.Taxon[ taxonID=" + taxonID + " ]";
-    } 
+    }  
 }

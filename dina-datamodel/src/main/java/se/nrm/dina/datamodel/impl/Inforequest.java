@@ -283,5 +283,5 @@ public class Inforequest extends BaseEntity {
     @Override
     public String toString() {
         return "se.nrm.dina.datamodel.Inforequest[ infoRequestID=" + infoRequestID + " ]";
-    } 
+    }  
 }

@@ -19,7 +19,7 @@ import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.persistence.Table;  
+import javax.persistence.Table;   
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlAttribute; 
@@ -40,7 +40,7 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Accessionagent.findByAccessionAgentID", query = "SELECT a FROM Accessionagent a WHERE a.accessionAgentID = :accessionAgentID"),  
     @NamedQuery(name = "Accessionagent.findByRole", query = "SELECT a FROM Accessionagent a WHERE a.role = :role")})
 public class Accessionagent extends BaseEntity {
- 
+    
     private static final long serialVersionUID = 1L;
     
     @Id
@@ -201,7 +201,5 @@ public class Accessionagent extends BaseEntity {
     @Override
     public String toString() {
         return "se.nrm.dina.datamodel.Accessionagent[ accessionAgentID=" + accessionAgentID + " ]";
-    }
- 
- 
+    } 
 }

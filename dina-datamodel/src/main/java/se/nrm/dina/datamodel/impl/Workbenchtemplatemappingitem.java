@@ -22,6 +22,9 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;  
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlID;
@@ -41,7 +44,7 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Workbenchtemplatemappingitem.findByWorkbenchTemplateMappingItemID", query = "SELECT w FROM Workbenchtemplatemappingitem w WHERE w.workbenchTemplateMappingItemID = :workbenchTemplateMappingItemID"),  
     @NamedQuery(name = "Workbenchtemplatemappingitem.findByCaption", query = "SELECT w FROM Workbenchtemplatemappingitem w WHERE w.caption = :caption") })
 public class Workbenchtemplatemappingitem extends BaseEntity {
-   
+     
     private static final long serialVersionUID = 1L;
     
     @Id
@@ -353,6 +356,5 @@ public class Workbenchtemplatemappingitem extends BaseEntity {
     @Override
     public String toString() {
         return "se.nrm.dina.datamodel.Workbenchtemplatemappingitem[ workbenchTemplateMappingItemID=" + workbenchTemplateMappingItemID + " ]";
-    } 
-    
+    }  
 }

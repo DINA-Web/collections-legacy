@@ -18,7 +18,7 @@ import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.persistence.Table;  
+import javax.persistence.Table;   
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlAttribute;
@@ -38,7 +38,7 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Agentattachment.findByAgentAttachmentID", query = "SELECT a FROM Agentattachment a WHERE a.agentAttachmentID = :agentAttachmentID"), 
     @NamedQuery(name = "Agentattachment.findByOrdinal", query = "SELECT a FROM Agentattachment a WHERE a.ordinal = :ordinal")})
 public class Agentattachment extends BaseEntity {
- 
+    
     private static final long serialVersionUID = 1L;
     
     @Id
@@ -187,6 +187,5 @@ public class Agentattachment extends BaseEntity {
     @Override
     public String toString() {
         return "se.nrm.dina.datamodel.Agentattachment[ agentAttachmentID=" + agentAttachmentID + " ]";
-    } 
-    
+    }  
 }

@@ -426,5 +426,5 @@ public class Gift extends BaseEntity {
     @Override
     public String toString() {
         return "se.nrm.dina.datamodel.Gift[ giftID=" + giftID + " ]";
-    } 
+    }  
 }

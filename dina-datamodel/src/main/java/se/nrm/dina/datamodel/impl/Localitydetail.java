@@ -19,7 +19,7 @@ import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.persistence.Table;  
+import javax.persistence.Table;   
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlID;
@@ -37,7 +37,7 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Localitydetail.findAll", query = "SELECT l FROM Localitydetail l"),
     @NamedQuery(name = "Localitydetail.findByLocalityDetailID", query = "SELECT l FROM Localitydetail l WHERE l.localityDetailID = :localityDetailID") })
 public class Localitydetail extends BaseEntity {
-
+    
     private static final long serialVersionUID = 1L;
     
     @Id
@@ -722,7 +722,5 @@ public class Localitydetail extends BaseEntity {
     @Override
     public String toString() {
         return "se.nrm.dina.datamodel.Localitydetail[ localityDetailID=" + localityDetailID + " ]";
-    } 
-
-    
+    }  
 }

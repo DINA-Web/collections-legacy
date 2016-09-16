@@ -17,7 +17,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.persistence.Table;  
+import javax.persistence.Table;   
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlAttribute;
@@ -39,7 +39,7 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Collectingeventattr.findByDoubleValue", query = "SELECT c FROM Collectingeventattr c WHERE c.doubleValue = :doubleValue"),
     @NamedQuery(name = "Collectingeventattr.findByStrValue", query = "SELECT c FROM Collectingeventattr c WHERE c.strValue = :strValue")})
 public class Collectingeventattr extends BaseEntity {
-    
+   
     private static final long serialVersionUID = 1L;
     
     @Id
@@ -198,5 +198,5 @@ public class Collectingeventattr extends BaseEntity {
     @Override
     public String toString() {
         return "se.nrm.dina.datamodel.Collectingeventattr[ attrID=" + attrID + " ]";
-    } 
+    }  
 }

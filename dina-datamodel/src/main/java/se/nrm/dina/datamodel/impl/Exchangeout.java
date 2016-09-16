@@ -23,7 +23,7 @@ import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
-import javax.persistence.TemporalType;  
+import javax.persistence.TemporalType;   
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlID;
@@ -48,7 +48,7 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Exchangeout.findBySrcTaxonomy", query = "SELECT e FROM Exchangeout e WHERE e.srcTaxonomy = :srcTaxonomy"), 
     @NamedQuery(name = "Exchangeout.findByExchangeOutNumber", query = "SELECT e FROM Exchangeout e WHERE e.exchangeOutNumber = :exchangeOutNumber")})
 public class Exchangeout extends BaseEntity {
-     
+    
     private static final long serialVersionUID = 1L;
     
     @Id
@@ -375,4 +375,28 @@ public class Exchangeout extends BaseEntity {
     public String toString() {
         return "se.nrm.dina.datamodel.Exchangeout[ exchangeOutID=" + exchangeOutID + " ]";
     } 
+
+    public Date getTimestampCreated() {
+        return timestampCreated;
+    }
+
+    public void setTimestampCreated(Date timestampCreated) {
+        this.timestampCreated = timestampCreated;
+    }
+
+    public Date getTimestampModified() {
+        return timestampModified;
+    }
+
+    public void setTimestampModified(Date timestampModified) {
+        this.timestampModified = timestampModified;
+    }
+
+    public Integer getVersion() {
+        return version;
+    }
+
+    public void setVersion(Integer version) {
+        this.version = version;
+    }
 }

@@ -503,5 +503,5 @@ public class Loan extends BaseEntity {
     public String toString() {
         return "se.nrm.dina.datamodel.Loan[ loanID=" + loanID + " ]";
     } 
-    
+ 
 }

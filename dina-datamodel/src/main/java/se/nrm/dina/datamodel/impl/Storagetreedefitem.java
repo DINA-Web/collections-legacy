@@ -23,6 +23,8 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;  
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlAttribute;
@@ -147,6 +149,7 @@ public class Storagetreedefitem extends BaseEntity {
 //        return Util.getInstance().getURLLink(this.getClass().getSimpleName()) + storageTreeDefItemID;
 //    }
      
+    @Override
     public int getEntityId() {
         return storageTreeDefItemID;
     }
@@ -306,5 +309,5 @@ public class Storagetreedefitem extends BaseEntity {
     @Override
     public String toString() {
         return "se.nrm.dina.datamodel.Storagetreedefitem[ storageTreeDefItemID=" + storageTreeDefItemID + " ]";
-    } 
+    }  
 }

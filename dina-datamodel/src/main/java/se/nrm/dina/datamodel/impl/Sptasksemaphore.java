@@ -19,7 +19,7 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
-import javax.persistence.TemporalType;  
+import javax.persistence.TemporalType;   
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlID;
@@ -44,7 +44,7 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Sptasksemaphore.findByTaskName", query = "SELECT s FROM Sptasksemaphore s WHERE s.taskName = :taskName"),
     @NamedQuery(name = "Sptasksemaphore.findByUsageCount", query = "SELECT s FROM Sptasksemaphore s WHERE s.usageCount = :usageCount")})
 public class Sptasksemaphore extends BaseEntity {
-    
+   
     private static final long serialVersionUID = 1L;
     
     @Id
@@ -259,5 +259,5 @@ public class Sptasksemaphore extends BaseEntity {
     @Override
     public String toString() {
         return "se.nrm.dina.datamodel.Sptasksemaphore[ taskSemaphoreID=" + taskSemaphoreID + " ]";
-    } 
+    }  
 }

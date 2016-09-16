@@ -23,7 +23,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
-import javax.persistence.Table;  
+import javax.persistence.Table;   
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlAttribute;
@@ -48,7 +48,7 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Locality.findByGuid", query = "SELECT l FROM Locality l WHERE l.guid = :guid"), 
     @NamedQuery(name = "Locality.findByVerbatimLongitude", query = "SELECT l FROM Locality l WHERE l.verbatimLongitude = :verbatimLongitude")})
 public class Locality extends BaseEntity {
-    
+   
     private static final long serialVersionUID = 1L;
     
     @Id
@@ -701,5 +701,5 @@ public class Locality extends BaseEntity {
     @Override
     public String toString() {
         return "se.nrm.dina.datamodel.Locality[ localityID=" + localityID + " ]";
-    } 
+    }  
 }

@@ -51,7 +51,7 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Accession.findByType", query = "SELECT a FROM Accession a WHERE a.type = :type") })
 //@JsonIgnoreProperties(ignoreUnknown = true) 
 public class Accession extends BaseEntity {
-     
+    
     private static final long serialVersionUID = 1L;
     
     @Id
@@ -477,6 +477,5 @@ public class Accession extends BaseEntity {
     @Override
     public String toString() {
         return "se.nrm.dina.datamodel.Accession[ accessionID=" + accessionID + " ]";
-    }  
- 
+    }   
 }

@@ -52,7 +52,7 @@ import org.codehaus.jackson.annotate.JsonIgnore;
     @NamedQuery(name = "Agent.findByLastName", query = "SELECT a FROM Agent a WHERE a.lastName = :lastName"),  
     @NamedQuery(name = "Agent.findByDateType", query = "SELECT a FROM Agent a WHERE a.dateType = :dateType") })
 public class Agent extends BaseEntity {
-
+    
     private static final long serialVersionUID = 1L;
     
     @Id
@@ -4492,5 +4492,5 @@ public class Agent extends BaseEntity {
     @Override
     public String toString() {
         return "se.nrm.dina.datamodel.Agent[ agentID=" + agentID + " ]";
-    }  
+    }   
 }

@@ -18,6 +18,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;  
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlAttribute;
@@ -40,7 +42,7 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Splocaleitemstr.findByText", query = "SELECT s FROM Splocaleitemstr s WHERE s.text = :text"),
     @NamedQuery(name = "Splocaleitemstr.findByVariant", query = "SELECT s FROM Splocaleitemstr s WHERE s.variant = :variant")})
 public class Splocaleitemstr extends BaseEntity {
-   
+    
     private static final long serialVersionUID = 1L;
     
     @Id
@@ -239,5 +241,5 @@ public class Splocaleitemstr extends BaseEntity {
     @Override
     public String toString() {
         return "se.nrm.dina.datamodel.Splocaleitemstr[ spLocaleItemStrID=" + spLocaleItemStrID + " ]";
-    } 
+    }  
 }

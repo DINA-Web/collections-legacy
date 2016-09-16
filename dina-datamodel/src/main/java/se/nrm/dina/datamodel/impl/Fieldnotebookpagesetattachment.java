@@ -19,6 +19,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;  
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlAttribute;
@@ -38,7 +40,7 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Fieldnotebookpagesetattachment.findByFieldNotebookPageSetAttachmentId", query = "SELECT f FROM Fieldnotebookpagesetattachment f WHERE f.fieldNotebookPageSetAttachmentId = :fieldNotebookPageSetAttachmentId"), 
     @NamedQuery(name = "Fieldnotebookpagesetattachment.findByOrdinal", query = "SELECT f FROM Fieldnotebookpagesetattachment f WHERE f.ordinal = :ordinal")})
 public class Fieldnotebookpagesetattachment extends BaseEntity {
-    
+   
     private static final long serialVersionUID = 1L;
     
     @Id
@@ -188,5 +190,5 @@ public class Fieldnotebookpagesetattachment extends BaseEntity {
     @Override
     public String toString() {
         return "se.nrm.dina.datamodel.Fieldnotebookpagesetattachment[ fieldNotebookPageSetAttachmentId=" + fieldNotebookPageSetAttachmentId + " ]";
-    } 
+    }  
 }

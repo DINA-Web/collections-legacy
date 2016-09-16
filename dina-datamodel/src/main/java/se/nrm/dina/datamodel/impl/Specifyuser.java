@@ -57,7 +57,7 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Specifyuser.findByPassword", query = "SELECT s FROM Specifyuser s WHERE s.password = :password"),
     @NamedQuery(name = "Specifyuser.findByUserType", query = "SELECT s FROM Specifyuser s WHERE s.userType = :userType")})
 public class Specifyuser extends BaseEntity {
- 
+   
     private static final long serialVersionUID = 1L;
     
     @Id
@@ -462,6 +462,5 @@ public class Specifyuser extends BaseEntity {
     @Override
     public String toString() {
         return "se.nrm.dina.datamodel.Specifyuser[ specifyUserID=" + specifyUserID + " ]";
-    } 
-    
+    }   
 }

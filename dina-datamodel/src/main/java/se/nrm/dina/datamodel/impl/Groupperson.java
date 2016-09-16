@@ -19,6 +19,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;  
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlAttribute;
@@ -38,6 +40,16 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Groupperson.findByGroupPersonID", query = "SELECT g FROM Groupperson g WHERE g.groupPersonID = :groupPersonID"), 
     @NamedQuery(name = "Groupperson.findByOrderNumber", query = "SELECT g FROM Groupperson g WHERE g.orderNumber = :orderNumber")})
 public class Groupperson extends BaseEntity {
+    @Basic(optional = false)
+    @NotNull
+    @Column(name = "TimestampCreated")
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date timestampCreated;
+    @Column(name = "TimestampModified")
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date timestampModified;
+    @Column(name = "Version")
+    private Integer version;
    
     private static final long serialVersionUID = 1L;
     
@@ -199,4 +211,28 @@ public class Groupperson extends BaseEntity {
     public String toString() {
         return "se.nrm.dina.datamodel.Groupperson[ groupPersonID=" + groupPersonID + " ]";
     } 
+
+    public Date getTimestampCreated() {
+        return timestampCreated;
+    }
+
+    public void setTimestampCreated(Date timestampCreated) {
+        this.timestampCreated = timestampCreated;
+    }
+
+    public Date getTimestampModified() {
+        return timestampModified;
+    }
+
+    public void setTimestampModified(Date timestampModified) {
+        this.timestampModified = timestampModified;
+    }
+
+    public Integer getVersion() {
+        return version;
+    }
+
+    public void setVersion(Integer version) {
+        this.version = version;
+    }
 }

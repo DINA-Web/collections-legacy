@@ -54,7 +54,7 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Determination.findByTypeStatusName", query = "SELECT d FROM Determination d WHERE d.typeStatusName = :typeStatusName"), 
     @NamedQuery(name = "Determination.findByGuid", query = "SELECT d FROM Determination d WHERE d.guid = :guid")})
 public class Determination extends BaseEntity {
-  
+
     private static final long serialVersionUID = 1L;
     
     @Id
@@ -68,8 +68,11 @@ public class Determination extends BaseEntity {
     @Min(value = 1, message = "collectionMemberID can not be null")
     @Column(name = "CollectionMemberID")
     private int collectionMemberID;
- 
-    
+     
+    @Size(max = 16)
+    @Column(name = "VarQualifer")
+    private String varQualifer;
+   
     @Size(max = 16)
     @Column(name = "Addendum")
     private String addendum;
@@ -484,5 +487,13 @@ public class Determination extends BaseEntity {
     @Override
     public String toString() {
         return "se.nrm.dina.datamodel.Determination[ determinationID=" + determinationID + " ]";
-    } 
+    }  
+
+    public String getVarQualifer() {
+        return varQualifer;
+    }
+
+    public void setVarQualifer(String varQualifer) {
+        this.varQualifer = varQualifer;
+    }
 }
