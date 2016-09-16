@@ -7,7 +7,7 @@
     
     <groupId>se.nrm.dina</groupId>
     <artifactId>dinaproject</artifactId>
-    <version>0.2-SNAPSHOT</version>
+    <version>0.2-beta</version>
     <packaging>pom</packaging>
     <name>dinaproject</name>
   
@@ -51,7 +51,9 @@
         <module>dina-data-jpa</module>
         <module>dina-logic</module>
         <module>dina-data-service</module> 
-        <module>dina-keycloak-admin</module> 
+        <module>dina-keycloak-admin</module>
+<!--        <module>dina-smtp-ui</module>
+        <module>dina-document-convertor</module>-->
     </modules>
 
     <dependencies>

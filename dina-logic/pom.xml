@@ -4,7 +4,7 @@
     <parent>
         <artifactId>dinaproject</artifactId>
         <groupId>se.nrm.dina</groupId>
-        <version>0.2-SNAPSHOT</version>
+        <version>0.2-beta</version>
     </parent>
   
     <artifactId>dina-logic</artifactId> 

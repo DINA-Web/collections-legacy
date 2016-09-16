@@ -5,7 +5,7 @@
     <parent>
         <artifactId>dinaproject</artifactId>
         <groupId>se.nrm.dina</groupId>
-        <version>0.2-SNAPSHOT</version>
+        <version>0.2-beta</version>
     </parent>
     
     <artifactId>dina-keycloak-admin</artifactId>
@@ -116,7 +116,7 @@
                 <executions>
                     <execution>
                         <configuration>
-                            <mainClass>se.nrm.dina.keycloak.admin.Main</mainClass>
+                            <mainClass>se.nrm.dina.document.convertor.Main</mainClass>
                         </configuration>
                         <goals>
                             <goal>one-jar</goal>
